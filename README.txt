@@ -1,1 +1,0 @@
-cambiar namespace y configuraciones del proyecto!! ;)

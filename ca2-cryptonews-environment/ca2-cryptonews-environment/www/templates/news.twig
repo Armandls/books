@@ -1,0 +1,35 @@
+{% extends "base.twig" %}
+
+{% block title %}News{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ full_url_for('home') }}/assets/css/styles.css"/>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 data-cy="news-articles__title">News Articles</h1>
+    {% if flash.hasMessages('notifications') %}
+        <div class="flash-messages">
+            {% for message in flash.getMessages('notifications') %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <ul class="news-articles__list" data-cy="news-articles__list">
+        {% for article in articles %}
+            <li class="news-articles__item" data-cy="news-articles__item">
+                <h2 class="news-articles__item-title" data-cy="news-articles__item-title">{{ article.title }}</h2>
+                <p class="news-articles__item-date" data-cy="news-articles__item-date">{{ article.date }}</p>
+                <p class="news-articles__item-author" data-cy="news-articles__item-author">{{ article.author }}</p>
+                <p class="news-articles__item-summary" data-cy="news-articles__item-summary">{{ article.summary }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

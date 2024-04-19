@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="navigaton bar y foto landing page">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="seccio estadistiques">
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pwii-bookworm/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pwii-bookworm/.gitignore" beforeDir="false" />
@@ -582,6 +583,10 @@
       <change beforePath="$PROJECT_DIR$/pwii-bookworm/www/vendor/twig/twig/src/TwigTest.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pwii-bookworm/www/vendor/twig/twig/src/Util/DeprecationCollector.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pwii-bookworm/www/vendor/twig/twig/src/Util/TemplateDirIterator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/www/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -629,6 +634,8 @@
       <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php81" />
       <path value="$PROJECT_DIR$/www/vendor/composer" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/flash" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/dotenv" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -639,26 +646,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;landingPage&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/arman/OneDrive/Escritorio/PWII/books/www/public/assets/img/books&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "landingPage",
+    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/books/www",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
+      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\src" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img\books" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates" />
-      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
@@ -684,7 +692,7 @@
       <workItem from="1713466893997" duration="427000" />
       <workItem from="1713467362907" duration="1421000" />
       <workItem from="1713511907072" duration="2797000" />
-      <workItem from="1713550870428" duration="1151000" />
+      <workItem from="1713550870428" duration="4391000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -710,7 +718,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713514424122</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="seccio estadistiques">
+      <option name="closed" value="true" />
+      <created>1713552297824</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713552297824</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -719,6 +735,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="navigaton bar y foto landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="navigaton bar y foto landing page" />
+    <MESSAGE value="seccio estadistiques" />
+    <option name="LAST_COMMIT_MESSAGE" value="seccio estadistiques" />
   </component>
 </project>

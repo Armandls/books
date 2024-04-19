@@ -35,6 +35,8 @@
       <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php81" />
       <path value="$PROJECT_DIR$/www/vendor/composer" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/flash" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/dotenv" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3">

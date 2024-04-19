@@ -3,8 +3,13 @@ declare(strict_types=1);  // strict type declaration version support from PHP 7.
 
 use Slim\Factory\AppFactory;
 use Slim\Views\TwigMiddleware;
+use Symfony\Component\Dotenv\Dotenv;
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = new Dotenv();
+
+$dotenv->load(__DIR__ . '/../.env'); // Load environment variables from .env file into $_ENV superglobal. This file is in the www folder
 
 // THIS ORDER IS IMPORTANT -> FIRST DEPENDENCIES, THEN ROUTING
 require_once __DIR__ . '/../config/dependencies.php'; // Redirige a dependencies.php y crea el contenedor

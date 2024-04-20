@@ -67,6 +67,7 @@ final class SignUpController
                 );
 
                 $this->userRepository->save($user);
+                $_SESSION['email'] = $data['email'];
                 return $response->withHeader('Location', '')->withStatus(302);
         }
     }

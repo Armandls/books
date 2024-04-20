@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="sign-in vista hecha">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores sign-in hecho">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignInController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignInController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/sign-in.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-in.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713634655614</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="errores sign-in hecho">
+      <option name="closed" value="true" />
+      <created>1713635341949</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1713635341949</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +202,7 @@
     <MESSAGE value="Form de sign-in y sign-up" />
     <MESSAGE value="sign up funciona. Falta control de errores." />
     <MESSAGE value="sign-in vista hecha" />
-    <option name="LAST_COMMIT_MESSAGE" value="sign-in vista hecha" />
+    <MESSAGE value="errores sign-in hecho" />
+    <option name="LAST_COMMIT_MESSAGE" value="errores sign-in hecho" />
   </component>
 </project>

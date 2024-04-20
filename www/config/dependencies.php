@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 use DI\Container;
 use Project\Bookworm\Controller\SignInController;
+use Project\Bookworm\Controller\SignUpController;
 use Psr\Container\ContainerInterface;
 use Project\Bookworm\Controller\LandingController;
 use Project\Bookworm\Model\Repository\MySQLUserRepository;
@@ -51,6 +52,8 @@ $container = new Container(); // Instancia de la clase Container
                 return new MySQLUserRepository($container->get('db'));
             });
 
+
+
     //CONTROLLERS
         // 1- Se añade la instancia de la clase LandingController al contenedor de Slim
             $container->set(
@@ -61,14 +64,23 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-// 3- Se añade SignInController al contenedor de Slim
-$container->set(
-    SignInController::class,  // Nombre de la dependencia -> CookieMonsterController
-    function (ContainerInterface $c) {
-        // Constructor (Twig)
-        return new SignInController($c->get("view"), $c->get(UserRepository::class), $c->get("flash"));
-    }
-);
+        // 2- Se añade SignUpController al contenedor de Slim
+            $container->set(
+                SignUpController::class,  // Nombre de la dependencia -> CookieMonsterController
+                function (ContainerInterface $c) {
+                    // Constructor (Twig)
+                    return new SignUpController($c->get("view"), $c->get(UserRepository::class));
+                }
+            );
+
+        // 3- Se añade SignInController al contenedor de Slim
+            $container->set(
+                SignInController::class,  // Nombre de la dependencia -> CookieMonsterController
+                function (ContainerInterface $c) {
+                    // Constructor (Twig)
+                    return new SignInController($c->get("view"), $c->get(UserRepository::class), $c->get("flash"));
+                }
+            );
 
 
 

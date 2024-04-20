@@ -11,24 +11,27 @@ final class User
     private int $id;
     private string $email;
     private string $password;
-    private int $numBitcoins;
-    private DateTime $createdAt;
-    private DateTime $updatedAt;
+    private string $username;
+    private string $profile_picture;
+    private DateTime $created_at;
+    private DateTime $updated_at;
 
     public function __construct(
         int $id,
         string $email,
         string $password,
-        int $numBitcoins,
-        DateTime $createdAt,
-        DateTime $updatedAt
+        string $username,
+        string $profile_picture,
+        DateTime $created_at,
+        DateTime $updated_at
     ) {
         $this->id = $id;
         $this->email = $email;
         $this->password = $password;
-        $this->numBitcoins = $numBitcoins;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->username = $username;
+        $this->profile_picture = $profile_picture;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
     }
 
     public function id(): int
@@ -52,18 +55,23 @@ final class User
         return $this->password;
     }
 
+    public function username(): string
+    {
+        return $this->username;
+    }
+
+    public function profile_picture(): string
+    {
+        return $this->profile_picture;
+    }
+
     public function createdAt(): DateTime
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     public function updatedAt(): DateTime
     {
-        return $this->updatedAt;
-    }
-
-    public function numBitcoins(): int
-    {
-        return $this->numBitcoins;
+        return $this->updated_at;
     }
 }

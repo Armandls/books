@@ -33,7 +33,10 @@ final class SignInController
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        return $this->twig->render($response, 'sign-in.twig', []);
+        return $this->twig->render($response, 'sign-in.twig',  [
+            'formAction' => $routeParser->urlFor("login-form"),
+            'formMethod' => "POST",
+        ]);
     }
 
     // Método que maneja el envío del formulario -> Validación de datos
@@ -58,7 +61,7 @@ final class SignInController
         }
     }
 
-    /*
+
     private function validate(array $data, userRepository $userRepository): array
     {
         $errors = [];
@@ -76,12 +79,12 @@ final class SignInController
                 $storedPassword = $user->password();
 
                 if ($data['password'] != $storedPassword) {
-                    $errors['password'] = 'Your email and/or password are incorrect.';
+                    $errors['password'] = 'The email address or password is incorrect.';
                 }
 
             }
         }
 
         return $errors;
-    }*/
+    }
 }

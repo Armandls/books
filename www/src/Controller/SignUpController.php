@@ -67,7 +67,7 @@ final class SignUpController
                 );
 
                 $this->userRepository->save($user);
-                return $response->withHeader('Location', '/sign-in')->withStatus(302);
+                return $response->withHeader('Location', '')->withStatus(302);
         }
     }
 
@@ -76,45 +76,24 @@ final class SignUpController
         $errors = [];
 
         // Errores email
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || empty($data['email'])) {
-            $errors['email'] = 'The email address is not valid.';
+        if (empty($data['email'])) {
+            $errors['email'] = 'The email field is required.';
         }
         else {
-            if (!strpos($data['email'], '@salle.url.edu')){
-                $errors['email'] = 'Only emails from the domain @salle.url.edu are accepted.';
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = 'The email address is not valid.';
             }
             else {
-                if (strlen($data['password']) < 7) {
-                        $errors['password'] = 'The password must contain at least 7 characters.';
+                if ($userRepository->findByEmail($data['email']) != null) {
+                    $errors['email'] = 'The email address is already registered.';
                 }
                 else {
-                    // Verificar si la contraseña contiene al menos una letra mayúscula, una letra minúscula y un número
-                    if (empty($data['repeatPassword']) || $data['password'] != $data['repeatPassword']) {
-                        $errors['repeatPassword'] = 'Passwords do not match.';
+                    if (strlen($data['password']) < 6 || !preg_match('/[0-9]/', $data['password'])) {
+                        $errors['password'] = 'The password must be at least 6 characters long and contain at least one number.';
                     }
                     else {
-                        // Errores repeatPassword
-                        if (!preg_match('/[A-Z]/', $data['password']) || !preg_match('/[a-z]/', $data['password']) || !preg_match('/[0-9]/', $data['password'])) {
-                            $errors['password'] = 'The password must contain both upper and lower case letters and numbers.';
-                        }
-                        else {
-                            if ($userRepository->findByEmail($data['email']) != null) {
-                                $errors['email'] = 'The email address is already registered.';
-                            }
-
-                            if (empty($data['numBitcoins'])) {
-                            }
-                            else {
-                                if (!is_numeric($data['numBitcoins']) || $data['numBitcoins'] < 0 || $data['numBitcoins'] > 40000) {
-                                    if ($data['numBitcoins'] < 0 || $data['numBitcoins'] > 40000) {
-                                        $errors['numBitcoins'] = 'Sorry, the number of Bitcoins is either below or above the limits.';
-                                    }
-
-                                    if (!is_numeric($data['numBitcoins'])) {
-                                        $errors['numBitcoins'] = 'The number of Bitcoins is not a valid number.';
-                                    }
-                                }
-                            }
+                        if (empty($data['repeatPassword']) || $data['password'] != $data['repeatPassword']) {
+                            $errors['repeatPassword'] = 'Passwords do not match.';
                         }
                     }
                 }

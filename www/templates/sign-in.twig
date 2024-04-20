@@ -24,15 +24,15 @@
                         <h5>Sign in</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form data-cy="sign-in" action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
                             <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Email" aria-label="Email">
+                                <input id="email" name="email" data-cy="sign-in__email" type="email" class="form-control" placeholder="Email" aria-label="Email" value="{% if formData.email %}{{ formData.email }}{% endif %}" required>
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Password" aria-label="Password">
+                                <input data-cy="sign-in__password" id="password" type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" required>
                             </div>
                             <div class="text-center">
-                                <button type="button" class="btn bg-gradient-info w-100 my-4 mb-2">Sign in</button>
+                                <button data-cy="sign-in__btn" type="button" class="btn bg-gradient-info w-100 my-4 mb-2">Sign in</button>
                             </div>
                             <div class="mb-2 position-relative text-center">
                                 <p class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3 align-center">
@@ -40,7 +40,7 @@
                                 </p>
                             </div>
                             <div class="text-center">
-                                <button type="button" class="btn bg-gradient-dark w-100 mt-2 mb-4">Sign up</button>
+                                <a href="/sign-up" class="btn bg-gradient-dark w-100 mt-2 mb-4">Sign up</a>
                             </div>
                         </form>
                     </div>

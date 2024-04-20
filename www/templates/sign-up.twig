@@ -1,55 +1,51 @@
 {% extends "baseForm.twig" %}
 
-{% block title %}Sign In Page{% endblock %}
+{% block title %}Sign Up Page{% endblock %}
 
 {% block content %}
-<!-- End Navbar -->
-<section>
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('assets/img/curved-images/curved9.jpg');">
-        <span class="mask bg-gradient-dark opacity-6"></span>
+    <!-- End Navbar -->
+    <section class="min-vh-100">
+        <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../../assets/img/curved-images/curved6.jpg');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 text-center mx-auto">
+                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-5 text-center mx-auto">
-                    <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-                    <p class="text-lead text-white">Unlock a world of books by logging in. Explore a variety of titles, genres, and authors once you're in. Start your reading journey now!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mt-lg-n10 mt-md-n12 mt-n11">
-            <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-                <div class="card z-index-0">
-                    <div class="card-header text-center pt-4">
-                        <h5>Sign in</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Email" aria-label="Email">
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Password" aria-label="Password">
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn bg-gradient-info w-100 my-4 mb-2">Sign in</button>
-                            </div>
-                            <div class="mb-2 position-relative text-center">
-                                <p class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3 align-center">
-                                    or
-                                </p>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn bg-gradient-dark w-100 mt-2 mb-4">Sign up</button>
-                            </div>
-                        </form>
+            <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+                <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+                    <div class="card z-index-0">
+                        <div class="card-header text-center pt-4">
+                            <h5>Register</h5>
+                        </div>
+                        <div class="card-body">
+                            <form data-cy="sign-up" action="{{ formAction }}" method="{{ formMethod }}">
+                                <div class="mb-3">
+                                    <input data-cy="sign-up__email" type="text" class="form-control" placeholder="Email" aria-label="Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input data-cy="sign-up__password" type="email" class="form-control" placeholder="Password" aria-label="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input data-cy="sign-up__repeatPassword" type="password" class="form-control" placeholder="Repeat Password" aria-label="Password" required>
+                                </div>
+                                <div class="text-center">
+                                    <button data-cy="sign-up__btn" type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                                </div>
+                                <p class="text-sm mt-3 mb-0">Already have an account? <a href="/sign-in" class="text-dark font-weight-bolder">Sign in</a></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    </section>
+    <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
     <footer class="footer py-5">
         <div class="container">
             <div class="row">

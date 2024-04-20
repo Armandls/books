@@ -18,7 +18,9 @@ class LandingController
     public function apply(Request $request, Response $response): Response
     {
         // Renderizar la plantilla de landing
-        return $this->twig->render($response, 'landing.twig', []);
+        return $this->twig->render($response, 'landing.twig', [
+            'session' => $_SESSION['email'] ?? []
+        ]);
     }
 
 }

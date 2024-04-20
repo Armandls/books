@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores sign-in hecho">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Editar landingPage segun sdi esta logueado o no">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "SignIn",
+    "git-widget-placeholder": "LandingPageWithSession",
     "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -188,7 +188,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713635341949</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Boton de Bookworm">
+      <option name="closed" value="true" />
+      <created>1713636450830</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1713636450830</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Editar landingPage segun sdi esta logueado o no">
+      <option name="closed" value="true" />
+      <created>1713637856605</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1713637856605</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +219,8 @@
     <MESSAGE value="sign up funciona. Falta control de errores." />
     <MESSAGE value="sign-in vista hecha" />
     <MESSAGE value="errores sign-in hecho" />
-    <option name="LAST_COMMIT_MESSAGE" value="errores sign-in hecho" />
+    <MESSAGE value="Boton de Bookworm" />
+    <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
+    <option name="LAST_COMMIT_MESSAGE" value="Editar landingPage segun sdi esta logueado o no" />
   </component>
 </project>

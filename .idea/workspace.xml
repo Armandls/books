@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores sign-in hecho">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-in.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-in.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-up.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-up.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="SignIn" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -69,7 +70,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "SignIn",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

@@ -36,7 +36,7 @@ final class SignUpController
         ]);
     }
 
-    /*
+
     // Método que maneja el envío del formulario -> Validación de datos
     public function handleFormSubmission(Request $request, Response $response): Response
     {
@@ -60,7 +60,8 @@ final class SignUpController
                     1,
                     $data['email'] ?? '',
                     $data['password'] ?? '',
-                    intval($data['numBitcoins'] ?? 0), // Convierte a entero y usa 0 si no se proporciona ningún valor
+                    $data['username'] ?? '',
+                    $data['profile_picture'] ?? '',
                     new DateTime(),
                     new DateTime()
                 );
@@ -120,5 +121,5 @@ final class SignUpController
             }
         }
         return $errors;
-    }*/
+    }
 }

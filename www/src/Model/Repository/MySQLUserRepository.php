@@ -23,22 +23,24 @@ final class MySQLUserRepository implements UserRepository
     public function save(User $user): void
     {
         $query = <<<'QUERY'
-        INSERT INTO users(email, password, numBitcoins, createdAt, updatedAt) VALUES(?, ?, ?, ?, ?)
+        INSERT INTO users(email, password, username, profile_picture, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)
 QUERY;
         $statement = $this->database->connection()->prepare($query);
 
         $email = $user->email();
         $password = $user->password();
-        $numBitcoins = $user->numBitcoins();
-        $createdAt = $user->createdAt()->format('Y-m-d H:i:s');
-        $updatedAt = $user->updatedAt()->format('Y-m-d H:i:s');
+        $username = $user->username();
+        $profile_picture = $user->profile_picture();
+        $created_at = $user->createdAt()->format('Y-m-d H:i:s');
+        $updated_at = $user->updatedAt()->format('Y-m-d H:i:s');
 
 
         $statement->bindParam(1, $email, PDO::PARAM_STR);
         $statement->bindParam(2, $password, PDO::PARAM_STR);
-        $statement->bindParam(3, $numBitcoins, PDO::PARAM_INT);
-        $statement->bindParam(4, $createdAt, PDO::PARAM_STR);
-        $statement->bindParam(5, $updatedAt, PDO::PARAM_STR);
+        $statement->bindParam(3, $username, PDO::PARAM_STR);
+        $statement->bindParam(4, $profile_picture, PDO::PARAM_STR);
+        $statement->bindParam(5, $created_at, PDO::PARAM_STR);
+        $statement->bindParam(6, $updated_at, PDO::PARAM_STR);
 
         $statement->execute();
     }
@@ -59,16 +61,17 @@ QUERY;
             return null; // No se encontró ningún usuario con ese correo electrónico
         }
 
-        $createdAt = new DateTime($userData['createdAt']);
-        $updatedAt = new DateTime($userData['updatedAt']);
+        $created_at = new DateTime($userData['created_at']);
+        $updated_at = new DateTime($userData['updated_at']);
 
         return new User(
             (int)$userData['id'],
             $userData['email'],
             $userData['password'],
-            (int)$userData['numBitcoins'],
-            $createdAt,
-            $updatedAt
+            $userData['username'],
+            $userData['profile_picture'],
+            $created_at,
+            $updated_at
         );
     }
 

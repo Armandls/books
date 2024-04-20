@@ -26,16 +26,16 @@
                         <div class="card-body">
                             <form data-cy="sign-up" action="{{ formAction }}" method="{{ formMethod }}">
                                 <div class="mb-3">
-                                    <input data-cy="sign-up__email" type="text" class="form-control" placeholder="Email" aria-label="Name" required>
+                                    <input id="email" name="email" data-cy="sign-up__email" type="email" class="form-control" placeholder="Email" aria-label="Name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input data-cy="sign-up__password" type="email" class="form-control" placeholder="Password" aria-label="Email" required>
+                                    <input id="password" name="password" data-cy="sign-up__password" type="password" class="form-control" placeholder="Password" aria-label="Email" value="{% if formData.email %}{{ formData.email }}{% endif %}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input data-cy="sign-up__repeatPassword" type="password" class="form-control" placeholder="Repeat Password" aria-label="Password" required>
+                                    <input id="repeatPassword" type="password" name="repeatPassword" data-cy="sign-up__repeatPassword" class="form-control" placeholder="Repeat Password" aria-label="Password" required>
                                 </div>
                                 <div class="text-center">
-                                    <button data-cy="sign-up__btn" type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                                    <button data-cy="sign-up__btn" type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
                                 </div>
                                 <p class="text-sm mt-3 mb-0">Already have an account? <a href="/sign-in" class="text-dark font-weight-bolder">Sign in</a></p>
                             </form>

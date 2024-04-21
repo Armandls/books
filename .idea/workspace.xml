@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Editar landingPage segun sdi esta logueado o no">
-      <change afterPath="$PROJECT_DIR$/www/public/assets/css/stylesCatalogue.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/src/Model/Book.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Creo controllers, clases y templates necesarios para añadir el catalogue.">
+      <change afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Middleware/SessionCheckerMiddleware.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignInController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignInController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +126,7 @@
       <workItem from="1713550870428" duration="7438000" />
       <workItem from="1713608579570" duration="8378000" />
       <workItem from="1713627580233" duration="3548000" />
-      <workItem from="1713715354975" duration="6559000" />
+      <workItem from="1713715354975" duration="7767000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -223,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713637856605</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Creo controllers, clases y templates necesarios para añadir el catalogue.">
+      <option name="closed" value="true" />
+      <created>1713722520844</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1713722520845</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,6 +241,7 @@
     <MESSAGE value="errores sign-in hecho" />
     <MESSAGE value="Boton de Bookworm" />
     <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
-    <option name="LAST_COMMIT_MESSAGE" value="Editar landingPage segun sdi esta logueado o no" />
+    <MESSAGE value="Creo controllers, clases y templates necesarios para añadir el catalogue." />
+    <option name="LAST_COMMIT_MESSAGE" value="Creo controllers, clases y templates necesarios para añadir el catalogue." />
   </component>
 </project>

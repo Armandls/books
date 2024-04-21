@@ -6,6 +6,7 @@ declare(strict_types=1);
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
+use Project\Bookworm\Middleware\SessionCheckerMiddleware;
 use Project\Bookworm\Middleware\SessionMiddleware;
 use Project\Bookworm\Controller\LandingController;
 
@@ -25,6 +26,6 @@ $app->get('/sign-in', SignInController::class . ':showForm')->setName('get-sign-
 $app->post('/sign-in', SignInController::class . ':handleFormSubmission')->setName('login-form');
 
 // 6- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
-$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionMiddleware::class);
+$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionCheckerMiddleware::class);
 // 7- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('catalogue');

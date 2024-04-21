@@ -5,8 +5,11 @@
 declare(strict_types=1);
 
 use DI\Container;
+use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
+use Project\Bookworm\Model\BookRepository;
+use Project\Bookworm\Model\Repository\MySQLBookRepository;
 use Psr\Container\ContainerInterface;
 use Project\Bookworm\Controller\LandingController;
 use Project\Bookworm\Model\Repository\MySQLUserRepository;
@@ -47,9 +50,14 @@ $container = new Container(); // Instancia de la clase Container
                 );
             });
 
-        // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
+            // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
             $container->set(UserRepository::class, function (ContainerInterface $container) {
                 return new MySQLUserRepository($container->get('db'));
+            });
+
+            // 3- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
+            $container->set(BookRepository::class, function (ContainerInterface $container) {
+                return new MySQLBookRepository($container->get('db'));
             });
 
 
@@ -73,12 +81,20 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-        // 3- Se añade SignInController al contenedor de Slim
+            // 3- Se añade SignInController al contenedor de Slim
             $container->set(
                 SignInController::class,  // Nombre de la dependencia -> CookieMonsterController
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
                     return new SignInController($c->get("view"), $c->get(UserRepository::class), $c->get("flash"));
+                }
+            );
+            // 4- Se añade CatalogueController al contenedor de Slim
+            $container->set(
+                CatalogueController::class,  // Nombre de la dependencia -> CatalogueController
+                function (ContainerInterface $c) {
+                    // Constructor (Twig)
+                    return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
                 }
             );
 

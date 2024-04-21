@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Editar landingPage segun sdi esta logueado o no">
+      <change afterPath="$PROJECT_DIR$/www/public/assets/css/stylesCatalogue.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Book.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignInController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignInController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +26,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/www/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -28,7 +41,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/www/vendor/fig/http-message-util" />
       <path value="$PROJECT_DIR$/www/vendor/psr/container" />
@@ -61,16 +74,21 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2fBvYfwY9TogCOjpkqfpJmIuzJs" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "LandingPageWithSession",
-    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
+    "last_opened_file_path": "C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/public/assets/css",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,11 +99,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\public\assets\css" />
+      <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\templates" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\src" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img\books" />
-      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
-      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates\Landing" />
@@ -115,6 +133,7 @@
       <workItem from="1713550870428" duration="7438000" />
       <workItem from="1713608579570" duration="8378000" />
       <workItem from="1713627580233" duration="3548000" />
+      <workItem from="1713715354975" duration="6559000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />

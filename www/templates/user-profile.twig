@@ -8,7 +8,7 @@
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+                        <a href="/" class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
                             Bookworm
                         </a>
                         <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
@@ -557,21 +557,21 @@
                                 <p class="mb-0">You will receive an e-mail in maximum 60 seconds</p>
                             </div>
                             <div class="card-body pb-3">
-                                <form data-cy="profile">
+                                <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
                                     <label>Email</label>
                                     <div class="mb-3">
-                                        <input data-cy="profile__email" type="email" class="form-control" placeholder="Enter your e-mail" aria-label="Email">
+                                        <input disabled value="{{ email }}" type="email" class="form-control" aria-label="Email">
                                     </div>
                                     <label>Username</label>
                                     <div class="mb-3">
-                                        <input data-cy="profile__username" type="text" class="form-control" placeholder="Enter your username" aria-label="Username">
+                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" placeholder="Enter your username" aria-label="Username">
                                     </div>
                                     <label>Profile Picture</label>
                                     <div class="mb-3">
-                                        <input type="file" class="form-control" id="profilePicture" accept="image/*" multiple>
+                                        <input id="profilePicture" name="picture" data-cy="profile__picture" type="file" class="form-control" accept="image/*" multiple>
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="btn bg-gradient-info w-100 mt-4 mb-0">Reset</button>
+                                        <button data-cy="profile__btn" type="button" class="btn bg-gradient-info w-100 mt-4 mb-0">Change</button>
                                     </div>
                                 </form>
                             </div>

@@ -26,22 +26,26 @@ class UserProfile
         $message = '';
 
         if (isset($_SESSION['email'])) {
-            return $this->twig->render($response, 'user-profile.twig', []);
+            return $this->twig->render($response, 'user-profile.twig', [
+                'email' => $_SESSION['email']
+            ]);
         } else {
             $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message);
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
         }
     }
 
     public function editProfile(Request $request, Response $response): Response{
 
-        $message = '';
+            $message = '';
 
-        if (isset($_SESSION['email'])) {
-            return $this->twig->render($response, 'edit-profile.twig', []);
-        } else {
-            $message = 'You must be logged in to access the edit profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message);
-        }
+            if (isset($_SESSION['email'])) {
+                return $this->twig->render($response, 'edit-profile.twig', [
+                    'email' => $_SESSION['email']
+                ]);
+            } else {
+                $message = 'You must be logged in to access the edit profile page.';
+                return $this->flashController->redirectToSignIn($request, $response, $message);
+            }
     }
 }

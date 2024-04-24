@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="solucionado problema con el username duplicado al crear un nuevo user">
-      <change afterPath="$PROJECT_DIR$/www/templates/baseUser-Profile.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="campos del user profile">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +122,10 @@
       <workItem from="1713608579570" duration="8378000" />
       <workItem from="1713627580233" duration="3548000" />
       <workItem from="1713940701990" duration="2604000" />
-      <workItem from="1713966900646" duration="2868000" />
+      <workItem from="1713966900646" duration="3160000" />
+      <workItem from="1713970116038" duration="36000" />
+      <workItem from="1713977165247" duration="50000" />
+      <workItem from="1713983835767" duration="1842000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -227,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713968177003</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="campos del user profile">
+      <option name="closed" value="true" />
+      <created>1713969966606</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1713969966606</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,6 +258,7 @@
     <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
     <MESSAGE value="Especificaciones de las caracteristicasa de la pagina web" />
     <MESSAGE value="solucionado problema con el username duplicado al crear un nuevo user" />
-    <option name="LAST_COMMIT_MESSAGE" value="solucionado problema con el username duplicado al crear un nuevo user" />
+    <MESSAGE value="campos del user profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="campos del user profile" />
   </component>
 </project>

@@ -16,11 +16,16 @@ use Psr\Http\Message\ResponseInterface as Response;
 final class SignUpController
 {
 
+    private UserRepository $userRepository;
+    private Twig $twig;
+
     public function __construct(
-        private Twig $twig,
-        private UserRepository $userRepository // Quita el punto y coma aquí
+        Twig $twig,
+        UserRepository $userRepository // Quita el punto y coma aquí
     )
     {
+        $this->twig = $twig;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -55,12 +60,19 @@ final class SignUpController
             ]);
         }
         else  {
+
+            $username = $this->generateUniqueUsername(); // Genera un nombre de usuario aleatorio único
+
+            if ($this->userRepository->findByUsername($username) !== null) {
+                $username = $this->generateUniqueUsername(); // Genera otro nombre de usuario si el actual está duplicado
+            }
+
             // Crear un nuevo usuario
                 $user = new User(
                     1,
                     $data['email'] ?? '',
                     $data['password'] ?? '',
-                    $data['username'] ?? '',
+                    $username,
                     $data['profile_picture'] ?? '',
                     new DateTime(),
                     new DateTime()
@@ -70,6 +82,13 @@ final class SignUpController
                 $_SESSION['email'] = $data['email'];
                 return $response->withHeader('Location', '/catalogue')->withStatus(302);
         }
+    }
+
+    function generateUniqueUsername(): string
+    {
+        // Genera un nombre de usuario aleatorio utilizando una combinación de letras y números
+        $username = 'user' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+        return $username;
     }
 
     private function validate(array $data, userRepository $userRepository): array

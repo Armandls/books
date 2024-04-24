@@ -75,4 +75,34 @@ QUERY;
         );
     }
 
+    public function findByUsername(string $username): ?User
+    {
+        $query = <<<'QUERY'
+        SELECT * FROM users WHERE username = ?
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $username, PDO::PARAM_STR);
+        $statement->execute();
+
+        $userData = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (!$userData) {
+            return null; // No se encontró ningún usuario con ese nombre de usuario
+        }
+
+        $created_at = new DateTime($userData['created_at']);
+        $updated_at = new DateTime($userData['updated_at']);
+
+        return new User(
+            (int)$userData['id'],
+            $userData['email'],
+            $userData['password'],
+            $userData['username'],
+            $userData['profile_picture'],
+            $created_at,
+            $updated_at
+        );
+    }
+
 }

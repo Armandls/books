@@ -26,15 +26,23 @@ class CatalogueController
 
     public function showCatalogue(Request $request, Response $response): Response
     {
-        // Renderizar la plantilla de landing
 
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $books = $this->bookRepository->fetchAllBooks();
 
         return $this->twig->render($response, 'catalogue.twig',  [
             'formAction' => $routeParser->urlFor("catalogue"),
             'formMethod' => "GET",
+            'books' => $books,
+            'isbnFormAction' => $this->createBookFromISBN(),
+            'isbnFormMethod' => "POST"
         ]);
+    }
+
+    private function createBookFromISBN(string $ISBN)
+    {
+        //TODO dasdad
     }
 
 }

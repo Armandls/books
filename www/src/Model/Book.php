@@ -10,8 +10,8 @@ final class Book
    private string $title;
    private string $author;
    private string $description;
-   private int $num_pages;
-   private string $image_url;
+   private int $page_number;
+   private string $cover_image;
    private DateTime $created_at;
    private DateTime $updated_at;
 
@@ -29,8 +29,8 @@ final class Book
         $this->title = $title;
         $this->author = $author;
         $this->description = $description;
-        $this->num_pages = $num_pages;
-        $this->image_url = $image_url;
+        $this->page_number = $num_pages;
+        $this->cover_image = $image_url;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
     }
@@ -70,17 +70,17 @@ final class Book
     /**
      * @return string
      */
-    public function getImageUrl(): string
+    public function getCoverImage(): string
     {
-        return $this->image_url;
+        return $this->cover_image;
     }
 
     /**
      * @return int
      */
-    public function getNumPages(): int
+    public function getPagenumber(): int
     {
-        return $this->num_pages;
+        return $this->page_number;
     }
 
     /**

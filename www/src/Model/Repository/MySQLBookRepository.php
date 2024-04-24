@@ -30,8 +30,8 @@ QUERY;
         $title = $book->getTitle();
         $author = $book->getAuthor();
         $description = $book->getDescription();
-        $page_number = $book->getNumPages();
-        $cover_image = $book->getImageUrl();
+        $page_number = $book->getPagenumber();
+        $cover_image = $book->getCoverImage();
         $created_at = $book->getCreatedAt()->format('Y-m-d H:i:s');
         $updated_at = $book->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -76,6 +76,34 @@ QUERY;
             $created_at,
             $updated_at
         );
+    }
+
+    public function fetchAllBooks()
+    {
+        $query = <<<'QUERY'
+        SELECT * FROM books
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->execute();
+
+        $books = [];
+
+        while ($bookData = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $books[] = new Book(
+                $bookData['id'],
+                $bookData['title'],
+                $bookData['author'],
+                $bookData['description'],
+                $bookData['page_number'],
+                $bookData['cover_image'],
+                new DateTime($bookData['created_at']),
+                new DateTime($bookData['updated_at'])
+            );
+        }
+
+        return $books;
+
     }
 
 }

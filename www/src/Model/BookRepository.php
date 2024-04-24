@@ -11,4 +11,6 @@ interface BookRepository
     public function createBook(Book $book): void;
 
     public function findBookByTitle(string $title): ?Book;
+
+    public function fetchAllBooks();
 }

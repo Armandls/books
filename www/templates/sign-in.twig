@@ -25,6 +25,13 @@
                         <div class="text-center">
                             <a href="/">Bookworm</a>
                         </div>
+                        {% if flash is not empty %}
+                            <div>
+                                {% for message in flash %}
+                                    <p data-cy="sign-in__message" style="color: red;">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <form data-cy="sign-in" action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">

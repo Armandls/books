@@ -76,16 +76,19 @@ final class SignInController
                 $errors['email'] = 'The email address is not valid.';
             }
             else {
-                $user = $userRepository->findByEmail($data['email']);
-                $storedPassword = $user->password();
-
-                if ($data['password'] != $storedPassword) {
-                    $errors['password'] = 'The email address or password is incorrect.';
+                if (!$userRepository->findByEmail($data['email'])) {
+                    $errors['email'] = 'The email address or password is incorrect.';
                 }
+                else {
+                    $user = $userRepository->findByEmail($data['email']);
+                    $storedPassword = $user->password();
 
+                    if ($data['password'] != $storedPassword) {
+                        $errors['password'] = 'The email address or password is incorrect.';
+                    }
+                }
             }
         }
-
         return $errors;
     }
 }

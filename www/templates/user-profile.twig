@@ -557,7 +557,7 @@
                                 <p class="mb-0">You will receive an e-mail in maximum 60 seconds</p>
                             </div>
                             <div class="card-body pb-3">
-                                <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
+                                <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data" accept-charset="utf-8">
                                     <label>Email</label>
                                     <div class="mb-3">
                                         <input disabled value="{{ email }}" type="email" class="form-control" aria-label="Email">

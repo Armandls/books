@@ -20,6 +20,7 @@ class LandingController
         // Renderizar la plantilla de landing
         return $this->twig->render($response, 'landing.twig', [
             'session' => $_SESSION['email'] ?? []
+            //'profile-photo' => $_SESSION['profile-photo'] ?? ''
         ]);
     }
 

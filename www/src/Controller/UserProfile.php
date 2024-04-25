@@ -50,9 +50,11 @@ class UserProfile
 
         $data = $request->getParsedBody();
 
+        $errors = [];
+        $this->validate($data, $this->userRepository, $errors);
+
         $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
 
-        $errors = [];
 
         /** @var UploadedFileInterface $uploadedFile */
         foreach ($uploadedFiles['files'] as $uploadedFile) {
@@ -69,8 +71,8 @@ class UserProfile
             $fileInfo = pathinfo($name);  // Get the information of the file
 
             // COMPROBAR EL MIMETYPE DEL FICHERO Y COMPARARLO CON EL QUE NOSOTROS QUEREMOS
-            // COMPROBAR EL TAMAÑO DEL FICHERO
             $format = $fileInfo['extension'];   // Get the extension of the file
+            // COMPROBAR EL TAMAÑO DEL FICHERO
 
             // We should validate the format of the file
             if (!$this->isValidFormat($format)) {
@@ -80,12 +82,27 @@ class UserProfile
 
             // We should generate a custom name here instead of using the one coming form the form
             // Here we are using the original name, but we should generate a new one with a UUID for example or a hash
-            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
+            $customName = uniqid('file_');
+            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
         }
 
         return $this->twig->render($response, 'user-profile.twig', [
             'errors' => $errors,
         ]);
+    }
+
+    private function validate(array $data, UserRepository $userRepository, array &$errors): void
+    {
+        // Error email
+        if ($data['email'] != $_SESSION['email']) {
+            $errors['email'] = 'The email address is not valid. Please don\'t change the email address.';
+        }
+        else {
+            // Error username
+            if ($this->userRepository->findByUsername($data['username']) == null) {
+                $errors['username'] = 'This username is already taken. Please choose another one.';
+            }
+        }
     }
 
     private function isValidFormat(string $extension): bool

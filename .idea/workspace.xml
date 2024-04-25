@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="comenzar la gestion de la parte de el form">
+      <change afterPath="$PROJECT_DIR$/www/public/assets/css/stylesProfile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/baseUser-Profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/baseUser-Profile.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +125,8 @@
       <workItem from="1713966900646" duration="3160000" />
       <workItem from="1713970116038" duration="36000" />
       <workItem from="1713977165247" duration="50000" />
-      <workItem from="1713983835767" duration="2279000" />
+      <workItem from="1713983835767" duration="2809000" />
+      <workItem from="1714063460269" duration="2410000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -245,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713985795522</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="comenzar la gestion de la parte de el form">
+      <option name="closed" value="true" />
+      <created>1713986198726</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1713986198726</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,6 +277,7 @@
     <MESSAGE value="solucionado problema con el username duplicado al crear un nuevo user" />
     <MESSAGE value="campos del user profile" />
     <MESSAGE value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
+    <MESSAGE value="comenzar la gestion de la parte de el form" />
+    <option name="LAST_COMMIT_MESSAGE" value="comenzar la gestion de la parte de el form" />
   </component>
 </project>

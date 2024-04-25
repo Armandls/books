@@ -60,12 +60,8 @@ final class SignUpController
             ]);
         }
         else  {
-
-            $username = $this->generateUniqueUsername(); // Genera un nombre de usuario aleatorio único
-
-            if ($this->userRepository->findByUsername($username) !== null) {
-                $username = $this->generateUniqueUsername(); // Genera otro nombre de usuario si el actual está duplicado
-            }
+            $username = null;
+            $profile_picture = null;
 
             // Crear un nuevo usuario
                 $user = new User(
@@ -73,7 +69,7 @@ final class SignUpController
                     $data['email'] ?? '',
                     $data['password'] ?? '',
                     $username,
-                    $data['profile_picture'] ?? '',
+                    $profile_picture,
                     new DateTime(),
                     new DateTime()
                 );
@@ -82,13 +78,6 @@ final class SignUpController
                 $_SESSION['email'] = $data['email'];
                 return $response->withHeader('Location', '/catalogue')->withStatus(302);
         }
-    }
-
-    function generateUniqueUsername(): string
-    {
-        // Genera un nombre de usuario aleatorio utilizando una combinación de letras y números
-        $username = 'user' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
-        return $username;
     }
 
     private function validate(array $data, userRepository $userRepository): array

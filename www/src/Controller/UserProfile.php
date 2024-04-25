@@ -80,9 +80,10 @@ class UserProfile
                 continue;
             }
 
-            // We should generate a custom name here instead of using the one coming form the form
-            // Here we are using the original name, but we should generate a new one with a UUID for example or a hash
+            //Name regenerated
             $customName = uniqid('file_');
+
+            // Move the file to the uploads directory
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
         }
 

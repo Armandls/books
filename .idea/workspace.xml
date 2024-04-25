@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="grstion de cambiar el nombre del fichero introducid en user prodfile">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="cambiar el register por lo de null tanto username como profile_photo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/SignUpController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/public/assets/css/stylesForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/assets/css/stylesForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-in.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-in.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-up.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-up.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +126,7 @@
       <workItem from="1713970116038" duration="36000" />
       <workItem from="1713977165247" duration="50000" />
       <workItem from="1713983835767" duration="2809000" />
-      <workItem from="1714063460269" duration="3595000" />
+      <workItem from="1714063460269" duration="5349000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -263,7 +264,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714066498144</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="cambiar el register por lo de null tanto username como profile_photo">
+      <option name="closed" value="true" />
+      <created>1714067836299</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714067836299</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +295,7 @@
     <MESSAGE value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
     <MESSAGE value="comenzar la gestion de la parte de el form" />
     <MESSAGE value="grstion de cambiar el nombre del fichero introducid en user prodfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="grstion de cambiar el nombre del fichero introducid en user prodfile" />
+    <MESSAGE value="cambiar el register por lo de null tanto username como profile_photo" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambiar el register por lo de null tanto username como profile_photo" />
   </component>
 </project>

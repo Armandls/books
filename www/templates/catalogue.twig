@@ -1,6 +1,6 @@
 {% extends "baseLanding.twig" %}
 
-{% block title %}Landing Page{% endblock %}
+{% block title %}Catalogue{% endblock %}
 
 {% block content %}
     <div class="container position-sticky z-index-sticky top-0">
@@ -458,7 +458,6 @@
                                             <div class="col-6 ps-0 d-flex justify-content-center flex-column">
                                                 <ul class="list-group">
                                                     <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                        <!-- Suponiendo que signInController.apply sea una función accesible globalmente -->
                                                         <button class="dropdown-item border-radius-md ps-3 d-flex align-items-center justify-content-between mb-1" id="dropdownSignIn" onclick="window.location.href='/sign-in'">
                                                             <span>Sign In</span>
                                                         </button>
@@ -627,17 +626,21 @@
                                 Import a new book specifying the books ISBN
                             </p>
                             <div class="row">
-                                <form action="{{ isbnFormAction }}" method="{{ isbnFormMethod }}">
+                                <form  id="ISBNFormBookCreation" action="{{ formAction }}" method="{{ formMethod }}">
+                                    <input type="hidden" name="formType" value="isbnForm">
                                     <div class="col-sm-5">
-                                        <div class="input-group">
-                                            <input type="text" name="isbn" class="form-control mb-sm-0 mb-2" placeholder="ISBN Here...">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <div class="input-group">
+                                                <input id="isbn" type="text" name="isbn" class="form-control mb-sm-0 mb-2" placeholder="ISBN Here...">
+
+                                            </div>
+                                            <div class="input-group">
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
                                         </div>
-                                    </div>
                                 </form>
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn bg-gradient-warning mb-0 h-100 position-relative z-index-2">Add</button>
-                                </div>
+                                {% if formErrors['isbn'] %}
+                                    <p>{{ formErrors['isbn'] }}</p>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -645,6 +648,67 @@
                             <img class="w-100 border-radius-section border-top-end-radius-0 border-bottom-end-radius-0 end-0 position-absolute max-width-300 mt-n10 d-xl-block d-none" src="../../assets/img/curved-images/curved13.jpg" alt="image">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                    <h3 class="text-center">Crea un nuevo libro</h3>
+                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                        <input type="hidden" name="formType" value="fullForm">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nombre del autor</label>
+                                    <div class="input-group">
+                                        <input id="author" name="author" type="text" class="form-control" placeholder="" aria-label="Autor..." >
+                                    </div>
+                                    {% if formErrors['author'] %}
+                                        <p>{{ formErrors['author'] }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 ps-2">
+                                    <label>Numero de paginas del libro</label>
+                                    <div class="input-group">
+                                        <input id="page_number" name="page_number" type="number" class="form-control" placeholder="" >
+                                    </div>
+                                    {% if formErrors['page_number'] %}
+                                        <p>{{ formErrors['page_number'] }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label>Titulo del libro</label>
+                                <div class="input-group mb-4">
+                                    <input id="title" name="title" class="form-control" placeholder="" aria-label="Titulo..." type="text" >
+                                </div>
+                                {% if formErrors['title'] %}
+                                    <p>{{ formErrors['title'] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mb-4">
+                                <label>Portada del libro</label>
+                                <div class="input-group">
+                                    <input id="cover_image" name="cover_image" type="file" class="form-control" placeholder="Selecciona un archivo" >
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label>Descripción del libro</label>
+                                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Escribe la descripción del libro..."></textarea>
+                                {% if formErrors['description'] %}
+                                    <p>{{ formErrors['description'] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn bg-gradient-dark w-100">Crea el libro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

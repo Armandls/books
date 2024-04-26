@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Creo controllers, clases y templates necesarios para añadir el catalogue.">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Update catalogue">
+      <change afterPath="$PROJECT_DIR$/www/src/Utils/BookCreationChecker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Book.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
@@ -127,7 +129,13 @@
       <workItem from="1713608579570" duration="8378000" />
       <workItem from="1713627580233" duration="3548000" />
       <workItem from="1713715354975" duration="7915000" />
-      <workItem from="1713950125661" duration="5052000" />
+      <workItem from="1713950125661" duration="5303000" />
+      <workItem from="1713964241908" duration="1912000" />
+      <workItem from="1713983768476" duration="2307000" />
+      <workItem from="1713986257450" duration="1030000" />
+      <workItem from="1714054100871" duration="593000" />
+      <workItem from="1714065835856" duration="3052000" />
+      <workItem from="1714123235389" duration="10216000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -225,7 +233,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713722520845</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update catalogue">
+      <option name="closed" value="true" />
+      <created>1713955527426</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1713955527426</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +259,7 @@
     <MESSAGE value="Boton de Bookworm" />
     <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
     <MESSAGE value="Creo controllers, clases y templates necesarios para añadir el catalogue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Creo controllers, clases y templates necesarios para añadir el catalogue." />
+    <MESSAGE value="Update catalogue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update catalogue" />
   </component>
 </project>

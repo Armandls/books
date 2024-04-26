@@ -49,6 +49,8 @@ class UserProfile
         $errors = [];
 
         $data = $request->getParsedBody();
+
+        var_dump($data);
         $this->validate($data, $this->userRepository, $errors);
 
         // Si hay algun error tanto en el username o en el email, mostramos el formulario con los errores
@@ -57,7 +59,7 @@ class UserProfile
             return $this->twig->render($response, 'user-profile.twig', [
                 'formErrors' => $errors,
                 'formData' => $data,
-                'formAction' => $routeParser->urlFor("/profile"),
+                'formAction' => $routeParser->urlFor("edit-profile"),
                 'formMethod' => "POST"
             ]);
         }
@@ -66,14 +68,14 @@ class UserProfile
 
             // Error en el caso que hayn introducido más de un archivo
             if (count($uploadedFiles['files']) !== 1) {
-                $errors['numFiles'] = 'Only one file upload is allowed.';
+                $errors['file'] = 'Only one file upload is allowed.';
 
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
                 return $this->twig->render($response, 'user-profile.twig', [
                     'formErrors' => $errors,
                     'formData' => $data,
-                    'formAction' => $routeParser->urlFor("/profile"),
+                    'formAction' => $routeParser->urlFor("edit-profile"),
                     'formMethod' => "POST"
                 ]);
             }
@@ -81,14 +83,14 @@ class UserProfile
                 // error en el caso que me llegue un archivo que no sea correcto (error en la subida)
                 /** @var UploadedFileInterface $uploadedFile */
                 if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK) {
-                    $errors['errorBadFile'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
+                    $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
 
                     $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
                     return $this->twig->render($response, 'user-profile.twig', [
                         'formErrors' => $errors,
                         'formData' => $data,
-                        'formAction' => $routeParser->urlFor("/profile"),
+                        'formAction' => $routeParser->urlFor("edit-profile"),
                         'formMethod' => "POST"
                     ]);
                 }
@@ -103,28 +105,28 @@ class UserProfile
 
                     // Error en el caso que el archivo no tenga una extensión válida
                     if (!$this->isValidFormat($format)) {
-                        $errors[] = "The received file extension ". $name . " is not valid";
+                        $errors['file'] = "The received file extension ". $name . " is not valid";
 
                         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
                         return $this->twig->render($response, 'user-profile.twig', [
                             'formErrors' => $errors,
                             'formData' => $data,
-                            'formAction' => $routeParser->urlFor("/profile"),
+                            'formAction' => $routeParser->urlFor("edit-profile"),
                             'formMethod' => "POST"
                         ]);
                     }
                     else {
                         // Comprovar mimetype del archivo
                         if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
-                            $errors['errorMimeType'] = "The received file MIME type is not valid";
+                            $errors['file'] = "The received file MIME type is not valid";
 
                             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
                             return $this->twig->render($response, 'user-profile.twig', [
                                 'formErrors' => $errors,
                                 'formData' => $data,
-                                'formAction' => $routeParser->urlFor("/profile"),
+                                'formAction' => $routeParser->urlFor("edit-profile"),
                                 'formMethod' => "POST"
                             ]);
                         }
@@ -135,14 +137,14 @@ class UserProfile
                             $imageHeight = $imageSize[1]; // Alto de la imagen
 
                             if ($imageWidth > 400 || $imageHeight > 400) {
-                                $errors['errorSize'] = "The image dimensions exceed the maximum allowed size of 400x400 pixels";
+                                $errors['file'] = "The image dimensions exceed the maximum allowed size of 400x400 pixels";
 
                                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
                                 return $this->twig->render($response, 'user-profile.twig', [
                                     'formErrors' => $errors,
                                     'formData' => $data,
-                                    'formAction' => $routeParser->urlFor("/profile"),
+                                    'formAction' => $routeParser->urlFor("edit-profile"),
                                     'formMethod' => "POST"
                                 ]);
                             }

@@ -55,18 +55,27 @@
                                 <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data" accept-charset="utf-8">
                                     <label>Email</label>
                                     <div class="mb-3">
-                                        <input disabled value="{{ email }}" type="email" class="form-control" aria-label="Email">
+                                        <input readonly value="{{ email }}" id="email" name="email" type="email" class="form-control" aria-label="Email">
+                                        {% if formErrors.email %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.email }}</span>
+                                        {% endif %}
                                     </div>
                                     <label>Username</label>
                                     <div class="mb-3">
                                         <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" placeholder="Enter your username" aria-label="Username">
+                                        {% if formErrors.username %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.username }}</span>
+                                        {% endif %}
                                     </div>
                                     <label>Profile Picture</label>
                                     <div class="mb-3">
-                                        <input id="profilePicture" name="picture" data-cy="profile__picture" type="file" class="form-control" accept="image/*" multiple>
+                                        <input id="profilePicture" name="files" data-cy="profile__picture" type="file" class="form-control" accept="image/*" multiple>
+                                        {% if formErrors.file %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.file }}</span>
+                                        {% endif %}
                                     </div>
                                     <div class="text-center">
-                                        <button data-cy="profile__btn" type="button" class="btn bg-gradient-info w-100 mt-4 mb-0">Change Credentials</button>
+                                        <button data-cy="profile__btn" type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Change Credentials</button>
                                     </div>
                                 </form>
                             </div>

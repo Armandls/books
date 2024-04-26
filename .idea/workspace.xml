@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="cambios en la nav bar">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +126,7 @@
       <workItem from="1713983835767" duration="2809000" />
       <workItem from="1714063460269" duration="6265000" />
       <workItem from="1714074159310" duration="83000" />
-      <workItem from="1714119110275" duration="2210000" />
+      <workItem from="1714119110275" duration="2558000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -287,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714070114576</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype">
+      <option name="closed" value="true" />
+      <created>1714121374632</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1714121374632</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,6 +322,7 @@
     <MESSAGE value="cambiar el register por lo de null tanto username como profile_photo" />
     <MESSAGE value="poner la nav bar a sign in y sign up sin las opciones de sign in y sign up" />
     <MESSAGE value="cambios en la nav bar" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambios en la nav bar" />
+    <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
+    <option name="LAST_COMMIT_MESSAGE" value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
   </component>
 </project>

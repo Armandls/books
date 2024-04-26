@@ -55,12 +55,12 @@ final class User
         return $this->password;
     }
 
-    public function username(): string
+    public function username(): ?string
     {
         return $this->username;
     }
 
-    public function profile_picture(): string
+    public function profile_picture(): ?string
     {
         return $this->profile_picture;
     }

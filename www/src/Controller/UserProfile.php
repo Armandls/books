@@ -130,14 +130,31 @@ class UserProfile
                         }
                         else {
                             // Comprovar tamaño del archivo -> 400x400
+                            $imageSize = getimagesize($uploadedFile->getStream()->getMetadata('uri'));
+                            $imageWidth = $imageSize[0]; // Ancho de la imagen
+                            $imageHeight = $imageSize[1]; // Alto de la imagen
 
-                            //Name regenerated
-                            $customName = uniqid('file_');
+                            if ($imageWidth > 400 || $imageHeight > 400) {
+                                $errors['errorSize'] = "The image dimensions exceed the maximum allowed size of 400x400 pixels";
 
-                            // Move the file to the uploads directory
-                            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+                                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-                            return $response->withHeader('Location', '/')->withStatus(302);
+                                return $this->twig->render($response, 'user-profile.twig', [
+                                    'formErrors' => $errors,
+                                    'formData' => $data,
+                                    'formAction' => $routeParser->urlFor("/profile"),
+                                    'formMethod' => "POST"
+                                ]);
+                            }
+                            else {
+                                //Name regenerated
+                                $customName = uniqid('file_');
+
+                                // Move the file to the uploads directory
+                                $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+
+                                return $response->withHeader('Location', '/')->withStatus(302);
+                            }
                         }
                     }
                 }

@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\UploadedFileInterface;
 use Slim\Flash\Messages;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 class UserProfile
@@ -17,12 +18,10 @@ class UserProfile
 
     private const UPLOADS_DIR = __DIR__ . '/../../uploads';
 
-    private const UNEXPECTED_ERROR = "An unexpected error occurred uploading the file '%s'...";
-
-    private const INVALID_EXTENSION_ERROR = "The received file extension '%s' is not valid";
-
     // We use this const to define the extensions that we are going to allow
     private const ALLOWED_EXTENSIONS = ['png', 'jpg', 'gif', 'svg'];
+    private const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
+
 
 
     public function __construct(Twig $twig, UserRepository $userRepository, FlashController $flashController)
@@ -47,49 +46,103 @@ class UserProfile
     }
 
     public function editProfile(Request $request, Response $response): Response{
+        $errors = [];
 
         $data = $request->getParsedBody();
-
-        $errors = [];
         $this->validate($data, $this->userRepository, $errors);
 
-        $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
-
-
-        /** @var UploadedFileInterface $uploadedFile */
-        foreach ($uploadedFiles['files'] as $uploadedFile) {
-            if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
-                $errors[] = sprintf(
-                    self::UNEXPECTED_ERROR,
-                    $uploadedFile->getClientFilename()
-                );
-                continue;
-            }
-
-            $name = $uploadedFile->getClientFilename();  // Get the name of the file, nos el path completo
-
-            $fileInfo = pathinfo($name);  // Get the information of the file
-
-            // COMPROBAR EL MIMETYPE DEL FICHERO Y COMPARARLO CON EL QUE NOSOTROS QUEREMOS
-            $format = $fileInfo['extension'];   // Get the extension of the file
-            // COMPROBAR EL TAMAÑO DEL FICHERO
-
-            // We should validate the format of the file
-            if (!$this->isValidFormat($format)) {
-                $errors[] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
-                continue;
-            }
-
-            //Name regenerated
-            $customName = uniqid('file_');
-
-            // Move the file to the uploads directory
-            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+        // Si hay algun error tanto en el username o en el email, mostramos el formulario con los errores
+        if (count($errors) > 0) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            return $this->twig->render($response, 'user-profile.twig', [
+                'formErrors' => $errors,
+                'formData' => $data,
+                'formAction' => $routeParser->urlFor("/profile"),
+                'formMethod' => "POST"
+            ]);
         }
+        else  {
+            $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
 
-        return $this->twig->render($response, 'user-profile.twig', [
-            'errors' => $errors,
-        ]);
+            // Error en el caso que hayn introducido más de un archivo
+            if (count($uploadedFiles['files']) !== 1) {
+                $errors['numFiles'] = 'Only one file upload is allowed.';
+
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+                return $this->twig->render($response, 'user-profile.twig', [
+                    'formErrors' => $errors,
+                    'formData' => $data,
+                    'formAction' => $routeParser->urlFor("/profile"),
+                    'formMethod' => "POST"
+                ]);
+            }
+            else {
+                // error en el caso que me llegue un archivo que no sea correcto (error en la subida)
+                /** @var UploadedFileInterface $uploadedFile */
+                if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK) {
+                    $errors['errorBadFile'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
+
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+                    return $this->twig->render($response, 'user-profile.twig', [
+                        'formErrors' => $errors,
+                        'formData' => $data,
+                        'formAction' => $routeParser->urlFor("/profile"),
+                        'formMethod' => "POST"
+                    ]);
+                }
+                else {
+                    $uploadedFile = $uploadedFiles['file'];
+
+                    $name = $uploadedFile->getClientFilename();  // Get the name of the file, nos el path completo
+
+                    $fileInfo = pathinfo($name);  // Get the information of the file
+
+                    $format = $fileInfo['extension'];   // Get the extension of the file
+
+                    // Error en el caso que el archivo no tenga una extensión válida
+                    if (!$this->isValidFormat($format)) {
+                        $errors[] = "The received file extension ". $name . " is not valid";
+
+                        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+                        return $this->twig->render($response, 'user-profile.twig', [
+                            'formErrors' => $errors,
+                            'formData' => $data,
+                            'formAction' => $routeParser->urlFor("/profile"),
+                            'formMethod' => "POST"
+                        ]);
+                    }
+                    else {
+                        // Comprovar mimetype del archivo
+                        if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
+                            $errors['errorMimeType'] = "The received file MIME type is not valid";
+
+                            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+                            return $this->twig->render($response, 'user-profile.twig', [
+                                'formErrors' => $errors,
+                                'formData' => $data,
+                                'formAction' => $routeParser->urlFor("/profile"),
+                                'formMethod' => "POST"
+                            ]);
+                        }
+                        else {
+                            // Comprovar tamaño del archivo -> 400x400
+
+                            //Name regenerated
+                            $customName = uniqid('file_');
+
+                            // Move the file to the uploads directory
+                            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+
+                            return $response->withHeader('Location', '/')->withStatus(302);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private function validate(array $data, UserRepository $userRepository, array &$errors): void
@@ -100,8 +153,13 @@ class UserProfile
         }
         else {
             // Error username
-            if ($this->userRepository->findByUsername($data['username']) == null) {
-                $errors['username'] = 'This username is already taken. Please choose another one.';
+            if ($data['username'] == null) {
+                $errors['username'] = 'The username field is required. Please enter a new username';
+            }
+            else {
+                if ($this->userRepository->findByUsername($data['username']) == null) {
+                    $errors['username'] = 'This username is already taken. Please choose another one.';
+                }
             }
         }
     }

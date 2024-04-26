@@ -36,7 +36,10 @@ class UserProfile
         $message = '';
 
         if (isset($_SESSION['email'])) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             return $this->twig->render($response, 'user-profile.twig', [
+                'formAction' => $routeParser->urlFor("show-profile"),
+                'formMethod' => "POST",
                 'email' => $_SESSION['email']
             ]);
         } else {
@@ -50,7 +53,6 @@ class UserProfile
 
         $data = $request->getParsedBody();
 
-        var_dump($data);
         $this->validate($data, $this->userRepository, $errors);
 
         // Si hay algun error tanto en el username o en el email, mostramos el formulario con los errores
@@ -60,15 +62,15 @@ class UserProfile
                 'formErrors' => $errors,
                 'formData' => $data,
                 'formAction' => $routeParser->urlFor("edit-profile"),
-                'formMethod' => "POST"
+                'formMethod' => "POST",
+                'email' => $_SESSION['email']
             ]);
         }
         else  {
             $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
 
-            // Error en el caso que hayn introducido más de un archivo
-            if (count($uploadedFiles['files']) !== 1) {
-                $errors['file'] = 'Only one file upload is allowed.';
+            if (empty($uploadedFiles['files'])) {
+                $errors['file'] = 'Please enter your photo';
 
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -80,10 +82,9 @@ class UserProfile
                 ]);
             }
             else {
-                // error en el caso que me llegue un archivo que no sea correcto (error en la subida)
-                /** @var UploadedFileInterface $uploadedFile */
-                if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK) {
-                    $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
+                // Error en el caso que hayn introducido más de un archivo
+                if (count($uploadedFiles['files']) > 1) {
+                    $errors['file'] = 'Only one file upload is allowed.';
 
                     $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -95,17 +96,10 @@ class UserProfile
                     ]);
                 }
                 else {
-                    $uploadedFile = $uploadedFiles['file'];
-
-                    $name = $uploadedFile->getClientFilename();  // Get the name of the file, nos el path completo
-
-                    $fileInfo = pathinfo($name);  // Get the information of the file
-
-                    $format = $fileInfo['extension'];   // Get the extension of the file
-
-                    // Error en el caso que el archivo no tenga una extensión válida
-                    if (!$this->isValidFormat($format)) {
-                        $errors['file'] = "The received file extension ". $name . " is not valid";
+                    // error en el caso que me llegue un archivo que no sea correcto (error en la subida)
+                    /** @var UploadedFileInterface $uploadedFile */
+                    if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK) {
+                        $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
 
                         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -117,9 +111,17 @@ class UserProfile
                         ]);
                     }
                     else {
-                        // Comprovar mimetype del archivo
-                        if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
-                            $errors['file'] = "The received file MIME type is not valid";
+                        $uploadedFile = $uploadedFiles['file'];
+
+                        $name = $uploadedFile->getClientFilename();  // Get the name of the file, nos el path completo
+
+                        $fileInfo = pathinfo($name);  // Get the information of the file
+
+                        $format = $fileInfo['extension'];   // Get the extension of the file
+
+                        // Error en el caso que el archivo no tenga una extensión válida
+                        if (!$this->isValidFormat($format)) {
+                            $errors['file'] = "The received file extension ". $name . " is not valid";
 
                             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -131,13 +133,9 @@ class UserProfile
                             ]);
                         }
                         else {
-                            // Comprovar tamaño del archivo -> 400x400
-                            $imageSize = getimagesize($uploadedFile->getStream()->getMetadata('uri'));
-                            $imageWidth = $imageSize[0]; // Ancho de la imagen
-                            $imageHeight = $imageSize[1]; // Alto de la imagen
-
-                            if ($imageWidth > 400 || $imageHeight > 400) {
-                                $errors['file'] = "The image dimensions exceed the maximum allowed size of 400x400 pixels";
+                            // Comprovar mimetype del archivo
+                            if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
+                                $errors['file'] = "The received file MIME type is not valid";
 
                                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -149,13 +147,32 @@ class UserProfile
                                 ]);
                             }
                             else {
-                                //Name regenerated
-                                $customName = uniqid('file_');
+                                // Comprovar tamaño del archivo -> 400x400
+                                $imageSize = getimagesize($uploadedFile->getStream()->getMetadata('uri'));
+                                $imageWidth = $imageSize[0]; // Ancho de la imagen
+                                $imageHeight = $imageSize[1]; // Alto de la imagen
 
-                                // Move the file to the uploads directory
-                                $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+                                if ($imageWidth > 400 || $imageHeight > 400) {
+                                    $errors['file'] = "The image dimensions exceed the maximum allowed size of 400x400 pixels";
 
-                                return $response->withHeader('Location', '/')->withStatus(302);
+                                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+                                    return $this->twig->render($response, 'user-profile.twig', [
+                                        'formErrors' => $errors,
+                                        'formData' => $data,
+                                        'formAction' => $routeParser->urlFor("edit-profile"),
+                                        'formMethod' => "POST"
+                                    ]);
+                                }
+                                else {
+                                    //Name regenerated
+                                    $customName = uniqid('file_');
+
+                                    // Move the file to the uploads directory
+                                    $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+
+                                    return $response->withHeader('Location', '/')->withStatus(302);
+                                }
                             }
                         }
                     }
@@ -176,7 +193,7 @@ class UserProfile
                 $errors['username'] = 'The username field is required. Please enter a new username';
             }
             else {
-                if ($this->userRepository->findByUsername($data['username']) == null) {
+                if ($this->userRepository->findByUsername($data['username']) !== null) {
                     $errors['username'] = 'This username is already taken. Please choose another one.';
                 }
             }

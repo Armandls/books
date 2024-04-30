@@ -125,4 +125,35 @@ QUERY;
         );
     }
 
+    public function findBookById($bookId)
+    {
+        $query = <<<'QUERY'
+        SELECT * FROM books WHERE id = ?
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $bookId, PDO::PARAM_STR);
+        $statement->execute();
+
+        $bookData = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (!$bookData) {
+            return null; // No se encontró ningún usuario con ese correo electrónico
+        }
+
+        $created_at = new DateTime($bookData['created_at']);
+        $updated_at = new DateTime($bookData['updated_at']);
+
+        return new Book(
+            (int)$bookData['id'],
+            $bookData['title'],
+            $bookData['author'],
+            $bookData['description'],
+            $bookData['page_number'],
+            $bookData['cover_image'],
+            $created_at,
+            $updated_at
+        );
+    }
+
 }

@@ -15,4 +15,6 @@ interface BookRepository
     public function fetchAllBooks();
 
     public function generateBook(array $data): Book;
+
+    public function findBookById($bookId);
 }

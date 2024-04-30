@@ -722,15 +722,15 @@
                         <div class="card card-blog card-plain">
                             <div class="position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src="{{ book.cover_image }}" alt="{{ book.title }}">
+                                    <img src="{{ book.getCoverImage }}" alt="{{ book.getTitle }}">
                                 </a>
                             </div>
                             <div class="card-body px-1 pt-3">
-                                <a href="catalogue/{{ book.id }}">
-                                    <h5>{{ book.title }}</h5>
+                                <a href="catalogue/{{ book.getId }}">
+                                    <h5>{{ book.getTitle }}</h5>
                                 </a>
                                 <p>
-                                    {{ book.description }}
+                                    {{ book.getDescription }}
                                 </p>
                             </div>
                         </div>

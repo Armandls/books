@@ -5,6 +5,7 @@
 declare(strict_types=1);
 
 use DI\Container;
+use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
@@ -95,6 +96,15 @@ $container = new Container(); // Instancia de la clase Container
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
                     return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
+                }
+            );
+
+            // Se añade BookDetailsController al contenedor de Slim
+            $container->set(
+                BookDetailsController::class,
+                function (ContainerInterface $c) {
+                    // Constructor (Twig, BookRepository, Messages)
+                    return new BookDetailsController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
                 }
             );
 

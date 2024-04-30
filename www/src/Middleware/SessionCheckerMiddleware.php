@@ -27,6 +27,10 @@ final class SessionCheckerMiddleware
             $message = "You must be logged in to access the catalogue page.";
         }
 
+        if ($target === "/catalogue/{id}") {
+            $message = "You must be logged in to access the catalogue page.";
+        }
+
         if (empty($_SESSION['email'])) {
             $flash = new Messages();
             $flash->addMessage('notifications', $message);

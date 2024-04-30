@@ -69,7 +69,7 @@
                                     </div>
                                     <label>Profile Picture</label>
                                     <div class="mb-3">
-                                        <input id="profilePicture" name="files" data-cy="profile__picture" type="file" class="form-control" accept="image/*" multiple>
+                                        <input id="file" name="file" data-cy="profile__picture" type="file" class="form-control" accept="image/png, image/jpeg, image/gif, image/svg+xml" multiple>
                                         {% if formErrors.file %}
                                             <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.file }}</span>
                                         {% endif %}

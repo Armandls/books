@@ -105,4 +105,28 @@ QUERY;
         );
     }
 
+    public function updateProfilePicture(string $email, string $profile_picture): void
+    {
+        $query = <<<'QUERY'
+        UPDATE users SET profile_picture = ? WHERE email = ?
+
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $profile_picture, PDO::PARAM_STR);
+        $statement->bindParam(2, $email, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public function updateUsername(string $email, string $username): void
+    {
+        $query = <<<'QUERY'
+        UPDATE users SET username = ? WHERE email = ?
+      QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $username, PDO::PARAM_STR);
+        $statement->bindParam(2, $email, PDO::PARAM_STR);
+        $statement->execute();
+    }
 }

@@ -69,7 +69,7 @@ class UserProfile
         else  {
             $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
 
-            if (empty($uploadedFiles['files'])) {
+            if (empty($uploadedFiles)) {
                 $errors['file'] = 'Please enter your photo';
 
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -78,12 +78,13 @@ class UserProfile
                     'formErrors' => $errors,
                     'formData' => $data,
                     'formAction' => $routeParser->urlFor("edit-profile"),
-                    'formMethod' => "POST"
+                    'formMethod' => "POST",
+                    'email' => $_SESSION['email']
                 ]);
             }
             else {
                 // Error en el caso que hayn introducido más de un archivo
-                if (count($uploadedFiles['files']) > 1) {
+                if (count($uploadedFiles) > 1) {
                     $errors['file'] = 'Only one file upload is allowed.';
 
                     $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -92,14 +93,15 @@ class UserProfile
                         'formErrors' => $errors,
                         'formData' => $data,
                         'formAction' => $routeParser->urlFor("edit-profile"),
-                        'formMethod' => "POST"
+                        'formMethod' => "POST",
+                        'email' => $_SESSION['email']
                     ]);
                 }
                 else {
                     // error en el caso que me llegue un archivo que no sea correcto (error en la subida)
-                    /** @var UploadedFileInterface $uploadedFile */
+                    /** @var UploadedFileInterface $uploadedFiles */
                     if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK) {
-                        $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles['file']->getClientFilename();
+                        $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles->getClientFilename();
 
                         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
@@ -107,7 +109,8 @@ class UserProfile
                             'formErrors' => $errors,
                             'formData' => $data,
                             'formAction' => $routeParser->urlFor("edit-profile"),
-                            'formMethod' => "POST"
+                            'formMethod' => "POST",
+                            'email' => $_SESSION['email']
                         ]);
                     }
                     else {
@@ -129,7 +132,8 @@ class UserProfile
                                 'formErrors' => $errors,
                                 'formData' => $data,
                                 'formAction' => $routeParser->urlFor("edit-profile"),
-                                'formMethod' => "POST"
+                                'formMethod' => "POST",
+                                'email' => $_SESSION['email']
                             ]);
                         }
                         else {
@@ -143,7 +147,8 @@ class UserProfile
                                     'formErrors' => $errors,
                                     'formData' => $data,
                                     'formAction' => $routeParser->urlFor("edit-profile"),
-                                    'formMethod' => "POST"
+                                    'formMethod' => "POST",
+                                    'email' => $_SESSION['email']
                                 ]);
                             }
                             else {
@@ -161,15 +166,21 @@ class UserProfile
                                         'formErrors' => $errors,
                                         'formData' => $data,
                                         'formAction' => $routeParser->urlFor("edit-profile"),
-                                        'formMethod' => "POST"
+                                        'formMethod' => "POST",
+                                        'email' => $_SESSION['email']
                                     ]);
                                 }
                                 else {
                                     //Name regenerated
-                                    $customName = uniqid('file_');
+                                    $customName = uniqid('file_') . '.'. $format;
 
                                     // Move the file to the uploads directory
                                     $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
+
+                                    $email = $_SESSION['email'];
+                                    // update the user profile picture and username
+                                    $this->userRepository->updateProfilePicture($email, $customName);
+                                    $this->userRepository->updateUsername($email, $data['username']);
 
                                     return $response->withHeader('Location', '/')->withStatus(302);
                                 }

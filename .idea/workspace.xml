@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores hechos, falta el testing">
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/public/assets/css/stylesProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/assets/css/stylesProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="catalogue" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -128,6 +131,8 @@
       <workItem from="1714063460269" duration="6265000" />
       <workItem from="1714074159310" duration="83000" />
       <workItem from="1714119110275" duration="4603000" />
+      <workItem from="1714488068123" duration="1240000" />
+      <workItem from="1714491882946" duration="4360000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />

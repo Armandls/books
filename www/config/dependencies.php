@@ -6,8 +6,10 @@ declare(strict_types=1);
 
 use DI\Container;
 use Project\Bookworm\Controller\CatalogueController;
+use Project\Bookworm\Controller\FlashController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
+use Project\Bookworm\Controller\UserProfile;
 use Project\Bookworm\Model\BookRepository;
 use Project\Bookworm\Model\Repository\MySQLBookRepository;
 use Psr\Container\ContainerInterface;
@@ -50,12 +52,12 @@ $container = new Container(); // Instancia de la clase Container
                 );
             });
 
-            // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
+        // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
             $container->set(UserRepository::class, function (ContainerInterface $container) {
                 return new MySQLUserRepository($container->get('db'));
             });
 
-            // 3- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
+        // 3- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
             $container->set(BookRepository::class, function (ContainerInterface $container) {
                 return new MySQLBookRepository($container->get('db'));
             });
@@ -63,7 +65,17 @@ $container = new Container(); // Instancia de la clase Container
 
 
     //CONTROLLERS
-        // 1- Se añade la instancia de la clase LandingController al contenedor de Slim
+
+        // 1- Se añade FlashController al contenedor de Slim
+        $container->set(
+            FlashController::class,  // Nombre de la dependencia -> CookieMonsterController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new FlashController($c->get("view"), $c->get("flash"));
+            }
+        );
+
+        // 2- Se añade la instancia de la clase LandingController al contenedor de Slim
             $container->set(
                 LandingController::class,  // Nombre de la dependencia -> LandingController
                 function (ContainerInterface $c) {
@@ -72,7 +84,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-        // 2- Se añade SignUpController al contenedor de Slim
+        // 3- Se añade SignUpController al contenedor de Slim
             $container->set(
                 SignUpController::class,  // Nombre de la dependencia -> CookieMonsterController
                 function (ContainerInterface $c) {
@@ -81,7 +93,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-            // 3- Se añade SignInController al contenedor de Slim
+        // 4- Se añade SignInController al contenedor de Slim
             $container->set(
                 SignInController::class,  // Nombre de la dependencia -> CookieMonsterController
                 function (ContainerInterface $c) {
@@ -89,7 +101,8 @@ $container = new Container(); // Instancia de la clase Container
                     return new SignInController($c->get("view"), $c->get(UserRepository::class), $c->get("flash"));
                 }
             );
-            // 4- Se añade CatalogueController al contenedor de Slim
+
+        // 5- Se añade CatalogueController al contenedor de Slim
             $container->set(
                 CatalogueController::class,  // Nombre de la dependencia -> CatalogueController
                 function (ContainerInterface $c) {
@@ -97,6 +110,17 @@ $container = new Container(); // Instancia de la clase Container
                     return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
                 }
             );
+
+        // 6- Se añade UserProfile al contenedor de Slim
+            $container->set(
+                UserProfile::class,  // Nombre de la dependencia -> CatalogueController
+                function (ContainerInterface $c) {
+                    // Constructor (Twig)
+                    return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class));
+                }
+            );
+
+
 
 
 

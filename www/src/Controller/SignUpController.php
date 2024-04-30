@@ -16,11 +16,16 @@ use Psr\Http\Message\ResponseInterface as Response;
 final class SignUpController
 {
 
+    private UserRepository $userRepository;
+    private Twig $twig;
+
     public function __construct(
-        private Twig $twig,
-        private UserRepository $userRepository // Quita el punto y coma aquí
+        Twig $twig,
+        UserRepository $userRepository // Quita el punto y coma aquí
     )
     {
+        $this->twig = $twig;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -55,20 +60,23 @@ final class SignUpController
             ]);
         }
         else  {
+            $username = null;
+            $profile_picture = null;
+
             // Crear un nuevo usuario
                 $user = new User(
                     1,
                     $data['email'] ?? '',
                     $data['password'] ?? '',
-                    $data['username'] ?? '',
-                    $data['profile_picture'] ?? '',
+                    $username,
+                    $profile_picture,
                     new DateTime(),
                     new DateTime()
                 );
 
                 $this->userRepository->save($user);
                 $_SESSION['email'] = $data['email'];
-                return $response->withHeader('Location', '')->withStatus(302);
+                return $response->withHeader('Location', '/catalogue')->withStatus(302);
         }
     }
 

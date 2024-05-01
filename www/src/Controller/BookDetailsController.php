@@ -37,12 +37,24 @@ class BookDetailsController
             return $response->withStatus(404);
         }
 
+        $bookAverageRating = $this->bookRepository->getAverageRating($bookId);
+        $bookReviews = $this->bookRepository->getBookReviews($bookId);
+
         return $this->twig->render($response, 'bookDetails.twig', [
             'book' => $book,
+            'rating' => $bookAverageRating,
+            'reviews' => $bookReviews,
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
             'formMethod' => "GET"
         ]);
     }
+
+    public function rateBook(int $rating) {
+        // TODO Marcos, aqui hay que hacer la logica de hacer rating del libro
+    }
+
+
+
 }

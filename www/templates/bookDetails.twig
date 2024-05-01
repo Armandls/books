@@ -91,8 +91,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
                     <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
-                        <div class="bg-gradient-info w-100 h-100 border-radius-xl position-absolute" alt=""></div>
-                        <img src="{{ book.getCoverImage }}" class="w-100 border-radius-xl mt-6 ms-5 position-absolute" alt="">
+                        <img src="{{ book.getCoverImage }}" class="w-100 border-radius-xl mt-6 ms-5 position-absolute"  style="max-width: 500px; max-height: 720px;">
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 ms-auto order-1 order-md-1 order-lg-1">
@@ -138,7 +137,26 @@
             </div>
 
         </div>
-
+    </section>
+    <section class="py-7">
+        <div class="container">
+            <div class="row">
+                <div class="rating-stars">
+                    <input type="radio" name="rating" id="rs0" checked ><label for="rs0"></label>
+                    <input type="radio" name="rating" id="rs1"><label for="rs1"></label>
+                    <input type="radio" name="rating" id="rs2"><label for="rs2"></label>
+                    <input type="radio" name="rating" id="rs3"><label for="rs3"></label>
+                    <input type="radio" name="rating" id="rs4"><label for="rs4"></label>
+                    <input type="radio" name="rating" id="rs5"><label for="rs5"></label>
+                    <span class="rating-counter"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% if reviews is not empty %}
+                <h3>Book reviews</h3>
+            {% endif %}
+        </div>
     </section>
     <!-- END Section Content -->
 

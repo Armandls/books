@@ -17,4 +17,8 @@ interface BookRepository
     public function generateBook(array $data): Book;
 
     public function findBookById($bookId);
+
+    public function getAverageRating($bookId);
+
+    public function getBookReviews($bookId);
 }

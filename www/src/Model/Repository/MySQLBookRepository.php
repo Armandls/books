@@ -156,4 +156,18 @@ QUERY;
         );
     }
 
+    public function getAverageRating($bookId)
+    {
+        // TODO: Implement getAverageRating() method.
+        return 0;
+    }
+
+    public function getBookReviews($bookId)
+    {
+        // TODO: Implement getBookReviews() method.
+
+
+        return null;
+    }
+
 }

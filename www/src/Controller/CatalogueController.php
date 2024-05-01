@@ -124,5 +124,4 @@ class CatalogueController
         return $errors;
     }
 
-
 }

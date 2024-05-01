@@ -27,17 +27,15 @@ $app->get('/sign-in', SignInController::class . ':showForm')->setName('get-sign-
 // 5- Cuando me llegue una petición POST a la ruta /sign-in, se ejecutará el método handleFormSubmission de la clase SignInController
 $app->post('/sign-in', SignInController::class . ':handleFormSubmission')->setName('login-form');
 
-// 6- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
-$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionCheckerMiddleware::class);
-// 7- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 // 6- Cuando me llegue una petición GET a la ruta /profile, se ejecutarán los métodos showProfile de la clase UserProfile
 $app->get('/profile', UserProfile::class . ':showProfile')->setName('profile')->setName('show-profile');
 // 7- Cuando me llegue una petición POST a la ruta /profile, se ejecutarán los métodos editProfile de la clase UserProfile
 $app->post('/profile', UserProfile::class . ':editProfile')->setName('profile')->setName('edit-profile');
 
 // 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
-$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionMiddleware::class);
+$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionCheckerMiddleware::class);
 // 9- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('catalogue');
-// 8- Cuando me llegue una petición GET a la ruta /catalogue/{id}, se ejecutará el método showBookDetails de la clase BookDetailsController
-$app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('catalogue/{id}')->add(SessionCheckerMiddleware::class);
+
+// 10- Cuando me llegue una petición GET a la ruta /catalogue/{id}, se ejecutará el método showBookDetails de la clase BookDetailsController
+$app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);

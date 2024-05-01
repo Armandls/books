@@ -76,7 +76,7 @@ class CatalogueController
         $endPointUrl = "https://openlibrary.org/works/";
         try {
             $title = $data["title"] ?? "";
-            $description = $data["description"] ?? "";
+            $description = $data["description"]["value"] ?? "";
             $pageNumber = $data["number_of_pages"] ?? 0;
 
             $author = $data["authors"][0]["name"] ?? "";

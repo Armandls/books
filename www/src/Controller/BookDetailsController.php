@@ -41,7 +41,7 @@ class BookDetailsController
             'book' => $book,
             'formErrors' => "",
             'formData' => "",
-            'formAction' => $routeParser->urlFor("catalogue"),
+            'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
             'formMethod' => "GET"
         ]);
     }

@@ -1,0 +1,7 @@
+.bg-gradient-primary {
+    background-image: linear-gradient(310deg, rgb(33, 82, 255) 0%, rgb(33, 212, 253) 100%)
+}
+
+.error-message {
+    color: red;
+}

@@ -30,13 +30,14 @@ final class SignInController
     // Método que muestra el formulario
     public function showForm(Request $request, Response $response): Response
     {
-        //$messages = $this->flash->getMessages();
+        $messages = $this->flash->getMessages();
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         return $this->twig->render($response, 'sign-in.twig',  [
             'formAction' => $routeParser->urlFor("login-form"),
             'formMethod' => "POST",
+            'flash' => $messages['flash'] ?? []
         ]);
     }
 
@@ -58,7 +59,7 @@ final class SignInController
         }
         else  {
             $_SESSION['email'] = $data['email'];
-            return $response->withHeader('Location', '/')->withStatus(302);
+            return $response->withHeader('Location', '/catalogue')->withStatus(302);
         }
     }
 
@@ -76,16 +77,19 @@ final class SignInController
                 $errors['email'] = 'The email address is not valid.';
             }
             else {
-                $user = $userRepository->findByEmail($data['email']);
-                $storedPassword = $user->password();
-
-                if ($data['password'] != $storedPassword) {
-                    $errors['password'] = 'The email address or password is incorrect.';
+                if (!$userRepository->findByEmail($data['email'])) {
+                    $errors['email'] = 'The email address or password is incorrect.';
                 }
+                else {
+                    $user = $userRepository->findByEmail($data['email']);
+                    $storedPassword = $user->password();
 
+                    if ($data['password'] != $storedPassword) {
+                        $errors['password'] = 'The email address or password is incorrect.';
+                    }
+                }
             }
         }
-
         return $errors;
     }
 }

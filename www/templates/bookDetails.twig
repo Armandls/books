@@ -8,51 +8,34 @@
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" href="/">
+                        <a href="/" class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
                             Bookworm
                         </a>
                         <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
                         <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon mt-2">
-                            <span class="navbar-toggler-bar bar1"></span>
-                            <span class="navbar-toggler-bar bar2"></span>
-                            <span class="navbar-toggler-bar bar3"></span>
-                          </span>
+          <span class="navbar-toggler-icon mt-2">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </span>
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
                                 <!-- Pages Account Blocks Docs -->
-
                                 <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Account
-                                        <img src="/assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                                    <a href="/profile" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">User Profile</span>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg border-radius-xl p-3 mt-0 mt-lg-3" aria-labelledby="dropdownMenuAccount">
-                                        <div class="row d-none d-lg-flex">
-                                            <div class="col-0'">
-                                            </div>
-                                            <div class="col-6 ps-0 d-flex justify-content-center flex-column">
-                                                <ul class="list-group">
-                                                    <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                        <button class="dropdown-item border-radius-md ps-3 d-flex align-items-center justify-content-between mb-1" id="dropdownSignIn" onclick="window.location.href='/sign-in'">
-                                                            <span>Sign In</span>
-                                                        </button>
-                                                    </li>
-                                                    <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                        <button class="dropdown-item border-radius-md ps-3 d-flex align-items-center justify-content-between mb-1" id="dropdownSignUp" onclick="window.location.href='/sign-up'">
-                                                            <span>Sign Up</span>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
+                                    </a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Profile</a>
+                                    <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Hi! :)</a>
                                 </li>
                             </ul>
                         </div>

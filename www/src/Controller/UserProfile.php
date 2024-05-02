@@ -41,11 +41,15 @@ class UserProfile
 
             $messages = $this->flash->getMessages();
 
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $username = $user->username();
+
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             return $this->twig->render($response, 'user-profile.twig', [
-                'formAction' => $routeParser->urlFor("edit-profile"),
-                'formMethod' => "POST",
+                'formAction' => $routeParser->urlFor("show-profile"),
+                'formMethod' => "GET",
                 'email' => $_SESSION['email'],
+                'username' => $username ?? '',
                 'flash' => $messages['flash'] ?? []
             ]);
         } else {

@@ -27,6 +27,11 @@
                                         <span class="ps-3">User Profile</span>
                                     </a>
                                 </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
@@ -69,7 +74,7 @@
                                     </div>
                                     <label>Username</label>
                                     <div class="mb-3">
-                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" placeholder="Enter your username" aria-label="Username">
+                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" placeholder="{{ username }}" aria-label="Username">
                                         {% if formErrors.username %}
                                             <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.username }}</span>
                                         {% endif %}

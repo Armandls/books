@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Actualitzacio navigator bar de tootes les views">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="redirecciones de not login or not set up the username from catalogue do it">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714671757970</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="redirecciones de not login or not set up the username from catalogue do it">
+      <option name="closed" value="true" />
+      <created>1714674138580</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1714674138580</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +401,8 @@
     <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
     <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualitzacio navigator bar de tootes les views" />
+    <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
+    <option name="LAST_COMMIT_MESSAGE" value="redirecciones de not login or not set up the username from catalogue do it" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -50,6 +50,13 @@
                             <div class="card-header pb-0 text-left">
                                 <h3 class="text-info text-gradient">User Profile</h3>
                                 <p class="mb-0">You will receive an e-mail in maximum 60 seconds</p>
+                                {% if flash is not empty %}
+                                <div>
+                                    {% for message in flash %}
+                                        <p data-cy="sign-in__message" style="color: red;">{{ message }}</p>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                             <div class="card-body pb-3">
                                 <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data" accept-charset="utf-8">

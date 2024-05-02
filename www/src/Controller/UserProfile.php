@@ -15,6 +15,7 @@ class UserProfile
     private Twig $twig;
     private UserRepository $userRepository;
     private FlashController $flashController;
+    private Messages $flash;
 
     private const UPLOADS_DIR = __DIR__ . '/../../uploads';
 
@@ -24,11 +25,12 @@ class UserProfile
 
 
 
-    public function __construct(Twig $twig, UserRepository $userRepository, FlashController $flashController)
+    public function __construct(Twig $twig, UserRepository $userRepository, FlashController $flashController, Messages $flash)
     {
         $this->twig = $twig;
         $this->userRepository = $userRepository;
         $this->flashController = $flashController;
+        $this->flash = $flash;
     }
 
     public function showProfile(Request $request, Response $response): Response{
@@ -36,11 +38,15 @@ class UserProfile
         $message = '';
 
         if (isset($_SESSION['email'])) {
+
+            $messages = $this->flash->getMessages();
+
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             return $this->twig->render($response, 'user-profile.twig', [
-                'formAction' => $routeParser->urlFor("show-profile"),
+                'formAction' => $routeParser->urlFor("edit-profile"),
                 'formMethod' => "POST",
-                'email' => $_SESSION['email']
+                'email' => $_SESSION['email'],
+                'flash' => $messages['flash'] ?? []
             ]);
         } else {
             $message = 'You must be logged in to access the user profile page.';
@@ -178,9 +184,13 @@ class UserProfile
                                     $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
 
                                     $email = $_SESSION['email'];
+                                    $_SESSION['profile-photo'] = $customName;
+                                    $_SESSION['username'] = $data['username'];
+
                                     // update the user profile picture and username
                                     $this->userRepository->updateProfilePicture($email, $customName);
                                     $this->userRepository->updateUsername($email, $data['username']);
+
 
                                     return $response->withHeader('Location', '/')->withStatus(302);
                                 }

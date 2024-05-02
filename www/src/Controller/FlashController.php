@@ -37,4 +37,17 @@ final class FlashController
         return $response
             ->withHeader('Location', $url)->withStatus(302);
     }
+
+    public function redirectToUserProfile (Request $request, Response $response, string $message): Response {
+
+        $this->flash->addMessage('flash', $message);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+        $url = $routeParser->urlFor("show-profile");
+
+        // Redirige al usuario a la página de inicio de sesión
+        return $response
+            ->withHeader('Location', $url)->withStatus(302);
+    }
 }

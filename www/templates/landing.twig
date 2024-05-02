@@ -6,7 +6,7 @@
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <nav class="navb    ar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
                             Bookworm
@@ -22,23 +22,25 @@
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
                                 <!-- Pages Account Blocks Docs -->
-                                    <li class="nav-item dropdown dropdown-hover mx-2">
-                                        <a href="/profile" class="dropdown-item border-radius-md">
-                                            <span class="ps-3">User Profile</span>
-                                        </a>
-                                    </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/profile" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">User Profile</span>
+                                    </a>
+                                </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 {% if session %}
                                     <li class="nav-item">
-                                        <a href="/profile" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Profile</a>
+                                        <a href="/profile" class="btn btn-sm btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">
+                                            <img src="{{ profile-photo }}" alt="Profile Photo">
+                                        </a>
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
                                         <a href="/sign-in" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign In</a>
                                         <a href="/sign-up" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign Up</a>
                                     </li>
-                            {% endif %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

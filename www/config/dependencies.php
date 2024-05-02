@@ -80,7 +80,7 @@ $container = new Container(); // Instancia de la clase Container
             $container->set(
                 LandingController::class,  // Nombre de la dependencia -> LandingController
                 function (ContainerInterface $c) {
-                    $controller = new LandingController($c->get("view"));  // Constructor (Twig)
+                    $controller = new LandingController($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class));  // Constructor (Twig)
                     return $controller;
                 }
             );
@@ -126,7 +126,7 @@ $container = new Container(); // Instancia de la clase Container
                 UserProfile::class,  // Nombre de la dependencia -> CatalogueController
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
-                    return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class));
+                    return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class), $c->get("flash"));
                 }
             );
 

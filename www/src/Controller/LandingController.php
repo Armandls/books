@@ -2,6 +2,7 @@
 
 namespace Project\Bookworm\Controller;
 
+use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Views\Twig;
@@ -10,18 +11,42 @@ class LandingController
 {
     private Twig $twig;
 
-    public function __construct(Twig $twig)
+    private UserRepository $userRepository;
+
+    private FlashController $flashController;
+
+    public function __construct(Twig $twig, UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
+        $this->userRepository = $userRepository;
+        $this->flashController = $flashController;
+
     }
 
     public function apply(Request $request, Response $response): Response
     {
-        // Renderizar la plantilla de landing
-        return $this->twig->render($response, 'landing.twig', [
-            'session' => $_SESSION['email'] ?? [],
-            //'profile-photo' => $_SESSION['profile-photo'] ?? ''
-        ]);
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/" . $user->profile_picture();
+            $username = $user->username();
+
+            if ($username == null || $profile_photo == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.');
+            }
+            else {
+                // Renderizar la plantilla de landing
+                return $this->twig->render($response, 'landing.twig', [
+                    'session' => $_SESSION['email'] ?? [],
+                    'profile-photo' => $profile_photo ?? '',
+                    'username' => $username ?? ''
+                ]);
+            }
+        } else {
+            // Renderizar la plantilla de landing
+            return $this->twig->render($response, 'landing.twig', [
+                'session' => $_SESSION['email'] ?? [],
+            ]);
+        }
     }
 
 

@@ -74,4 +74,6 @@ final class User
     {
         return $this->updated_at;
     }
+
+
 }

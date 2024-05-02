@@ -45,6 +45,7 @@ class UserProfile
             $username = $user->username();
 
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
             return $this->twig->render($response, 'user-profile.twig', [
                 'formAction' => $routeParser->urlFor("show-profile"),
                 'formMethod' => "GET",

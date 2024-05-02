@@ -108,7 +108,7 @@ $container = new Container(); // Instancia de la clase Container
                 CatalogueController::class,  // Nombre de la dependencia -> CatalogueController
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
-                    return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
+                    return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
                 }
             );
 

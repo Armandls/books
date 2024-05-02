@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores hechos, falta el testing">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="Actualitzacio navigator bar de tootes les views">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/sign-in.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-in.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/sign-up.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-up.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,7 +346,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714552411087</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Actualitzacio navigator bar de tootes les views">
+      <option name="closed" value="true" />
+      <created>1714671757970</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1714671757970</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +395,8 @@
     <MESSAGE value="error solucionado retornar usrname de user" />
     <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambio bookDetails" />
+    <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualitzacio navigator bar de tootes les views" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

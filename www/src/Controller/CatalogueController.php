@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Project\Bookworm\Model\Book;
 use Project\Bookworm\Model\BookRepository;
 
+use Project\Bookworm\Model\UserRepository;
 use Project\Bookworm\Utils\BookCreationChecker;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,30 +20,46 @@ class CatalogueController
 {
     private Twig $twig;
     private BookRepository $bookRepository;
-    private Messages $flash;
+    private UserRepository $userRepository;
+    private FlashController $flashController;
     private $client;
 
 
-    public function __construct(Twig $twig, BookRepository $bookRepository, Messages $flash)
+    public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
         $this->bookRepository = $bookRepository;
-        $this->flash = $flash;
         $this->client = new Client();
+        $this->userRepository = $userRepository;
+        $this->flashController = $flashController;
 
 
     }
 
     public function showCatalogue(Request $request, Response $response): Response
     {
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $books = $this->bookRepository->fetchAllBooks();
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/" . $user->profile_picture();
+            $username = $user->username();
 
-        return $this->twig->render($response, 'catalogue.twig',  [
-            'formAction' => $routeParser->urlFor("catalogue"),
-            'formMethod' => "GET",
-            'books' => $books
-        ]);
+            if ($username == null || $profile_photo == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+            } else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $books = $this->bookRepository->fetchAllBooks();
+
+                return $this->twig->render($response, 'catalogue.twig', [
+                    'formAction' => $routeParser->urlFor("catalogue"),
+                    'formMethod' => "GET",
+                    'books' => $books
+                ]);
+            }
+        } else {
+            // Renderizar la plantilla de sign-in
+            $message = 'You must be logged in to access the user profile page.';
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        }
     }
 
     public function handleFormSubmission(Request $request, Response $response): Response {

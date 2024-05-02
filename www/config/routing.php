@@ -33,7 +33,7 @@ $app->get('/profile', UserProfile::class . ':showProfile')->setName('profile')->
 $app->post('/profile', UserProfile::class . ':editProfile')->setName('profile')->setName('edit-profile');
 
 // 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
-$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionCheckerMiddleware::class);
+$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue');
 // 9- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('catalogue');
 

@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="errores hechos, falta el testing">
-      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/public/assets/css/ratingStars.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/assets/css/ratingStars.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/FlashController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/FlashController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfileController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/userProfile.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/baseLanding.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/baseLanding.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,12 +119,6 @@
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates\Landing" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

@@ -23,16 +23,16 @@
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
                                 <!-- Pages Account Blocks Docs -->
                                 <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a href="/profile" class="dropdown-item border-radius-md">
-                                        <span class="ps-3">User Profile</span>
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 {% if session %}
                                     <li class="nav-item">
-                                        <a href="/profile" class="btn btn-sm btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">
-                                            <img src="{{ profile-photo }}" alt="Profile Photo">
+                                        <a href="/profile"  onclick="smoothToPricing('pricing-soft-ui')">
+                                            <img class="avatar avatar-sm avatar-scale-up shadow border-radius-lg border-0 active" src='{{ photo }}' alt="Profile Photo">
                                         </a>
                                     </li>
                                 {% else %}

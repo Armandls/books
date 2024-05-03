@@ -28,12 +28,12 @@ $app->get('/sign-in', SignInController::class . ':showForm')->setName('get-sign-
 $app->post('/sign-in', SignInController::class . ':handleFormSubmission')->setName('login-form');
 
 // 6- Cuando me llegue una petición GET a la ruta /profile, se ejecutarán los métodos showProfile de la clase UserProfile
-$app->get('/profile', UserProfile::class . ':showProfile')->setName('profile')->setName('show-profile');
+$app->get('/profile', UserProfile::class . ':showProfile')->setName('show-profile');
 // 7- Cuando me llegue una petición POST a la ruta /profile, se ejecutarán los métodos editProfile de la clase UserProfile
-$app->post('/profile', UserProfile::class . ':editProfile')->setName('profile')->setName('edit-profile');
+$app->post('/profile', UserProfile::class . ':editProfile')->setName('edit-profile');
 
 // 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
-$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue')->add(SessionCheckerMiddleware::class);
+$app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue');
 // 9- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('catalogue');
 

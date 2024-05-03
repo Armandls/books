@@ -40,7 +40,7 @@ class CatalogueController
     {
         if (isset($_SESSION['email'])) {
             $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/" . $user->profile_picture();
+            $profile_photo = "/uploads/{$user->profile_picture()}";
             $username = $user->username();
 
             if ($username == null) {
@@ -52,7 +52,10 @@ class CatalogueController
                 return $this->twig->render($response, 'catalogue.twig', [
                     'formAction' => $routeParser->urlFor("catalogue"),
                     'formMethod' => "GET",
-                    'books' => $books
+                    'books' => $books,
+                    'session' => $_SESSION['email'] ?? [],
+                    'photo' => $profile_photo
+
                 ]);
             }
         } else {

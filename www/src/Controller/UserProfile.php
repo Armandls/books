@@ -280,7 +280,7 @@ class UserProfile
         }
     }
 
-    private function validate(array $data, UserRepository $userRepository, array &$errors, string $username): void
+    private function validate(array $data, UserRepository $userRepository, array &$errors, ?string $username): void
     {
         // Error email
         if ($data['email'] != $_SESSION['email']) {

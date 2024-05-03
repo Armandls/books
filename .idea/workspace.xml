@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="tema control de foto i username hecho">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="poner username a la navigation bar de user porofile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-in.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-in.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/sign-up.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/sign-up.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/user-profile.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/user-profile.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +168,8 @@
       <workItem from="1714491882946" duration="4360000" />
       <workItem from="1714633765678" duration="341000" />
       <workItem from="1714721417104" duration="3522000" />
-      <workItem from="1714729975325" duration="1455000" />
+      <workItem from="1714729975325" duration="1489000" />
+      <workItem from="1714734603325" duration="980000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -395,7 +403,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714731121347</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="poner username a la navigation bar de user porofile">
+      <option name="closed" value="true" />
+      <created>1714731478727</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1714731478728</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +441,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="introduccion de el enlace a la pestaña de sign-in" />
     <MESSAGE value="Form de sign-in y sign-up" />
     <MESSAGE value="sign up funciona. Falta control de errores." />
     <MESSAGE value="sign-in vista hecha" />
@@ -450,7 +465,8 @@
     <MESSAGE value="quitar los dobles setnames en routing de profile" />
     <MESSAGE value="arreglar tema control errores y foto perfil" />
     <MESSAGE value="tema control de foto i username hecho" />
-    <option name="LAST_COMMIT_MESSAGE" value="tema control de foto i username hecho" />
+    <MESSAGE value="poner username a la navigation bar de user porofile" />
+    <option name="LAST_COMMIT_MESSAGE" value="poner username a la navigation bar de user porofile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

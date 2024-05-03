@@ -31,14 +31,13 @@ class LandingController
             $username = $user->username();
 
             if ($username == null) {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.');
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
             }
             else {
                 // Renderizar la plantilla de landing
                 return $this->twig->render($response, 'landing.twig', [
                     'session' => $_SESSION['email'] ?? [],
-                    'photo' => $profile_photo,
-                    'username' => $username ?? ''
+                    'photo' => $profile_photo
                 ]);
             }
         } else {

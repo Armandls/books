@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="redirecciones de not login or not set up the username from catalogue do it">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="foto de perfil">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/uploads/file_6631210a6de05.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_6631210a6de05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/uploads/file_66312237c4978png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_66312237c4978png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/uploads/file_663122613621e.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_663122613621e.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +40,15 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="0.0.0.0" id="f15dcc1b-af00-40b0-801e-c8f0d6835e1a" name="0.0.0.0:5092" port="5092" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$/www" remote-root="/var/www" />
+        </path_mappings>
+      </server>
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -88,21 +103,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ControllSession",
-    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ControllSession&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
@@ -112,6 +127,7 @@
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates\Landing" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
     </key>
@@ -150,6 +166,7 @@
       <workItem from="1714488068123" duration="1240000" />
       <workItem from="1714491882946" duration="4360000" />
       <workItem from="1714633765678" duration="341000" />
+      <workItem from="1714721417104" duration="3353000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -359,7 +376,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714674138580</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="quitar los dobles setnames en routing de profile">
+      <option name="closed" value="true" />
+      <created>1714674701044</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1714674701044</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,14 +395,25 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/ControllSession" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial commit" />
     <MESSAGE value="navigaton bar y foto landing page" />
     <MESSAGE value="seccio estadistiques" />
     <MESSAGE value="introduccion de el enlace a la pestaña de sign-in" />
@@ -402,7 +438,8 @@
     <MESSAGE value="cambio bookDetails" />
     <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
     <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
-    <option name="LAST_COMMIT_MESSAGE" value="redirecciones de not login or not set up the username from catalogue do it" />
+    <MESSAGE value="quitar los dobles setnames en routing de profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="quitar los dobles setnames en routing de profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

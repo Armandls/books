@@ -43,7 +43,7 @@ class CatalogueController
             $profile_photo = "/uploads/" . $user->profile_picture();
             $username = $user->username();
 
-            if ($username == null || $profile_photo == null) {
+            if ($username == null) {
                 return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
             } else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();

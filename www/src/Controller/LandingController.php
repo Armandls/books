@@ -27,17 +27,17 @@ class LandingController
     {
         if (isset($_SESSION['email'])) {
             $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/" . $user->profile_picture();
+            $profile_photo = "/uploads/{$user->profile_picture()}";
             $username = $user->username();
 
-            if ($username == null || $profile_photo == null) {
+            if ($username == null) {
                 return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.');
             }
             else {
                 // Renderizar la plantilla de landing
                 return $this->twig->render($response, 'landing.twig', [
                     'session' => $_SESSION['email'] ?? [],
-                    'profile-photo' => $profile_photo ?? '',
+                    'photo' => $profile_photo,
                     'username' => $username ?? ''
                 ]);
             }

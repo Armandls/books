@@ -69,7 +69,7 @@
                                     </div>
                                     <label>Username</label>
                                     <div class="mb-3">
-                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" placeholder="{{ username }}" aria-label="Username">
+                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" value="{{ username }}" aria-label="Username">
                                         {% if formErrors.username %}
                                             <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.username }}</span>
                                         {% endif %}

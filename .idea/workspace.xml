@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="foto de perfil">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="arreglar tema control errores y foto perfil">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/LandingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/UserProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/landing.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/uploads/file_6631210a6de05.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_6631210a6de05.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/uploads/file_66312237c4978png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_66312237c4978png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/uploads/file_663122613621e.png" beforeDir="false" afterPath="$PROJECT_DIR$/www/public/uploads/file_663122613621e.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +160,8 @@
       <workItem from="1714488068123" duration="1240000" />
       <workItem from="1714491882946" duration="4360000" />
       <workItem from="1714633765678" duration="341000" />
-      <workItem from="1714721417104" duration="3353000" />
+      <workItem from="1714721417104" duration="3522000" />
+      <workItem from="1714729975325" duration="914000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -384,7 +379,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714674701044</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="arreglar tema control errores y foto perfil">
+      <option name="closed" value="true" />
+      <created>1714725612899</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1714725612899</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,7 +417,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="navigaton bar y foto landing page" />
     <MESSAGE value="seccio estadistiques" />
     <MESSAGE value="introduccion de el enlace a la pestaña de sign-in" />
     <MESSAGE value="Form de sign-in y sign-up" />
@@ -439,7 +441,8 @@
     <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
     <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
     <MESSAGE value="quitar los dobles setnames en routing de profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="quitar los dobles setnames en routing de profile" />
+    <MESSAGE value="arreglar tema control errores y foto perfil" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglar tema control errores y foto perfil" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

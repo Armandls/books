@@ -85,8 +85,8 @@ class UserProfile
         }
         else  {
             $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
-            var_dump($uploadedFiles);
-            if (!$uploadedFiles['file']->getError() === UPLOAD_ERR_NO_FILE) {   // Error del campo error -> 4 -> No se ha subido ningún archivo
+
+            if (!$uploadedFiles['file']->getError() == UPLOAD_ERR_NO_FILE) {   // Error del campo error -> 4 -> No se ha subido ningún archivo
                 // Error en el caso que hayn introducido más de un archivo
                 if (count($uploadedFiles) > 1) {
                     $errors['file'] = 'Only one file upload is allowed.';
@@ -210,7 +210,20 @@ class UserProfile
                                             // update the user profile picture and username
                                             $this->userRepository->updateProfilePicture($email, $customName);
 
-                                            return $response->withHeader('Location', '/')->withStatus(302);
+                                            if ($data['username'] == null) {
+                                                $_SESSION['username'] = $username;
+
+                                                return $response->withHeader('Location', '/')->withStatus(302);
+                                            }
+                                            else {
+                                                $email = $_SESSION['email'];
+                                                $_SESSION['username'] = $data['username'];
+
+                                                // update the user profile picture and username
+                                                $this->userRepository->updateUsername($email, $data['username']);
+
+                                                return $response->withHeader('Location', '/')->withStatus(302);
+                                            }
                                         }
                                         else {
                                             //Name regenerated
@@ -238,8 +251,20 @@ class UserProfile
             }
             else {
                 if ($username != null) {
-                    $_SESSION['username'] = $username;
-                    return $response->withHeader('Location', '/')->withStatus(302);
+                    if ($data['username'] == null) {
+                        $_SESSION['username'] = $username;
+
+                        return $response->withHeader('Location', '/')->withStatus(302);
+                    }
+                    else {
+                        $email = $_SESSION['email'];
+                        $_SESSION['username'] = $data['username'];
+
+                        // update the user profile picture and username
+                        $this->userRepository->updateUsername($email, $data['username']);
+
+                        return $response->withHeader('Location', '/')->withStatus(302);
+                    }
                 }
                 else {
                     $email = $_SESSION['email'];

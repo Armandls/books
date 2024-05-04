@@ -8,6 +8,7 @@ use DI\Container;
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\FlashController;
+use Project\Bookworm\Controller\ForumsController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
 use Project\Bookworm\Controller\UserProfile;
@@ -129,6 +130,15 @@ $container = new Container(); // Instancia de la clase Container
                     return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class), $c->get("flash"));
                 }
             );
+
+        // 7- Se añade ForumsController al contenedor de Slim
+        $container->set(
+            ForumsController::class,  // Nombre de la dependencia -> CatalogueController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new ForumsController($c->get("view"), $c->get(FlashController::class), $c->get("flash"));
+            }
+        );
 
 
 

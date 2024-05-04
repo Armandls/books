@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
+use Project\Bookworm\Controller\ForumsController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
 use Project\Bookworm\Middleware\SessionCheckerMiddleware;
@@ -35,10 +36,12 @@ $app->post('/profile', UserProfile::class . ':editProfile')->setName('edit-profi
 // 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
 $app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue');
 // 9- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
-$app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('catalogue');
+$app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('bookCreation');
 
 // 10- Cuando me llegue una petición GET a la ruta /catalogue/{id}, se ejecutará el método showBookDetails de la clase BookDetailsController
 $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
 $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
+
+$app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums')->add(SessionCheckerMiddleware::class);

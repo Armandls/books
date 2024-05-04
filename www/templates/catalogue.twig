@@ -151,8 +151,11 @@
                             <div class="mb-4">
                                 <label>Portada del libro</label>
                                 <div class="input-group">
-                                    <input id="cover_image" name="cover_image" type="file" class="form-control" placeholder="Selecciona un archivo" >
+                                    <input id="file" name="file" type="file" class="form-control" placeholder="Selecciona un archivo"  accept="image/png, image/jpeg, image/gif, image/svg+xml">
                                 </div>
+                                {% if formErrors['file'] %}
+                                    <p>{{ formErrors['file'] }}</p>
+                                {% endif %}
                             </div>
                             <div class="form-group mb-4">
                                 <label>Descripción del libro</label>
@@ -181,7 +184,7 @@
                         <div class="card card-blog card-plain">
                             <div class="position-relative">
                                 <a class="d-block blur-shadow-image" href="catalogue/{{ book.getId }}>
-                                    <img src="{{ book.getCoverImage }}" alt="{{ book.getTitle }}">
+                                    <img src="{{ book.cover_image }}" alt="{{ book.title }}">
                                 </a>
                             </div>
                             <div class="card-body px-1 pt-3">

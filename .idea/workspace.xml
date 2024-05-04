@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="poner href fe catalgue a landing">
+      <change afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,31 +52,6 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/www/vendor/fig/http-message-util" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/www/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/http-factory" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/http-server-handler" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/http-server-middleware" />
-      <path value="$PROJECT_DIR$/www/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/www/vendor/slim/psr7" />
-      <path value="$PROJECT_DIR$/www/vendor/slim/slim" />
-      <path value="$PROJECT_DIR$/www/vendor/slim/twig-view" />
-      <path value="$PROJECT_DIR$/www/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/www/vendor/nikic/fast-route" />
-      <path value="$PROJECT_DIR$/www/vendor/php-di/invoker" />
-      <path value="$PROJECT_DIR$/www/vendor/php-di/php-di" />
-      <path value="$PROJECT_DIR$/www/vendor/php-di/slim-bridge" />
-      <path value="$PROJECT_DIR$/www/vendor/laravel/serializable-closure" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php80" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php81" />
-      <path value="$PROJECT_DIR$/www/vendor/composer" />
-      <path value="$PROJECT_DIR$/www/vendor/slim/flash" />
-      <path value="$PROJECT_DIR$/www/vendor/symfony/dotenv" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
@@ -79,10 +61,35 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/http-server-middleware" />
+      <path value="$PROJECT_DIR$/www/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/www/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/flash" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/slim" />
       <path value="$PROJECT_DIR$/www/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/www/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/www/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/container" />
       <path value="$PROJECT_DIR$/www/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/www/vendor/fig/http-message-util" />
+      <path value="$PROJECT_DIR$/www/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/www/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/www/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/www/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/twig-view" />
+      <path value="$PROJECT_DIR$/www/vendor/php-di/slim-bridge" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/http-server-handler" />
+      <path value="$PROJECT_DIR$/www/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/www/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/www/vendor/composer" />
+      <path value="$PROJECT_DIR$/www/vendor/slim/psr7" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -96,21 +103,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
@@ -124,6 +131,12 @@
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates\Landing" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
+      <option name="pathToComposerJson" value="$PROJECT_DIR$/www/composer.json" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -472,9 +485,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
-          <line>30</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/www/src/Controller/CatalogueController.php</url>
+          <line>181</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

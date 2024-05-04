@@ -119,7 +119,7 @@ QUERY;
             $data['author'],
             $data['description'],
             (int)$data['page_number'],
-            $data['cover_image'],
+            $data['file'],
             new DateTime(),
             new DateTime()
         );

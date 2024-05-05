@@ -40,6 +40,11 @@ class BookDetailsController
         $bookAverageRating = $this->bookRepository->getAverageRating($bookId);
         $bookReviews = $this->bookRepository->getBookReviews($bookId);
 
+        // para cargar la imagen del libro!
+        if (str_starts_with($book->getCoverImage(), "file_")) {
+            $book->addPathToCoverImage("/uploads/");
+        }
+
         return $this->twig->render($response, 'bookDetails.twig', [
             'book' => $book,
             'rating' => $bookAverageRating,

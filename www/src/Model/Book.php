@@ -99,4 +99,7 @@ final class Book
         return $this->updated_at;
     }
 
+    public function addPathToCoverImage($path) {
+        $this->cover_image = $path . $this->cover_image;
+    }
 }

@@ -36,8 +36,8 @@ class CatalogueController
     // We use this const to define the extensions that we are going to allow
     private const ALLOWED_EXTENSIONS = ['png', 'jpg', 'gif', 'svg'];
     private const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
-
     private const MAX_IMAGE_SIZE = 1048576;
+    private string $customName;
 
     public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController)
     {
@@ -86,18 +86,28 @@ class CatalogueController
     public function handleFormSubmission(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
         $errors = $this->validateForms($data);
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $this->books = $this->bookRepository->fetchAllBooks();
 
         // If there are errors, render the form again with the errors
         if (count($errors) > 0) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             return $this->renderPage($response,$routeParser,$errors);
         }
 
-        $this->checkCorrectFile($response, $request, $errors);
-        // If there are no errors, redirect the user to a different URL
-        $redirectUrl = $routeParser->urlFor("bookCreation");
-        return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+        $fileCorrect = $this->checkCorrectFile($response, $request, $errors);
+
+        if ($data['formType'] == 'fullForm' && $fileCorrect) {
+            $data['cover_image'] = $this->customName;
+            $book = $this->bookRepository->generateBook($data);
+            $this->bookRepository->createBook($book);
+
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            $redirectUrl = $routeParser->urlFor("bookCreation");
+            return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+        }
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        return $this->renderPage($response,$routeParser,$errors);
 
     }
 
@@ -167,41 +177,42 @@ class CatalogueController
                 break;
             case 'fullForm':
                 $errors =  BookCreationChecker::checkCorrectForm($data, $this->bookRepository, $errors);
-                if (empty($errors)) {
-                    $book = $this->bookRepository->generateBook($data);
-                    $this->bookRepository->createBook($book);
-                }
+                //if (empty($errors)) {
+                //    $book = $this->bookRepository->generateBook($data);
+                //    $this->bookRepository->createBook($book);
+                //}
                 break;
         }
         return $errors;
     }
 
-    private function checkCorrectFile($response, $request, $errors)
+    private function checkCorrectFile($response, $request,array &$errors)
     {
 
         $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        if (!$uploadedFiles['file']->getError() == UPLOAD_ERR_NO_FILE) {   // Error del campo error -> 4 -> No se ha subido ningún archivo
+        if (!$uploadedFiles['cover_image']->getError() == UPLOAD_ERR_NO_FILE) {   // Error del campo error -> 4 -> No se ha subido ningún archivo
             // Error en el caso que hayn introducido más de un archivo
             if (count($uploadedFiles) > 1) {
                 $errors['file'] = 'Only one file upload is allowed.';
-                return $this->renderPage($response, $routeParser, $errors);
+                return false;
+
             }
 
             /** @var UploadedFileInterface $uploadedFiles */
-            if ($uploadedFiles['file']->getError() !== UPLOAD_ERR_OK && !empty($uploadedFiles['file'])) {
+            if ($uploadedFiles['cover_image']->getError() !== UPLOAD_ERR_OK && !empty($uploadedFiles['cover_image'])) {
                 $errors['file'] = "An unexpected error occurred uploading the file " . $uploadedFiles->getClientFilename();
-                return $this->renderPage($response, $routeParser, $errors);
+                return false;
             }
 
-            $fileSize = $uploadedFiles['file']->getSize();
+            $fileSize = $uploadedFiles['cover_image']->getSize();
             if ($fileSize > self::MAX_IMAGE_SIZE) {
                 $errors['file'] = "The file size exceeds the maximum allowed size of 1MB";
-                return $this->renderPage($response, $routeParser, $errors);
+                return false;
             }
 
-            $uploadedFile = $uploadedFiles['file'];
+            $uploadedFile = $uploadedFiles['cover_image'];
             $name = $uploadedFile->getClientFilename();  // Get the name of the file, nos el path completo
             $fileInfo = pathinfo($name);  // Get the information of the file
             $format = $fileInfo['extension'];   // Get the extension of the file
@@ -209,20 +220,21 @@ class CatalogueController
             // Error en el caso que el archivo no tenga una extensión válida
             if (!$this->isValidFormat($format)) {
                 $errors['file'] = "The received file extension " . $name . " is not valid";
-                return $this->renderPage($response, $routeParser, $errors);
+                return false;
             }
             if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
                 $errors['file'] = "The received file MIME type is not valid";
-                return $this->renderPage($response, $routeParser, $errors);
+                return false;
             }
 
             //Name regenerated
-            $customName = uniqid('file_') . '.' . $format;
+            $this->customName = uniqid('file_') . '.' . $format;
             // Move the file to the uploads directory
-            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $customName);
-            return $this->renderPage($response, $routeParser, $errors);
+            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->customName);
+            return true;
         }
-        return $this->renderPage($response, $routeParser, $errors);
+        $errors['file'] = 'You must upload a cover image for the book.';
+        return false;
     }
 
     private function isValidFormat(string $extension): bool

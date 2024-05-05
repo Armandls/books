@@ -116,7 +116,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
                     <h3 class="text-center">Crea un nuevo libro</h3>
-                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data">
                         <input type="hidden" name="formType" value="fullForm">
                         <div class="card-body">
                             <div class="row">
@@ -151,7 +151,7 @@
                             <div class="mb-4">
                                 <label>Portada del libro</label>
                                 <div class="input-group">
-                                    <input id="file" name="file" type="file" class="form-control" placeholder="Selecciona un archivo"  accept="image/png, image/jpeg, image/gif, image/svg+xml">
+                                    <input id="cover_image" name="cover_image" type="file" class="form-control" placeholder="Selecciona un archivo"  accept="image/png, image/jpeg, image/gif, image/svg+xml" multiple>
                                 </div>
                                 {% if formErrors['file'] %}
                                     <p>{{ formErrors['file'] }}</p>

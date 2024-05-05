@@ -183,9 +183,10 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="card card-blog card-plain">
                             <div class="position-relative">
-                                <a class="d-block blur-shadow-image" href="catalogue/{{ book.getId }}>
-                                    <img src="{{ book.cover_image }}" alt="{{ book.title }}">
+                                <a class="d-block blur-shadow-image" href="catalogue/{{ book.getId() }}">
+                                    <img src="{{ book.getCoverImage() }}" style="max-width: 200px; max-height: 250px;">
                                 </a>
+
                             </div>
                             <div class="card-body px-1 pt-3">
                                 <a href="catalogue/{{ book.getId }}">
@@ -194,6 +195,9 @@
                                 <p>
                                     {{ book.getDescription }}
                                 </p>
+                                <a href="catalogue/{{ book.getId }}" class="text-info icon-move-right">Read More
+                                    <i class="fas fa-arrow-right text-sm"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

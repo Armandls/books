@@ -29,7 +29,7 @@ class CatalogueController
     private User $user;
     private string $username;
     private string $profile_photo;
-    private $books;
+    private array $books;
 
     private const UPLOADS_DIR = __DIR__ . '/../../public/uploads';
 

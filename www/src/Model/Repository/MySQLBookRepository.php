@@ -87,8 +87,8 @@ QUERY;
     public function fetchAllBooks()
     {
         $query = <<<'QUERY'
-        SELECT * FROM books
-    QUERY;
+    SELECT * FROM books
+QUERY;
 
         $statement = $this->database->connection()->prepare($query);
         $statement->execute();
@@ -96,21 +96,28 @@ QUERY;
         $books = [];
 
         while ($bookData = $statement->fetch(PDO::FETCH_ASSOC)) {
-            $books[] = new Book(
+            // Acortar la descripción a 100 caracteres
+            $truncatedDescription = substr($bookData['description'], 0, 100);
+            $truncatedDescription = $truncatedDescription . "...";
+            // Crear el objeto Book con la descripción truncada
+            $book = new Book(
                 $bookData['id'],
                 $bookData['title'],
                 $bookData['author'],
-                $bookData['description'],
+                $truncatedDescription,
                 $bookData['page_number'],
                 $bookData['cover_image'],
                 new DateTime($bookData['created_at']),
                 new DateTime($bookData['updated_at'])
             );
+
+            $books[] = $book;
         }
 
         return $books;
-
     }
+
+
 
     public function generateBook(array $data): Book
     {

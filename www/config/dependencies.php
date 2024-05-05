@@ -136,9 +136,11 @@ $container = new Container(); // Instancia de la clase Container
             ForumsController::class,  // Nombre de la dependencia -> CatalogueController
             function (ContainerInterface $c) {
                 // Constructor (Twig)
-                return new ForumsController($c->get("view"), $c->get(FlashController::class), $c->get("flash"));
+                return new ForumsController($c->get("view"), $c->get(UserRepository::class),  $c->get(FlashController::class));
             }
         );
+
+
 
 
 

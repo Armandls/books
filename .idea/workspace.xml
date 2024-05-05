@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="ahora si, CatalogueController.php acabado">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )">
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Forum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +115,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
+    "last_opened_file_path": "C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -123,11 +127,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\templates" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\src" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img\books" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
-      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
@@ -172,7 +176,7 @@
       <workItem from="1714721417104" duration="3522000" />
       <workItem from="1714729975325" duration="1489000" />
       <workItem from="1714734603325" duration="980000" />
-      <workItem from="1714921258924" duration="5245000" />
+      <workItem from="1714921258924" duration="8921000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -438,7 +442,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714924560393</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )">
+      <option name="closed" value="true" />
+      <created>1714926631351</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714926631351</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -468,7 +480,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="errores sign-in hecho" />
     <MESSAGE value="Boton de Bookworm" />
     <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
     <MESSAGE value="Especificaciones de las caracteristicasa de la pagina web" />
@@ -493,6 +504,7 @@
     <MESSAGE value="poner href fe catalgue a landing" />
     <MESSAGE value="perdoon se me ha olvidado cambiar de rama :/" />
     <MESSAGE value="ahora si, CatalogueController.php acabado" />
-    <option name="LAST_COMMIT_MESSAGE" value="ahora si, CatalogueController.php acabado" />
+    <MESSAGE value="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )" />
   </component>
 </project>

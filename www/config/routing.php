@@ -45,3 +45,4 @@ $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDe
 $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums')->add(SessionCheckerMiddleware::class);
+$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation')->add(SessionCheckerMiddleware::class);

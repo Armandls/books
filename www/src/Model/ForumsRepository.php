@@ -10,7 +10,7 @@ interface ForumsRepository
 
     public function fetchAllForums();
 
-    public function findForumByID($bookId);
+    public function findForumByID($forumId);
 
     public function generateNewForum(array $data);
 }

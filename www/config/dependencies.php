@@ -13,7 +13,9 @@ use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
 use Project\Bookworm\Controller\UserProfile;
 use Project\Bookworm\Model\BookRepository;
+use Project\Bookworm\Model\ForumsRepository;
 use Project\Bookworm\Model\Repository\MySQLBookRepository;
+use Project\Bookworm\Model\Repository\MySQLForumsRepository;
 use Psr\Container\ContainerInterface;
 use Project\Bookworm\Controller\LandingController;
 use Project\Bookworm\Model\Repository\MySQLUserRepository;
@@ -63,6 +65,10 @@ $container = new Container(); // Instancia de la clase Container
             $container->set(BookRepository::class, function (ContainerInterface $container) {
                 return new MySQLBookRepository($container->get('db'));
             });
+        // 4- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
+        $container->set(ForumsRepository::class, function (ContainerInterface $container) {
+            return new MySQLForumsRepository($container->get('db'));
+        });
 
 
 
@@ -136,7 +142,7 @@ $container = new Container(); // Instancia de la clase Container
             ForumsController::class,  // Nombre de la dependencia -> CatalogueController
             function (ContainerInterface $c) {
                 // Constructor (Twig)
-                return new ForumsController($c->get("view"), $c->get(UserRepository::class),  $c->get(FlashController::class));
+                return new ForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
             }
         );
 

@@ -4,6 +4,7 @@ namespace Project\Bookworm\Model\Repository;
 
 use DateTime;
 use PDO;
+use PDOException;
 use Project\Bookworm\Model\Book;
 use Project\Bookworm\Model\Forum;
 use Project\Bookworm\Model\ForumsRepository;
@@ -20,7 +21,7 @@ class MySQLForumsRepository implements ForumsRepository
     public function createForum(Forum $forum): bool
     {
         $query = <<<'QUERY'
-        INSERT INTO forums (title, description) VALUES (?, ?)
+        INSERT INTO forums (title, description, created_at, updated_at) VALUES (?, ?, ?, ?)
 QUERY;
         try {
             $statement = $this->database->connection()->prepare($query);
@@ -60,8 +61,8 @@ QUERY;
                 $forumData['id'],
                 $forumData['title'],
                 $forumData['description'],
-                $forumData['created_at'],
-                $forumData['updated_at']
+                new DateTime($forumData['created_at']),
+                new DateTime($forumData['updated_at'])
             );
 
             $forums[] = $forum;
@@ -89,7 +90,9 @@ QUERY;
         $forum = new Forum(
             $forumData['id'],
             $forumData['title'],
-            $forumData['description']
+            $forumData['description'],
+            new DateTime($forumData['created_at']),
+            new DateTime($forumData['updated_at'])
         );
 
         return $forum;
@@ -114,7 +117,9 @@ QUERY;
         $forum = new Forum(
             $forumData['id'],
             $forumData['title'],
-            $forumData['description']
+            $forumData['description'],
+            new DateTime($forumData['created_at']),
+            new DateTime($forumData['updated_at'])
         );
 
         return $forum;

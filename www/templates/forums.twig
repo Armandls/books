@@ -85,7 +85,7 @@
                                     <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
                                 </div>
                                 {% if formErrors['title'] %}
-                                    <p>{{ formErrors['title'] }}</p>
+                                    <p style="color: red;">{{ formErrors['title'] }}</p>
                                 {% endif %}
                             </div>
 
@@ -93,7 +93,7 @@
                                 <label>Topic</label>
                                 <textarea id="description" name="description" class="form-control" rows="4" placeholder="Explain your topic here..."></textarea>
                                 {% if formErrors['description'] %}
-                                    <p>{{ formErrors['description'] }}</p>
+                                    <p style="color: red;">{{ formErrors['description'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="row">
@@ -103,6 +103,9 @@
                             </div>
                         </div>
                     </form>
+                    {% if formErrors['forum'] %}
+                        <p style="color: red;">{{ formErrors['forum'] }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -123,18 +126,13 @@
 
                         <div class="col-sm-10 col-9 my-auto">
                             <h5>
-                                <a href="javascript:;" class="text-dark font-weight-bold">#1930 - Brief History of Design</a>
+                                <a href="forums/{{ forum.getId() }}/posts" class="text-dark font-weight-bold">{{ forum.getTitle() }}</a>
                             </h5>
-                            <p class="text-sm">
-                                As we live, our hearts turn colder. Cause pain is what we go
-                                through as we become older. We get insulted by others, lose
-                                trust for those others.
-                            </p>
+                            <p class="text-sm">{{ forum.getDescription() }}</p>
                             <div class="buttons justify-content-center">
-                                <a href="javascript:;" class="btn btn-sm btn-rounded btn-dark btn-icon-only pt-1 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Play episode">
-                                    <i class="fa fa-play"></i>
+                                <a href="forums/{{ forum.getId() }}/posts" class="text-info icon-move-right">Read More
+                                    <i class="fas fa-arrow-right text-sm"></i>
                                 </a>
-                                <span class="font-weight-bold text-sm ms-2">2h 13min</span>
                             </div>
                         </div>
                         <hr class="horizontal dark my-4">

@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="canvis ForumsController.php i ForumsRepository.php">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="get forums acabado. creacion de forums acabado.">
+      <change afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Post.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/PostRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Forum.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Forum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +177,7 @@
       <workItem from="1714721417104" duration="3522000" />
       <workItem from="1714729975325" duration="1489000" />
       <workItem from="1714734603325" duration="980000" />
-      <workItem from="1714921258924" duration="12911000" />
+      <workItem from="1714921258924" duration="14789000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -458,7 +459,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714930328069</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="get forums acabado. creacion de forums acabado.">
+      <option name="closed" value="true" />
+      <created>1714934410691</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1714934410691</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
     <MESSAGE value="Especificaciones de las caracteristicasa de la pagina web" />
     <MESSAGE value="solucionado problema con el username duplicado al crear un nuevo user" />
     <MESSAGE value="campos del user profile" />
@@ -513,6 +521,7 @@
     <MESSAGE value="ahora si, CatalogueController.php acabado" />
     <MESSAGE value="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )" />
     <MESSAGE value="canvis ForumsController.php i ForumsRepository.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="canvis ForumsController.php i ForumsRepository.php" />
+    <MESSAGE value="get forums acabado. creacion de forums acabado." />
+    <option name="LAST_COMMIT_MESSAGE" value="get forums acabado. creacion de forums acabado." />
   </component>
 </project>

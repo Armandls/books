@@ -9,13 +9,16 @@ use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\FlashController;
 use Project\Bookworm\Controller\ForumsController;
+use Project\Bookworm\Controller\PostsController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
 use Project\Bookworm\Controller\UserProfile;
 use Project\Bookworm\Model\BookRepository;
 use Project\Bookworm\Model\ForumsRepository;
+use Project\Bookworm\Model\PostRepository;
 use Project\Bookworm\Model\Repository\MySQLBookRepository;
 use Project\Bookworm\Model\Repository\MySQLForumsRepository;
+use Project\Bookworm\Model\Repository\MySQLPostRepository;
 use Psr\Container\ContainerInterface;
 use Project\Bookworm\Controller\LandingController;
 use Project\Bookworm\Model\Repository\MySQLUserRepository;
@@ -65,9 +68,14 @@ $container = new Container(); // Instancia de la clase Container
             $container->set(BookRepository::class, function (ContainerInterface $container) {
                 return new MySQLBookRepository($container->get('db'));
             });
-        // 4- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
+        // 4- Se añade la instancia de la clase MySQLForumsRepository al contenedor de Slim
         $container->set(ForumsRepository::class, function (ContainerInterface $container) {
             return new MySQLForumsRepository($container->get('db'));
+        });
+
+        // 5- Se añade la instancia de la clase MySQLPostsRepository al contenedor de Slim
+        $container->set(PostRepository::class, function (ContainerInterface $container) {
+            return new MySQLPostRepository($container->get('db'));
         });
 
 
@@ -143,6 +151,15 @@ $container = new Container(); // Instancia de la clase Container
             function (ContainerInterface $c) {
                 // Constructor (Twig)
                 return new ForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
+            }
+        );
+
+        // 8- Se añade PostsController al contenedor de Slim
+        $container->set(
+            PostsController::class,  // Nombre de la dependencia -> CatalogueController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new PostsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(PostRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
             }
         );
 

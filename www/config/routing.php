@@ -6,6 +6,7 @@ declare(strict_types=1);
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\ForumsController;
+use Project\Bookworm\Controller\PostsController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
 use Project\Bookworm\Middleware\SessionCheckerMiddleware;
@@ -46,3 +47,6 @@ $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDet
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums')->add(SessionCheckerMiddleware::class);
 $app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation')->add(SessionCheckerMiddleware::class);
+
+$app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
+

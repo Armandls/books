@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="ahora si, CatalogueController.php acabado">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/catalogue.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/catalogue.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,29 +107,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/arman/OneDrive/Escritorio/PWII/ca2-cryptonews-environment",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\templates" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\src" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img\books" />
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
-      <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public" />
@@ -172,7 +174,8 @@
       <workItem from="1714721417104" duration="3522000" />
       <workItem from="1714729975325" duration="1489000" />
       <workItem from="1714734603325" duration="980000" />
-      <workItem from="1714921258924" duration="5245000" />
+      <workItem from="1714921258924" duration="14988000" />
+      <workItem from="1714991455878" duration="5438000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -438,7 +441,47 @@
       <option name="project" value="LOCAL" />
       <updated>1714924560393</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )">
+      <option name="closed" value="true" />
+      <created>1714926631351</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714926631351</updated>
+    </task>
+    <task id="LOCAL-00035" summary="canvis ForumsController.php i ForumsRepository.php">
+      <option name="closed" value="true" />
+      <created>1714930328069</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1714930328069</updated>
+    </task>
+    <task id="LOCAL-00036" summary="get forums acabado. creacion de forums acabado.">
+      <option name="closed" value="true" />
+      <created>1714934410691</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1714934410691</updated>
+    </task>
+    <task id="LOCAL-00037" summary="comienzo posts">
+      <option name="closed" value="true" />
+      <created>1714936400793</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1714936400793</updated>
+    </task>
+    <task id="LOCAL-00038" summary="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
+      <option name="closed" value="true" />
+      <created>1714994633316</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1714994633316</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -468,11 +511,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="errores sign-in hecho" />
-    <MESSAGE value="Boton de Bookworm" />
-    <MESSAGE value="Editar landingPage segun sdi esta logueado o no" />
-    <MESSAGE value="Especificaciones de las caracteristicasa de la pagina web" />
-    <MESSAGE value="solucionado problema con el username duplicado al crear un nuevo user" />
     <MESSAGE value="campos del user profile" />
     <MESSAGE value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
     <MESSAGE value="comenzar la gestion de la parte de el form" />
@@ -493,6 +531,11 @@
     <MESSAGE value="poner href fe catalgue a landing" />
     <MESSAGE value="perdoon se me ha olvidado cambiar de rama :/" />
     <MESSAGE value="ahora si, CatalogueController.php acabado" />
-    <option name="LAST_COMMIT_MESSAGE" value="ahora si, CatalogueController.php acabado" />
+    <MESSAGE value="cambio en estilos de catalogue (carga la imagen por fin y ofrec un link ;) )" />
+    <MESSAGE value="canvis ForumsController.php i ForumsRepository.php" />
+    <MESSAGE value="get forums acabado. creacion de forums acabado." />
+    <MESSAGE value="comienzo posts" />
+    <MESSAGE value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
   </component>
 </project>

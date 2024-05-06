@@ -27,7 +27,7 @@ class MySQLPostRepository implements PostRepository
         $statement->bindParam(1, $forum_id, PDO::PARAM_INT);
         $statement->execute();
 
-        $forumData = $statement->fetch(PDO::FETCH_ASSOC);
+        $forumData = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$forumData) {
             return null; // No se encontró ningún foro con ese ID
@@ -35,21 +35,22 @@ class MySQLPostRepository implements PostRepository
 
         $posts = [];
 
-        while ($forumData = $statement->fetch(PDO::FETCH_ASSOC)) {
+        foreach ($forumData as $data) {
             $post = new Post(
-                $forumData['id'],
-                $forumData['user_id'],
-                $forumData['forum_id'],
-                $forumData['title'],
-                $forumData['contents'],
-                new DateTime($forumData['created_at']),
-                new DateTime($forumData['updated_at'])
+                $data['id'],
+                $data['user_id'],
+                $data['forum_id'],
+                $data['title'],
+                $data['contents'],
+                new DateTime($data['created_at']),
+                new DateTime($data['updated_at'])
             );
 
             $posts[] = $post;
         }
 
         return $posts;
+
     }
 
     public function createPost(Post $post): bool

@@ -49,6 +49,11 @@ class Post
         return $this->updated_at;
     }
 
+    public function getUpdatedAtToString(): string
+    {
+        return $this->updated_at->format('Y-m-d H:i:s');
+    }
+
     /**
      * @return string
      */
@@ -87,5 +92,14 @@ class Post
     public function getUserId(): int
     {
         return $this->user_id;
+    }
+
+    public function getUserImage(): string
+    {
+        return "";
+    }
+    public function getUserName(): string
+    {
+        return "";
     }
 }

@@ -110,13 +110,13 @@
             </div>
         </div>
     </section>
-    <!-- -------- START Features w/ title and 3 infos -------- -->
-    <!-- -------- START CONTENT 14 w/ image cards and sticky content ------- -->
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
     <section class="py-7">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ms-auto me-auto">
+
+                    {% for post in posts %}
                     <div>
                         <h4 class="text-center mb-5">3 Comments</h4>
                         <div class="d-flex">
@@ -124,17 +124,15 @@
                                 <a href="javascript:;">
                                     <div class="position-relative">
                                         <div class="blur-shadow-avatar">
-                                            <img class="avatar rounded-circle" src="../../assets/img/team-3.jpg" alt="...">
+                                            <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="ms-3">
-                                <h6>Tina Andrew <span class="text-muted text-xs">· 7 minutes ago</span></h6>
-
-                                <p>Chance too good. God level bars. I&#39;m so proud of @LifeOfDesiigner #1 song in the country. Panda! Don&#39;t be scared of the truth because we need to restart the human foundation in truth I stand with the most humility. We are so blessed!</p>
-                                <p>All praises and blessings to the families of people who never gave up on dreams. Don&#39;t forget, You&#39;re Awesome!</p>
-
+                                <h6>{{ post.getUserName() }}<span class="text-muted text-xs">{{ post.getUpdatedAtToString() }}</span></h6>
+                                <h5>{{ post.getTitle() }}</h5>
+                                <p>{{ post.getContents() }}</p>
                                 <div class="ms-auto text-end">
                                     <a href="javascript:;" class="btn text-dark px-2 btn-link" rel="tooltip" title="" data-original-title="Reply to Comment">
                                         <i class="fa fa-reply"></i> Reply
@@ -145,65 +143,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="d-flex">
-                            <div>
-                                <a href="javascript:;">
-                                    <div class="position-relative">
-                                        <div class="blur-shadow-avatar">
-                                            <img class="avatar rounded-circle" src="../../assets/img/team-4.jpg" alt="...">
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="ms-3">
-                                <h6>John Camber <span class="text-muted text-xs">· Yesterday</span></h6>
-
-                                <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
-                                <p>Don&#39;t forget, You&#39;re awesome!</p>
-
-                                <div class="ms-auto text-end">
-                                    <a href="javascript:;" class="btn text-dark px-2 btn-link" rel="tooltip" title="" data-original-title="Reply to Comment">
-                                        <i class="fa fa-reply"></i> Reply
-                                    </a>
-                                    <a href="javascript:;" class="btn text-danger px-2 btn-link">
-                                        <i class="fas fa-heart"></i> 25
-                                    </a>
-                                </div>
-
-                                <div class="d-flex">
-                                    <div>
-                                        <a href="javascript:;">
-                                            <div class="position-relative">
-                                                <div class="blur-shadow-avatar">
-                                                    <img class="avatar rounded-circle" src="../../assets/img/team-2.jpg" alt="...">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h6>Tina Andrew <span class="text-muted text-xs">· 2 minutes ago</span></h6>
-
-                                        <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
-                                        <p>Don&#39;t forget, You&#39;re awesome!</p>
-
-                                        <div class="ms-auto text-end">
-                                            <a href="javascript:;" class="btn text-dark px-2 btn-link" rel="tooltip" title="" data-original-title="Reply to Comment">
-                                                <i class="fa fa-reply"></i> Reply
-                                            </a>
-                                            <a href="javascript:;" class="btn text-danger px-2 btn-link">
-                                                <i class="fas fa-heart"></i> 12
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
                     </div>
+                    {% endfor %}
                     <h4 class="text-center mb-4 mt-5">Post your comment</h4>
                     <div class="d-flex">
                         <div>

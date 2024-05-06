@@ -25,33 +25,34 @@ class PostsController
     private PostRepository $postRepository;
     private ForumsRepository $forumsRepository;
     private FlashController $flashController;
-    private $client;
     private User $user;
     private string $username;
     private string $profile_photo;
+    private int $forum_id;
 
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository, PostRepository $postRepository,UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
-        $this->client = new Client();
 
         $this->forumsRepository = $forumsRepository;
         $this->postRepository = $postRepository;
         $this->userRepository = $userRepository;
 
         $this->flashController = $flashController;
+
         $this->profile_photo = "";
         $this->username = "unknown";
     }
 
-    public function showCurrentForums(Request $request, Response $response): Response
+    public function showPosts(Request $request, Response $response, array $args): Response
     {
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $errors = [];
-        $forums = $this->forumsRepository->fetchAllForums();
+        $this->forum_id = $args['id'];
+        $posts = $this->postRepository->getForumPosts($this->forum_id);
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+        return $this->renderPage($response, $routeParser, $errors, $posts);
     }
 
     public function createNewForum(Request $request, Response $response): Response
@@ -64,13 +65,13 @@ class PostsController
         return $this->renderPage($response, $routeParser, $errors, $forums);
     }
 
-    private function renderPage($response, $routeParser, $errors, $forums)
+    private function renderPage($response, $routeParser, $errors, $posts)
     {
-        return $this->twig->render($response, 'forums.twig',  [
-            'formAction' => $routeParser->urlFor("forums"),
+        return $this->twig->render($response, 'posts.twig',  [
+            'formAction' => $routeParser->urlFor("forumPosts", ['id' => $this->forum_id]),
             'formMethod' => "POST",
             'formErrors' => $errors,
-            'forums' => $forums,
+            'posts' => $posts,
             'session' => $_SESSION['email'] ?? [],
             'photo' => $this->profile_photo
         ]);

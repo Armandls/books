@@ -13,6 +13,7 @@ class Post
     private string $contents;
     private DateTime $created_at;
     private DateTime $updated_at;
+    private User $user;
 
     public function __construct(
         int $id,
@@ -31,6 +32,10 @@ class Post
         $this->contents = $contents;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
+    }
+
+    public function setUser(User $user) {
+        $this->user = $user;
     }
 
     /**
@@ -96,10 +101,10 @@ class Post
 
     public function getUserImage(): string
     {
-        return "";
+        return $this->user->profile_picture();
     }
     public function getUserName(): string
     {
-        return "";
+        return $this->user->username();
     }
 }

@@ -71,98 +71,79 @@
         </div>
     </header>
     <!-- End Imagen de fondo -->
-    <section>
-        <div class="container py-4">
-            <div class="row">
-                <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
-                    <h3 class="text-center">Create a new discussion</h3>
-                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
-                        <input type="hidden" name="formType" value="fullForm">
-                        <div class="card-body">
-                            <div class="mb-4">
-                                <label>Title of the discussion</label>
-                                <div class="input-group mb-4">
-                                    <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
-                                </div>
-                                {% if formErrors['title'] %}
-                                    <p style="color: red;">{{ formErrors['title'] }}</p>
-                                {% endif %}
-                            </div>
-
-                            <div class="form-group mb-4">
-                                <label>Topic</label>
-                                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Explain your topic here..."></textarea>
-                                {% if formErrors['description'] %}
-                                    <p style="color: red;">{{ formErrors['description'] }}</p>
-                                {% endif %}
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn bg-gradient-dark w-100">Create</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    {% if formErrors['forum'] %}
-                        <p style="color: red;">{{ formErrors['forum'] }}</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
     <section class="py-7">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ms-auto me-auto">
-
-                    {% for post in posts %}
                     <div>
-                        <h4 class="text-center mb-5">3 Comments</h4>
+                        {% if posts|length > 1 %}
+                            <h4 class="text-center mb-5">{{ posts|length }} Comments</h4>
+                        {% elseif posts|length == 1 %}
+                            <h4 class="text-center mb-5">{{ posts|length }} Comment</h4>
+                        {% else %}
+                            <h4 class="text-center mb-5">No Comments yet...</h4>
+                        {% endif %}
+                        {% for post in posts %}
                         <div class="d-flex">
                             <div>
-                                <a href="javascript:;">
-                                    <div class="position-relative">
-                                        <div class="blur-shadow-avatar">
-                                            <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
-                                        </div>
+                                <div class="position-relative">
+                                    <div class="blur-shadow-avatar">
+                                        <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
                                     </div>
-                                </a>
-                            </div>
-                            <div class="ms-3">
-                                <h6>{{ post.getUserName() }}<span class="text-muted text-xs">{{ post.getUpdatedAtToString() }}</span></h6>
-                                <h5>{{ post.getTitle() }}</h5>
-                                <p>{{ post.getContents() }}</p>
-                                <div class="ms-auto text-end">
-                                    <a href="javascript:;" class="btn text-dark px-2 btn-link" rel="tooltip" title="" data-original-title="Reply to Comment">
-                                        <i class="fa fa-reply"></i> Reply
-                                    </a>
-                                    <a href="javascript:;" class="btn text-danger px-2 btn-link">
-                                        <i class="fas fa-heart"></i> 243
-                                    </a>
                                 </div>
                             </div>
+                            <div class="ms-3">
+                                <h6>{{ post.getUserName() }} <span class="text-muted text-xs"> {{ post.getUpdatedAtToString() }}</span></h6>
+                                <h5>{{ post.getTitle() }}</h5>
+                                <p>{{ post.getContents() }}</p>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+
                     <h4 class="text-center mb-4 mt-5">Post your comment</h4>
                     <div class="d-flex">
                         <div>
-                            <a class="author" href="javascript:;">
+                            <a class="author" href="/profile">
                                 <div class="position-relative">
                                     <div class="blur-shadow-avatar">
-                                        <img class="avatar rounded-circle" alt="64x64" src="../../assets/img/team-2.jpg">
+                                        <img class="avatar rounded-circle" alt="64x64" src="../../{{ photo }}">
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="ms-3 w-100">
-                            <textarea class="form-control" placeholder="Write a nice reply or go home..." rows="4"></textarea>
-                            <div>
-                                <a href="javascript:;" class="btn bg-gradient-primary pull-end mt-2">
-                                    <i class="fa fa-send me-2"></i> Reply
-                                </a>
-                            </div>
+                            <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                                <input type="hidden" name="formType" value="fullForm">
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label>Title of the discussion</label>
+                                        <div class="input-group mb-4">
+                                            <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
+                                        </div>
+                                        {% if formErrors['title'] %}
+                                            <p style="color: red;">{{ formErrors['title'] }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label>Topic</label>
+                                        <textarea id="description" name="description" class="form-control" placeholder="Write a nice reply or go home..." rows="4"></textarea>
+
+                                        {% if formErrors['description'] %}
+                                            <p style="color: red;">{{ formErrors['description'] }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn bg-gradient-primary pull-end mt-2">
+                                                <i class="fa fa-send me-2"></i> Reply
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div> <!-- end media-post -->
                 </div>

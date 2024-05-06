@@ -12,9 +12,11 @@ interface UserRepository
 
     public function findByEmail(string $email): ?User;
 
-    public function findByUsername(string $email): ?User;
+    public function findByUsername(string $username): ?User;
 
     public function updateProfilePicture(string $email, string $string): void;
 
     public function updateUsername(string $email, string $username): void;
+
+    public function findById(int $user_id): ?User;
 }

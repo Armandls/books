@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="comienzo posts">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Model/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/UserRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +175,7 @@
       <workItem from="1714729975325" duration="1489000" />
       <workItem from="1714734603325" duration="980000" />
       <workItem from="1714921258924" duration="14988000" />
-      <workItem from="1714991455878" duration="3067000" />
+      <workItem from="1714991455878" duration="5438000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -472,7 +473,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714936400793</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
+      <option name="closed" value="true" />
+      <created>1714994633316</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1714994633316</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +511,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="solucionado problema con el username duplicado al crear un nuevo user" />
     <MESSAGE value="campos del user profile" />
     <MESSAGE value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
     <MESSAGE value="comenzar la gestion de la parte de el form" />
@@ -527,6 +535,7 @@
     <MESSAGE value="canvis ForumsController.php i ForumsRepository.php" />
     <MESSAGE value="get forums acabado. creacion de forums acabado." />
     <MESSAGE value="comienzo posts" />
-    <option name="LAST_COMMIT_MESSAGE" value="comienzo posts" />
+    <MESSAGE value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
   </component>
 </project>

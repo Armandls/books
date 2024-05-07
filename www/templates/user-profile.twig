@@ -1,0 +1,100 @@
+{% extends "baseUser-Profile.twig" %}
+
+{% block title %}User Profile Page{% endblock %}
+
+{% block content %}
+    <div class="container position-sticky z-index-sticky top-0">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                    <div class="container-fluid px-0">
+                        <a href="/" class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+                            Bookworm
+                        </a>
+                        <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
+                        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon mt-2">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </span>
+                        </button>
+                        <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
+                            <ul class="navbar-nav navbar-nav-hover mx-auto">
+                                <!-- Pages Account Blocks Docs -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav d-lg-block d-none">
+                                <li class="nav-item">
+                                    <a class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Hi {{ username }}!</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="page-header min-vh-75">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-12 px-5 d-flex flex-column">
+                        <div class="card card-plain mt-8">
+                            <div class="card-header pb-0 text-left">
+                                <h3 class="text-info text-gradient">User Profile</h3>
+                                <p class="mb-0">You will receive an e-mail in maximum 60 seconds</p>
+                                {% if flash is not empty %}
+                                <div>
+                                    {% for message in flash %}
+                                        <p data-cy="sign-in__message" style="color: red;">{{ message }}</p>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body pb-3">
+                                <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data" accept-charset="utf-8">
+                                    <label>Email</label>
+                                    <div class="mb-3">
+                                        <input readonly value="{{ email }}" id="email" name="email" type="email" class="form-control" aria-label="Email">
+                                        {% if formErrors.email %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.email }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <label>Username</label>
+                                    <div class="mb-3">
+                                        <input id="username" name="username" data-cy="profile__username" type="text" class="form-control" value="{{ username }}" aria-label="Username">
+                                        {% if formErrors.username %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.username }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <label>Profile Picture</label>
+                                    <div class="mb-3">
+                                        <input id="file" name="file" data-cy="profile__picture" type="file" class="form-control" accept="image/png, image/jpeg, image/gif, image/svg+xml" multiple>
+                                        {% if formErrors.file %}
+                                            <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.file }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="text-center">
+                                        <button data-cy="profile__btn" type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Change Credentials</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
+                            <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('../../assets/img/curved-images/curved14.jpg')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

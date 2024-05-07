@@ -22,7 +22,9 @@
     "ext-json": "*",
     "php-di/php-di": "^7.0",
     "slim/flash": "^0.4.0",
-    "symfony/dotenv": "^7.0"
+    "symfony/dotenv": "^7.0",
+    "guzzlehttp/guzzle": "^7.8"
+
   }
 
 }

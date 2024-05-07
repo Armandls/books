@@ -1,0 +1,151 @@
+{% extends "baseLanding.twig" %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block content %}
+    <div class="container position-sticky z-index-sticky top-0">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                    <div class="container-fluid px-0">
+                        <a href="/" class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+                            Bookworm
+                        </a>
+                        <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
+                        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon mt-2">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </span>
+                        </button>
+                        <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
+                            <ul class="navbar-nav navbar-nav-hover mx-auto">
+                                <!-- Pages Account Blocks Docs -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/profile" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">User Profile</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav d-lg-block d-none">
+                                <li class="nav-item">
+                                    <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Hi! :)</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
+            </div>
+        </div>
+    </div>
+    <!-- Imagen de fondo -->
+    <header class="header-2">
+        <div class="page-header min-vh-35 relative" style="background-image: url('/assets/img/curved-images/curved2.jpg')">
+            <span class="mask bg-gradient-primary"></span>
+            <div class="position-absolute w-100 z-index-1 bottom-0">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="moving-waves">
+                        <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+                        <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+                        <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+                        <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </header>
+    <!-- End Imagen de fondo -->
+    <!-- End Seccion de estadisticas -->
+    <!-- START Section Show Book Details-->
+    <section class="py-7">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
+                    <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
+                        <img src="{{ book.getCoverImage }}" class="w-100 border-radius-xl mt-6 ms-5 position-absolute"  style="max-width: 500px; max-height: 720px;">
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 ms-auto order-1 order-md-1 order-lg-1">
+                    <div class="p-3 pt-0">
+                        <h4 class="text-gradient text-info mb-0">Book details</h4>
+
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h4 class="mb-4">Title: </h4>
+                                <p>{{ book.getTitle }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <h4 class="mb-4">Author: </h4>
+                                <p>{{ book.getAuthor }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <h4 class="text-gradient text-info mb-0">Advanced information: </h4>
+                                <ul class="list-group-flush">
+                                    <li class="list-group-item-white">
+                                        <h6>Number of pages:</h6>
+                                        <p>{{ book.getPageNumber }}</p>
+                                    </li>
+                                    <li class="list-group-item-white">
+                                        <h6>Creation date:</h6>
+                                        <p>{{ book.getCreatedAt|date("Y-m-d H:i:s") }}</p>
+                                    </li>
+                                    <li class="list-group-item-white">
+                                        <h6>Last update:</h6>
+                                        <p>{{ book.getUpdatedAt|date("Y-m-d H:i:s") }}</p>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <h4 class="p">Description: </h4>
+                                <p>{{ book.getDescription }}</p>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="py-7">
+        <div class="container">
+            <div class="row">
+                <div class="rating-stars">
+                    <input type="radio" name="rating" id="rs0" checked ><label for="rs0"></label>
+                    <input type="radio" name="rating" id="rs1"><label for="rs1"></label>
+                    <input type="radio" name="rating" id="rs2"><label for="rs2"></label>
+                    <input type="radio" name="rating" id="rs3"><label for="rs3"></label>
+                    <input type="radio" name="rating" id="rs4"><label for="rs4"></label>
+                    <input type="radio" name="rating" id="rs5"><label for="rs5"></label>
+                    <span class="rating-counter"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% if reviews is not empty %}
+                <h3>Book reviews</h3>
+            {% endif %}
+            {% for review in reviews %}
+                <p>review</p>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- END Section Content -->
+
+
+    <!-- End Seccion de caracteristicas -->
+{% endblock %}

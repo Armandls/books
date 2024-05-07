@@ -1,0 +1,154 @@
+{% extends "baseLanding.twig" %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block content %}
+    <div class="container position-sticky z-index-sticky top-0">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                    <div class="container-fluid px-0">
+                        <a href="/" class="navbar-brand font-weight-bolder ms-sm-3" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+                            Bookworm
+                        </a>
+                        <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
+                        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+                        </button>
+                        <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
+                            <ul class="navbar-nav navbar-nav-hover mx-auto">
+                                <!-- Pages Account Blocks Docs -->
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/catalogue" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav d-lg-block d-none">
+                                {% if session %}
+                                    <li class="nav-item">
+                                        <a href="/profile"  onclick="smoothToPricing('pricing-soft-ui')">
+                                            <img class="avatar avatar-sm avatar-scale-up shadow border-radius-lg border-0 active" src='{{ photo }}' alt="Profile Photo">
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a href="/sign-in" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign In</a>
+                                        <a href="/sign-up" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign Up</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
+            </div>
+        </div>
+    </div>
+    <!-- Imagen de fondo -->
+    <header class="header-2">
+        <div class="page-header min-vh-35 relative" style="background-image: url('/assets/img/curved-images/curved2.jpg')">
+            <span class="mask bg-gradient-primary"></span>
+            <div class="position-absolute w-100 z-index-1 bottom-0">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="moving-waves">
+                        <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+                        <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+                        <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+                        <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </header>
+    <!-- End Imagen de fondo -->
+    <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
+    <section class="py-7">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ms-auto me-auto">
+                    <div>
+                        {% if posts|length > 1 %}
+                            <h4 class="text-center mb-5">{{ posts|length }} Comments</h4>
+                        {% elseif posts|length == 1 %}
+                            <h4 class="text-center mb-5">{{ posts|length }} Comment</h4>
+                        {% else %}
+                            <h4 class="text-center mb-5">No Comments yet...</h4>
+                        {% endif %}
+                        {% for post in posts %}
+                        <div class="d-flex">
+                            <div>
+                                <div class="position-relative">
+                                    <div class="blur-shadow-avatar">
+                                        <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <h6>{{ post.getUserName() }} <span class="text-muted text-xs"> {{ post.getUpdatedAtToString() }}</span></h6>
+                                <h5>{{ post.getTitle() }}</h5>
+                                <p>{{ post.getContents() }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <h4 class="text-center mb-4 mt-5">Post your comment</h4>
+                    <div class="d-flex">
+                        <div>
+                            <a class="author" href="/profile">
+                                <div class="position-relative">
+                                    <div class="blur-shadow-avatar">
+                                        <img class="avatar rounded-circle" alt="64x64" src="../../{{ photo }}">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="ms-3 w-100">
+                            <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                                <input type="hidden" name="formType" value="fullForm">
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label>Title of the discussion</label>
+                                        <div class="input-group mb-4">
+                                            <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
+                                        </div>
+                                        {% if formErrors['title'] %}
+                                            <p style="color: red;">{{ formErrors['title'] }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label>Topic</label>
+                                        <textarea id="description" name="description" class="form-control" placeholder="Write a nice reply or go home..." rows="4"></textarea>
+
+                                        {% if formErrors['description'] %}
+                                            <p style="color: red;">{{ formErrors['description'] }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn bg-gradient-primary pull-end mt-2">
+                                                <i class="fa fa-send me-2"></i> Reply
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> <!-- end media-post -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

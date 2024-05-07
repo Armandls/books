@@ -2,11 +2,11 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/www/src" isTestSource="false" packagePrefix="Project\Bookworm\" />
+      <sourceFolder url="file://$MODULE_DIR$/www/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/www/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/www/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/www/src" isTestSource="false" packagePrefix="Project\Bookworm\" />
-      <sourceFolder url="file://$MODULE_DIR$/www/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/fig/http-message-util" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/laravel/serializable-closure" />
@@ -32,6 +32,10 @@
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/slim/flash" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/symfony/dotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/www/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/www/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/www/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/www/vendor/psr/http-client" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

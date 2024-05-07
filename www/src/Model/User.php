@@ -11,8 +11,8 @@ final class User
     private int $id;
     private string $email;
     private string $password;
-    private string $username;
-    private string $profile_picture;
+    private ?string $username;
+    private ?string $profile_picture;
     private DateTime $created_at;
     private DateTime $updated_at;
 
@@ -20,8 +20,8 @@ final class User
         int $id,
         string $email,
         string $password,
-        string $username,
-        string $profile_picture,
+        ?string $username,
+        ?string $profile_picture,
         DateTime $created_at,
         DateTime $updated_at
     ) {
@@ -55,12 +55,12 @@ final class User
         return $this->password;
     }
 
-    public function username(): string
+    public function username(): ?string
     {
         return $this->username;
     }
 
-    public function profile_picture(): string
+    public function profile_picture(): ?string
     {
         return $this->profile_picture;
     }
@@ -74,4 +74,6 @@ final class User
     {
         return $this->updated_at;
     }
+
+
 }

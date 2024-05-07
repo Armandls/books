@@ -5,11 +5,20 @@
 declare(strict_types=1);
 
 use DI\Container;
+use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
+use Project\Bookworm\Controller\FlashController;
+use Project\Bookworm\Controller\ForumsController;
+use Project\Bookworm\Controller\PostsController;
 use Project\Bookworm\Controller\SignInController;
 use Project\Bookworm\Controller\SignUpController;
+use Project\Bookworm\Controller\UserProfile;
 use Project\Bookworm\Model\BookRepository;
+use Project\Bookworm\Model\ForumsRepository;
+use Project\Bookworm\Model\PostRepository;
 use Project\Bookworm\Model\Repository\MySQLBookRepository;
+use Project\Bookworm\Model\Repository\MySQLForumsRepository;
+use Project\Bookworm\Model\Repository\MySQLPostRepository;
 use Psr\Container\ContainerInterface;
 use Project\Bookworm\Controller\LandingController;
 use Project\Bookworm\Model\Repository\MySQLUserRepository;
@@ -50,29 +59,48 @@ $container = new Container(); // Instancia de la clase Container
                 );
             });
 
-            // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
+        // 2- Se añade la instancia de la clase MySQLUserRepository al contenedor de Slim
             $container->set(UserRepository::class, function (ContainerInterface $container) {
                 return new MySQLUserRepository($container->get('db'));
             });
 
-            // 3- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
+        // 3- Se añade la instancia de la clase MySQLBookRepository al contenedor de Slim
             $container->set(BookRepository::class, function (ContainerInterface $container) {
                 return new MySQLBookRepository($container->get('db'));
             });
+        // 4- Se añade la instancia de la clase MySQLForumsRepository al contenedor de Slim
+        $container->set(ForumsRepository::class, function (ContainerInterface $container) {
+            return new MySQLForumsRepository($container->get('db'));
+        });
+
+        // 5- Se añade la instancia de la clase MySQLPostsRepository al contenedor de Slim
+        $container->set(PostRepository::class, function (ContainerInterface $container) {
+            return new MySQLPostRepository($container->get('db'));
+        });
 
 
 
     //CONTROLLERS
-        // 1- Se añade la instancia de la clase LandingController al contenedor de Slim
+
+        // 1- Se añade FlashController al contenedor de Slim
+        $container->set(
+            FlashController::class,  // Nombre de la dependencia -> CookieMonsterController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new FlashController($c->get("view"), $c->get("flash"));
+            }
+        );
+
+        // 2- Se añade la instancia de la clase LandingController al contenedor de Slim
             $container->set(
                 LandingController::class,  // Nombre de la dependencia -> LandingController
                 function (ContainerInterface $c) {
-                    $controller = new LandingController($c->get("view"));  // Constructor (Twig)
+                    $controller = new LandingController($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class));  // Constructor (Twig)
                     return $controller;
                 }
             );
 
-        // 2- Se añade SignUpController al contenedor de Slim
+        // 3- Se añade SignUpController al contenedor de Slim
             $container->set(
                 SignUpController::class,  // Nombre de la dependencia -> CookieMonsterController
                 function (ContainerInterface $c) {
@@ -81,7 +109,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-            // 3- Se añade SignInController al contenedor de Slim
+        // 4- Se añade SignInController al contenedor de Slim
             $container->set(
                 SignInController::class,  // Nombre de la dependencia -> CookieMonsterController
                 function (ContainerInterface $c) {
@@ -89,14 +117,55 @@ $container = new Container(); // Instancia de la clase Container
                     return new SignInController($c->get("view"), $c->get(UserRepository::class), $c->get("flash"));
                 }
             );
-            // 4- Se añade CatalogueController al contenedor de Slim
+
+        // 5- Se añade CatalogueController al contenedor de Slim
             $container->set(
                 CatalogueController::class,  // Nombre de la dependencia -> CatalogueController
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
-                    return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
+                    return new CatalogueController($c->get("view"), $c->get(BookRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
                 }
             );
+
+            // Se añade BookDetailsController al contenedor de Slim
+            $container->set(
+                BookDetailsController::class,
+                function (ContainerInterface $c) {
+                    // Constructor (Twig, BookRepository, Messages)
+                    return new BookDetailsController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
+                }
+            );
+
+        // 6- Se añade UserProfile al contenedor de Slim
+            $container->set(
+                UserProfile::class,  // Nombre de la dependencia -> CatalogueController
+                function (ContainerInterface $c) {
+                    // Constructor (Twig)
+                    return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class), $c->get("flash"));
+                }
+            );
+
+        // 7- Se añade ForumsController al contenedor de Slim
+        $container->set(
+            ForumsController::class,  // Nombre de la dependencia -> CatalogueController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new ForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
+            }
+        );
+
+        // 8- Se añade PostsController al contenedor de Slim
+        $container->set(
+            PostsController::class,  // Nombre de la dependencia -> CatalogueController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new PostsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(PostRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
+            }
+        );
+
+
+
+
 
 
 

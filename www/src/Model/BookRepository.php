@@ -18,9 +18,9 @@ interface BookRepository
 
     public function findBookById($bookId);
 
-    public function getAverageRating($bookId);
+    //public function getAverageRating($bookId);
 
-    public function getBookReviews($bookId);
+    //public function getBookReviews($bookId);
 
     public function countRaiting($bookId);
 

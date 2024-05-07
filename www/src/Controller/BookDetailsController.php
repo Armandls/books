@@ -37,8 +37,10 @@ class BookDetailsController
             return $response->withStatus(404);
         }
 
-        $bookAverageRating = $this->bookRepository->getAverageRating($bookId);
-        $bookReviews = $this->bookRepository->getBookReviews($bookId);
+
+        $numberOfReviews = $this->bookRepository->countReviews($bookId);
+        $averageRating = $this->bookRepository->averageRating($bookId);
+
 
         // para cargar la imagen del libro!
         if (str_starts_with($book->getCoverImage(), "file_")) {
@@ -47,8 +49,8 @@ class BookDetailsController
 
         return $this->twig->render($response, 'bookDetails.twig', [
             'book' => $book,
-            'rating' => $bookAverageRating,
-            'reviews' => $bookReviews,
+            'rating' => $numberOfReviews,
+            'reviews' => $averageRating,
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),

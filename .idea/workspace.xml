@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="parte de vista añadida">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="arreglo descripcion de añadir nuevo libro via ISBN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +134,24 @@
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="specificationPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources\swagger.json" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -175,6 +191,9 @@
       <workItem from="1714734603325" duration="980000" />
       <workItem from="1714921258924" duration="14988000" />
       <workItem from="1714991455878" duration="5438000" />
+      <workItem from="1715008815578" duration="108000" />
+      <workItem from="1715075977609" duration="5986000" />
+      <workItem from="1715085493577" duration="9822000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -480,55 +499,31 @@
       <option name="project" value="LOCAL" />
       <updated>1714994633316</updated>
     </task>
-    <task id="LOCAL-00039" summary="añadidas las funciones de obtener ratings y reviews">
+    <task id="LOCAL-00039" summary="arreglo bug crear libro por ISBN">
       <option name="closed" value="true" />
-      <created>1715089109937</created>
+      <created>1715078223064</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1715089109937</updated>
+      <updated>1715078223064</updated>
     </task>
-    <task id="LOCAL-00040" summary="vista de boock details actualizada">
+    <task id="LOCAL-00040" summary="arreglo nav bar de catalogue y bookdetails">
       <option name="closed" value="true" />
-      <created>1715089163091</created>
+      <created>1715080480721</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1715089163091</updated>
+      <updated>1715080480721</updated>
     </task>
-    <task id="LOCAL-00041" summary="boock details controller actualizadp">
+    <task id="LOCAL-00041" summary="arreglo descripcion de añadir nuevo libro via ISBN">
       <option name="closed" value="true" />
-      <created>1715089251025</created>
+      <created>1715086713273</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1715089251025</updated>
+      <updated>1715086713273</updated>
     </task>
-    <task id="LOCAL-00042" summary="funcion showBookReviews">
-      <option name="closed" value="true" />
-      <created>1715089740501</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1715089740501</updated>
-    </task>
-    <task id="LOCAL-00043" summary="funcion getBookReviews añadida">
-      <option name="closed" value="true" />
-      <created>1715090519126</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1715090519126</updated>
-    </task>
-    <task id="LOCAL-00044" summary="parte de vista añadida">
-      <option name="closed" value="true" />
-      <created>1715090649987</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1715090649987</updated>
-    </task>
-    <option name="localTasksCounter" value="45" />
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,6 +553,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="grstion de cambiar el nombre del fichero introducid en user prodfile" />
+    <MESSAGE value="cambiar el register por lo de null tanto username como profile_photo" />
+    <MESSAGE value="poner la nav bar a sign in y sign up sin las opciones de sign in y sign up" />
     <MESSAGE value="cambios en la nav bar" />
     <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
@@ -577,12 +575,9 @@
     <MESSAGE value="get forums acabado. creacion de forums acabado." />
     <MESSAGE value="comienzo posts" />
     <MESSAGE value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
-    <MESSAGE value="añadidas las funciones de obtener ratings y reviews" />
-    <MESSAGE value="vista de boock details actualizada" />
-    <MESSAGE value="boock details controller actualizadp" />
-    <MESSAGE value="funcion showBookReviews" />
-    <MESSAGE value="funcion getBookReviews añadida" />
-    <MESSAGE value="parte de vista añadida" />
-    <option name="LAST_COMMIT_MESSAGE" value="parte de vista añadida" />
+    <MESSAGE value="arreglo bug crear libro por ISBN" />
+    <MESSAGE value="arreglo nav bar de catalogue y bookdetails" />
+    <MESSAGE value="arreglo descripcion de añadir nuevo libro via ISBN" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglo descripcion de añadir nuevo libro via ISBN" />
   </component>
 </project>

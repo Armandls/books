@@ -1,6 +1,6 @@
 {% extends "baseLanding.twig" %}
 
-{% block title %}Catalogue{% endblock %}
+{% block title %}Book details{% endblock %}
 
 {% block content %}
     <div class="container position-sticky z-index-sticky top-0">
@@ -13,20 +13,15 @@
                         </a>
                         <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Profile</a>
                         <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon mt-2">
-            <span class="navbar-toggler-bar bar1"></span>
-            <span class="navbar-toggler-bar bar2"></span>
-            <span class="navbar-toggler-bar bar3"></span>
-          </span>
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
                                 <!-- Pages Account Blocks Docs -->
-                                <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a href="/profile" class="dropdown-item border-radius-md">
-                                        <span class="ps-3">User Profile</span>
-                                    </a>
-                                </li>
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a href="/catalogue" class="dropdown-item border-radius-md">
                                         <span class="ps-3">Catalogue</span>
@@ -34,9 +29,18 @@
                                 </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
-                                <li class="nav-item">
-                                    <a class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Hi! :)</a>
-                                </li>
+                                {% if session %}
+                                    <li class="nav-item">
+                                        <a href="/profile"  onclick="smoothToPricing('pricing-soft-ui')">
+                                            <img class="avatar avatar-sm avatar-scale-up shadow border-radius-lg border-0 active" src='{{ photo }}' alt="Profile Photo">
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a href="/sign-in" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign In</a>
+                                        <a href="/sign-up" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">Sign Up</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

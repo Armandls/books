@@ -42,6 +42,23 @@ class ForumsController
         $this->username = "unknown";
     }
 
+    private function checkSession() {
+        if (isset($_SESSION['email'])) {
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
+
+            if ($this->username == null or $this->username == "")  {
+                return -1;
+            } else {
+                $this->books = $this->bookRepository->fetchAllBooks();
+                return 0;
+            }
+        }
+
+        return -2;
+    }
+
     public function showCurrentForums(Request $request, Response $response): Response
     {
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -77,6 +94,7 @@ class ForumsController
     {
         $errors = [];
 
+        $data["title"] = $this->test_input($data['title']);
         if (empty($data["title"])) {
             $errors['title'] = "The title cannot be empty.";
         } else {
@@ -86,7 +104,7 @@ class ForumsController
             }
         }
 
-
+        $data["description"] = $this->test_input($data['description']);
         if (empty($data["description"])) {
             $errors['description'] = "The description cannot be empty.";
         }
@@ -102,6 +120,12 @@ class ForumsController
         return $errors;
     }
 
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
 
 

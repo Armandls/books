@@ -50,3 +50,9 @@ $app->post('/forums', ForumsController::class . ':createNewForum')->setName('for
 
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 
+// API
+$app->get('/api/forums', PostsController::class . ':showPosts')->setName('forumPosts');
+$app->post('/api/forums', PostsController::class . ':showPosts')->setName('forumPosts');
+$app->get('/api/forums/{id}', PostsController::class . ':showPosts')->setName('forumPosts');
+$app->delete('/api/forums{id}', PostsController::class . ':showPosts')->setName('forumPosts');
+

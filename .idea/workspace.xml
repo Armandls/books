@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="funcion getBookReviews añadida">
-      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="parte de vista añadida">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -516,7 +520,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715090519126</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="parte de vista añadida">
+      <option name="closed" value="true" />
+      <created>1715090649987</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1715090649987</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +558,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="poner la nav bar a sign in y sign up sin las opciones de sign in y sign up" />
     <MESSAGE value="cambios en la nav bar" />
     <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
@@ -571,6 +582,7 @@
     <MESSAGE value="boock details controller actualizadp" />
     <MESSAGE value="funcion showBookReviews" />
     <MESSAGE value="funcion getBookReviews añadida" />
-    <option name="LAST_COMMIT_MESSAGE" value="funcion getBookReviews añadida" />
+    <MESSAGE value="parte de vista añadida" />
+    <option name="LAST_COMMIT_MESSAGE" value="parte de vista añadida" />
   </component>
 </project>

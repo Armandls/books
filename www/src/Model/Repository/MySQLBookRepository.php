@@ -163,12 +163,6 @@ QUERY;
         );
     }
 
-    public function getAverageRating($bookId)
-    {
-        // TODO: Implement getAverageRating() method.
-        return 0;
-    }
-
 
     public function countRaiting($bookId): int
     {
@@ -221,5 +215,18 @@ QUERY;
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteReviewById($userId, $bookId)
+    {
+        $query = <<<'QUERY'
+        DELETE FROM reviews
+        WHERE book_id = :book_id AND user_id = :user_id
+        QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement->execute();
     }
 }

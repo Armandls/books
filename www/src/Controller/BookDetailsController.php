@@ -37,12 +37,9 @@ class BookDetailsController
             return $response->withStatus(404);
         }
 
-
         $numberOfReviews = $this->bookRepository->countReviews($bookId);
         $averageRating = $this->bookRepository->averageRating($bookId);
 
-
-        // para cargar la imagen del libro!
         if (str_starts_with($book->getCoverImage(), "file_")) {
             $book->addPathToCoverImage("/uploads/");
         }
@@ -51,7 +48,6 @@ class BookDetailsController
             'book' => $book,
             'rating' => $numberOfReviews,
             'reviews' => $averageRating,
-
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
@@ -69,7 +65,7 @@ class BookDetailsController
         $bookId = $args['id'];
 
         // Lógica para obtener las revisiones del libro
-        $reviews = $this->bookRepository->getBookReviews($bookId);
+        $reviews = $this->bookRepository->getBookReviews(70);
 
 
         // Renderizar el template con las revisiones y otros datos necesarios

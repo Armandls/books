@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="arreglo nav bar de catalogue y bookdetails">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="arreglo descripcion de añadir nuevo libro via ISBN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +134,24 @@
       <recent name="C:\Users\arman\OneDrive\Escritorio\PWII\books\www\public\assets\img" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="specificationPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources\swagger.json" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -174,7 +193,7 @@
       <workItem from="1714991455878" duration="5438000" />
       <workItem from="1715008815578" duration="108000" />
       <workItem from="1715075977609" duration="5986000" />
-      <workItem from="1715085493577" duration="897000" />
+      <workItem from="1715085493577" duration="9822000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -496,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715080480721</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="arreglo descripcion de añadir nuevo libro via ISBN">
+      <option name="closed" value="true" />
+      <created>1715086713273</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1715086713273</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +553,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="comenzar la gestion de la parte de el form" />
     <MESSAGE value="grstion de cambiar el nombre del fichero introducid en user prodfile" />
     <MESSAGE value="cambiar el register por lo de null tanto username como profile_photo" />
     <MESSAGE value="poner la nav bar a sign in y sign up sin las opciones de sign in y sign up" />
@@ -551,6 +577,7 @@
     <MESSAGE value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
     <MESSAGE value="arreglo bug crear libro por ISBN" />
     <MESSAGE value="arreglo nav bar de catalogue y bookdetails" />
-    <option name="LAST_COMMIT_MESSAGE" value="arreglo nav bar de catalogue y bookdetails" />
+    <MESSAGE value="arreglo descripcion de añadir nuevo libro via ISBN" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglo descripcion de añadir nuevo libro via ISBN" />
   </component>
 </project>

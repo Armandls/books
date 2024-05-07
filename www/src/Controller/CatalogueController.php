@@ -56,7 +56,7 @@ class CatalogueController
             $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
             $this->username = $this->user->username();
 
-            if ($this->username == null) {
+            if ($this->username == null or $this->username == "")  {
                 return -1;
             } else {
                 $this->books = $this->bookRepository->fetchAllBooks();
@@ -94,17 +94,20 @@ class CatalogueController
             return $this->renderPage($response,$routeParser,$errors);
         }
 
-        $fileCorrect = $this->checkCorrectFile($response, $request, $errors);
+        if ($data['formType'] == 'fullForm') {
+            $fileCorrect = $this->checkCorrectFile($response, $request, $errors);
+            if ($fileCorrect) {
+                $data['cover_image'] = $this->customName;
+                $book = $this->bookRepository->generateBook($data);
+                $this->bookRepository->createBook($book);
 
-        if ($data['formType'] == 'fullForm' && $fileCorrect) {
-            $data['cover_image'] = $this->customName;
-            $book = $this->bookRepository->generateBook($data);
-            $this->bookRepository->createBook($book);
-
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-            $redirectUrl = $routeParser->urlFor("bookCreation");
-            return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $redirectUrl = $routeParser->urlFor("bookCreation");
+                return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+            }
         }
+
+
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         return $this->renderPage($response,$routeParser,$errors);
@@ -167,12 +170,20 @@ class CatalogueController
                 $book = $this->findBookByISBN($data['isbn']);
                 if ($book == null) {
                     $errors['isbn'] = 'The ISBN code is not valid.';
-                } else {
-                    $bookCreated = $this->bookRepository->createBook($book);
-                    if (!$bookCreated) {
-                        $errors['isbn'] = "The Book couldn't be created.";
-                    }
+                    break;
                 }
+
+                if ($this->bookRepository->findBookByTitle($book->getTitle())) {
+                    $errors['isbn'] = "This book already exists.";
+                    break;
+                }
+
+                $bookCreated = $this->bookRepository->createBook($book);
+                if (!$bookCreated) {
+                    $errors['isbn'] = "The Book couldn't be created.";
+                    break;
+                }
+
 
                 break;
             case 'fullForm':

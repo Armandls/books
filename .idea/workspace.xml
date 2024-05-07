@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se pueden ver todos los post disponibles, las imagenes de quien ha puesto el comentario etc. &#10;Del usuario se ve su informacion y se añade link a perfil.&#10;&#10;TODO: Añadir cabecera con informacion del foro (titlo y descripcion original) con formato distinto a las respuestas.&#10;&#10;Post de form no añadida su funcionalidad por ruta: api/forums/{id}/posts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,6 +175,8 @@
       <workItem from="1714734603325" duration="980000" />
       <workItem from="1714921258924" duration="14988000" />
       <workItem from="1714991455878" duration="5438000" />
+      <workItem from="1715008815578" duration="108000" />
+      <workItem from="1715075977609" duration="2022000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />

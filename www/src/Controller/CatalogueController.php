@@ -48,6 +48,7 @@ class CatalogueController
         $this->flashController = $flashController;
         $this->profile_photo = "";
         $this->username = "unknown";
+        $this->checkSession();
     }
 
     private function checkSession() {

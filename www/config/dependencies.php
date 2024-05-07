@@ -132,7 +132,7 @@ $container = new Container(); // Instancia de la clase Container
                 BookDetailsController::class,
                 function (ContainerInterface $c) {
                     // Constructor (Twig, BookRepository, Messages)
-                    return new BookDetailsController($c->get("view"), $c->get(BookRepository::class), $c->get("flash"));
+                    return new BookDetailsController($c->get("view"), $c->get(BookRepository::class), $c->get(UserRepository::class), $c->get(FlashController::class), $c->get("flash"));
                 }
             );
 

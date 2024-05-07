@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se pueden ver todos los post disponibles, las imagenes de quien ha puesto el comentario etc. &#10;Del usuario se ve su informacion y se añade link a perfil.&#10;&#10;TODO: Añadir cabecera con informacion del foro (titlo y descripcion original) con formato distinto a las respuestas.&#10;&#10;Post de form no añadida su funcionalidad por ruta: api/forums/{id}/posts">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="arreglo bug crear libro por ISBN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +175,7 @@
       <workItem from="1714921258924" duration="14988000" />
       <workItem from="1714991455878" duration="5438000" />
       <workItem from="1715008815578" duration="108000" />
-      <workItem from="1715075977609" duration="2022000" />
+      <workItem from="1715075977609" duration="4284000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -482,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714994633316</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="arreglo bug crear libro por ISBN">
+      <option name="closed" value="true" />
+      <created>1715078223064</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1715078223064</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="campos del user profile" />
     <MESSAGE value="campo de email ya preeterminado si nque se pueda cambair y cambios en la landing page" />
     <MESSAGE value="comenzar la gestion de la parte de el form" />
     <MESSAGE value="grstion de cambiar el nombre del fichero introducid en user prodfile" />
@@ -537,6 +543,7 @@
     <MESSAGE value="get forums acabado. creacion de forums acabado." />
     <MESSAGE value="comienzo posts" />
     <MESSAGE value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
-    <option name="LAST_COMMIT_MESSAGE" value="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!" />
+    <MESSAGE value="arreglo bug crear libro por ISBN" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglo bug crear libro por ISBN" />
   </component>
 </project>

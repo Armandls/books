@@ -3,6 +3,8 @@
 namespace Project\Bookworm\Controller;
 
 use GuzzleHttp\Client;
+use Project\Bookworm\Model\User;
+use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Project\Bookworm\Model\BookRepository;
@@ -16,17 +18,57 @@ class BookDetailsController
     private BookRepository $bookRepository;
     private Messages $flash;
     private $client;
+    private string $username;
+    private UserRepository $userRepository;
 
-    public function __construct(Twig $twig, BookRepository $bookRepository, Messages $flash)
+    private string $profile_photo;
+    private User $user;
+    private FlashController $flashController;
+
+    public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController, Messages $flash)
     {
         $this->twig = $twig;
+
         $this->bookRepository = $bookRepository;
+        $this->userRepository = $userRepository;
+        $this->flashController = $flashController;
+
         $this->flash = $flash;
         $this->client = new Client();
+
+        $this->profile_photo = "";
+        $this->username = "unknown";
+        $this->checkSession();
     }
+
+    private function checkSession() {
+        if (isset($_SESSION['email'])) {
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
+
+            if ($this->username == null or $this->username == "")  {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+
+        return -2;
+    }
+
 
     public function showBookDetails(Request $request, Response $response, array $args): Response
     {
+        $session_result = $this->checkSession();
+        if ($session_result == -1 ){
+            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+        }
+        if ($session_result == -2) {
+            $message = 'You must be logged in to access the user profile page.';
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        }
+
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $bookId = $args['id'];
         $book = $this->bookRepository->findBookById($bookId);
@@ -52,7 +94,9 @@ class BookDetailsController
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
-            'formMethod' => "GET"
+            'formMethod' => "GET",
+            'session' => $_SESSION['email'] ?? [],
+            'photo' => $this->profile_photo
         ]);
     }
 

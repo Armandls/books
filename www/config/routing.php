@@ -50,3 +50,4 @@ $app->post('/forums', ForumsController::class . ':createNewForum')->setName('for
 
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 
+$app->get('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookReviews')->setName('bookReviews')->add(SessionCheckerMiddleware::class);

@@ -51,6 +51,7 @@ class BookDetailsController
             'book' => $book,
             'rating' => $numberOfReviews,
             'reviews' => $averageRating,
+
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
@@ -62,6 +63,21 @@ class BookDetailsController
         // TODO Marcos, aqui hay que hacer la logica de hacer rating del libro
     }
 
+    public function showBookReviews(Request $request, Response $response, array $args): Response
+    {
+        // Obtener el ID del libro de los argumentos de la ruta
+        $bookId = $args['id'];
+
+        // Lógica para obtener las revisiones del libro
+        $reviews = $this->bookRepository->getBookReviews($bookId);
+
+
+        // Renderizar el template con las revisiones y otros datos necesarios
+        return $this->twig->render($response, 'book_reviews.twig', [
+            'bookId' => $bookId,
+            'reviews' => $reviews,
+        ]);
+    }
 
 
 }

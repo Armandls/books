@@ -139,9 +139,18 @@ class CatalogueController
             // Generate cover URL
             $coverId = $dataDecode["covers"][0] ?? 0;
             $coverImageUrl = "https://covers.openlibrary.org/b/id/{$coverId}-L.jpg" ?? "";
-            $description = $dataDecode["description"] ?? "";
 
 
+            $description = $dataDecode["description"]["value"] ?? ""; // Si retorna array -> cogemos valor del array
+            if ($description == "") {
+                $description = $dataDecode["description"] ?? ""; // Sino probamos con descripcion a secas
+            }
+
+            // Hardcodeamos eliminar source e informacion que no queremos
+            if ($description != ""){
+                $description = explode("([", $description)[0];
+                //$description = explode("[S", $description)[0];
+            }
 
             $authorEndpoint = $dataDecode["authors"][0]["author"]["key"] ?? "";
             $apiUrl = "https://openlibrary.org$authorEndpoint.json";

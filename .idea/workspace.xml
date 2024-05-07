@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizo posts, ahora se muestran los posts de un forum.&#10;&#10;TODO: añadir mas posts, obtener la informacion del autor del post!">
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLUserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

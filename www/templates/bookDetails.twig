@@ -115,6 +115,7 @@
                             <!-- Sección para mostrar la puntuación y las estrellas -->
                             <li class="list-group-item">
                                 <h4 class="text-gradient text-info mb-0">Reviews and Ratings: </h4>
+                                <p>Number of reviews: {{ numberOfRaitings }}</p>
                                 <p>Number of ratings: {{ numberOfReviews }}</p>
                                 <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ averageRating }} / 5</p>
                                 {% set stars = averageRating %}

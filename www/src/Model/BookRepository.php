@@ -26,4 +26,6 @@ interface BookRepository
 
     public function averageRating($bookId);
     public function countReviews($bookId);
+
+    public function getBookReviews($bookId);
 }

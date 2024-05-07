@@ -169,13 +169,6 @@ QUERY;
         return 0;
     }
 
-    public function getBookReviews($bookId)
-    {
-        // TODO: Implement getBookReviews() method.
-
-
-        return null;
-    }
 
     public function countRaiting($bookId): int
     {
@@ -217,4 +210,16 @@ QUERY;
         return (int)$statement->fetchColumn();
     }
 
+    public function getBookReviews($bookId): array
+    {
+        $query = <<<'QUERY'
+        SELECT reviews.review_text, users.username FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.book_id = ?
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

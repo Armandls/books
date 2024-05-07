@@ -132,6 +132,20 @@
                             </li>
                         </ul>
 
+                        <div class="container">
+                            <h1>Esto es la pestaña de reviews</h1>
+
+                            <!-- Lista de revisiones -->
+                            <ul>
+                                {% for review in reviews %}
+                                    <li>
+                                        <strong>Review:</strong> {{ review.review_text }} <br>
+                                        <strong>User:</strong> {{ review.username }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
 
                     </div>
                 </div>

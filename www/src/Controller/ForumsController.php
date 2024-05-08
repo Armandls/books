@@ -3,15 +3,10 @@
 namespace Project\Bookworm\Controller;
 
 
-use GuzzleHttp\Client;
-use Project\Bookworm\Model\BookRepository;
-
 use Project\Bookworm\Model\ForumsRepository;
-use Project\Bookworm\Model\User;
 use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
@@ -22,9 +17,6 @@ class ForumsController
     private UserRepository $userRepository;
     private ForumsRepository $forumsRepository;
     private FlashController $flashController;
-    private User $user;
-    private string $username;
-    private string $profile_photo;
 
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
@@ -33,27 +25,24 @@ class ForumsController
 
         $this->forumsRepository = $forumsRepository;
         $this->userRepository = $userRepository;
-
         $this->flashController = $flashController;
-        $this->profile_photo = "";
-        $this->username = "unknown";
     }
 
     public function showCurrentForums(Request $request, Response $response): Response
     {
         if (isset($_SESSION['email'])) {
-            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
-            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
-            $this->username = $this->user->username();
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-            if ($this->username == null)  {
+            if ($username == null)  {
                 return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
             }
             else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
                 $errors = [];
                 $forums = $this->forumsRepository->fetchAllForums();
-                return $this->renderPage($response, $routeParser, $errors, $forums);
+                return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
             }
         }
         else {
@@ -63,6 +52,10 @@ class ForumsController
 
     public function createNewForum(Request $request, Response $response): Response
     {
+        $user = $this->userRepository->findByEmail($_SESSION['email']);
+        $profile_photo = "/uploads/{$user->profile_picture()}";
+        $username = $user->username();
+
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         $forums = $this->forumsRepository->fetchAllForums();
@@ -71,7 +64,7 @@ class ForumsController
         $errors = $this->validateNewForum($data);
 
         if (count($errors) > 0) {
-            return $this->renderPage($response, $routeParser, $errors, $forums);
+            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
         }
         else {
             $forumCorrect = $this->forumsRepository->createForum($data);
@@ -79,11 +72,11 @@ class ForumsController
                 $errors['forum'] = "Unexpected error creating new forum";
             }
             $forums = $this->forumsRepository->fetchAllForums();
-            return $this->renderPage($response, $routeParser, $errors, $forums);
+            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
         }
     }
 
-    private function renderPage($response, $routeParser, $errors, $forums)
+    private function renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username): Response
     {
         return $this->twig->render($response, 'forums.twig',  [
             'formAction' => $routeParser->urlFor("forums"),
@@ -91,7 +84,7 @@ class ForumsController
             'formErrors' => $errors,
             'forums' => $forums,
             'session' => $_SESSION['email'] ?? [],
-            'photo' => $this->profile_photo
+            'photo' => $profile_photo
         ]);
     }
 

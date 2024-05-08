@@ -14,16 +14,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
-require __DIR__ . '/../../vendor/autoload.php';
+
 
 class ForumsController
 {
     private Twig $twig;
-    private Messages $flash;
     private UserRepository $userRepository;
     private ForumsRepository $forumsRepository;
     private FlashController $flashController;
-    private $client;
     private User $user;
     private string $username;
     private string $profile_photo;
@@ -32,7 +30,6 @@ class ForumsController
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
-        $this->client = new Client();
 
         $this->forumsRepository = $forumsRepository;
         $this->userRepository = $userRepository;
@@ -73,7 +70,17 @@ class ForumsController
 
         $errors = $this->validateNewForum($data);
 
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+        if (count($errors) > 0) {
+            return $this->renderPage($response, $routeParser, $errors, $forums);
+        }
+        else {
+            $forumCorrect = $this->forumsRepository->createForum($data);
+            if (!$forumCorrect) {
+                $errors['forum'] = "Unexpected error creating new forum";
+            }
+            $forums = $this->forumsRepository->fetchAllForums();
+            return $this->renderPage($response, $routeParser, $errors, $forums);
+        }
     }
 
     private function renderPage($response, $routeParser, $errors, $forums)
@@ -92,29 +99,21 @@ class ForumsController
     {
         $errors = [];
 
-        $data["title"] = $this->test_input($data['title']);
-        if (empty($data["title"])) {
+        $title = $this->test_input($data['title']);
+        if (empty($title)) {
             $errors['title'] = "The title cannot be empty.";
         } else {
-            $forum = $this->forumsRepository->findForumByTitle($data['title']);
+            $forum = $this->forumsRepository->findForumByTitle($title);
             if ($forum !== null) {
-                return "There's already a forum with this topic!";
+                $errors['title'] = "There's already a forum with this topic!";
+            }
+            else {
+                $description = $this->test_input($data['description']);
+                if (empty($description)) {
+                    $errors['description'] = "The description cannot be empty.";
+                }
             }
         }
-
-        $data["description"] = $this->test_input($data['description']);
-        if (empty($data["description"])) {
-            $errors['description'] = "The description cannot be empty.";
-        }
-
-        if (empty($errors)) {
-            $forum = $this->forumsRepository->generateNewForum($data);
-            $forumCorrect = $this->forumsRepository->createForum($forum);
-            if (!$forumCorrect) {
-                $errors['forum'] = "Unexpected error creating new forum";
-            }
-        }
-
         return $errors;
     }
 
@@ -124,9 +123,4 @@ class ForumsController
         $data = htmlspecialchars($data);
         return $data;
     }
-
-
-
-
-
 }

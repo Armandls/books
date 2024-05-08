@@ -5,6 +5,7 @@
 declare(strict_types=1);
 
 use DI\Container;
+use Project\Bookworm\Controller\ApiForumsController;
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\FlashController;
@@ -138,7 +139,7 @@ $container = new Container(); // Instancia de la clase Container
 
         // 6- Se añade UserProfile al contenedor de Slim
             $container->set(
-                UserProfile::class,  // Nombre de la dependencia -> CatalogueController
+                UserProfile::class,  // Nombre de la dependencia -> UserProfile
                 function (ContainerInterface $c) {
                     // Constructor (Twig)
                     return new UserProfile($c->get("view"), $c->get(UserRepository::class), $c->get(FlashController::class), $c->get("flash"));
@@ -147,7 +148,7 @@ $container = new Container(); // Instancia de la clase Container
 
         // 7- Se añade ForumsController al contenedor de Slim
         $container->set(
-            ForumsController::class,  // Nombre de la dependencia -> CatalogueController
+            ForumsController::class,  // Nombre de la dependencia -> ForumsController
             function (ContainerInterface $c) {
                 // Constructor (Twig)
                 return new ForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
@@ -156,10 +157,19 @@ $container = new Container(); // Instancia de la clase Container
 
         // 8- Se añade PostsController al contenedor de Slim
         $container->set(
-            PostsController::class,  // Nombre de la dependencia -> CatalogueController
+            PostsController::class,  // Nombre de la dependencia -> PostsController
             function (ContainerInterface $c) {
                 // Constructor (Twig)
                 return new PostsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(PostRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
+            }
+        );
+
+        // 9- Se añade ApiForumsController al contenedor de Slim
+        $container->set(
+            ApiForumsController::class,  // Nombre de la dependencia -> ApiForumsController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new ApiForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
             }
         );
 

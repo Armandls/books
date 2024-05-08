@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 // Rutas
 
+use Project\Bookworm\Controller\ApiForumsController;
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\ForumsController;
@@ -51,8 +52,8 @@ $app->post('/forums', ForumsController::class . ':createNewForum')->setName('for
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 
 // API
-$app->get('/api/forums', PostsController::class . ':showPosts')->setName('forumPosts');
-$app->post('/api/forums', PostsController::class . ':showPosts')->setName('forumPosts');
-$app->get('/api/forums/{id}', PostsController::class . ':showPosts')->setName('forumPosts');
-$app->delete('/api/forums{id}', PostsController::class . ':showPosts')->setName('forumPosts');
+$app->get('/api/forums', ApiForumsController::class . ':showCurrentForums')->setName('getApiForums');
+$app->post('/api/forums', ApiForumsController::class . ':createNewForum')->setName('postApiForums');
+$app->get('/api/forums/{id}', ApiForumsController::class . ':showPosts')->setName('getForumsID');
+$app->delete('/api/forums{id}', ApiForumsController::class . ':showPosts')->setName('deleteForumsID');
 

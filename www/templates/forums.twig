@@ -1,4 +1,4 @@
-{% extends "baseLanding.twig" %}
+{% extends "baseForums.twig" %}
 
 {% block title %}Forums{% endblock %}
 
@@ -145,4 +145,13 @@
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
 
 
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/getForums.js"></script>
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/postForums.js"></script>
 {% endblock %}

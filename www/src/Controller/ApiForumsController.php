@@ -14,9 +14,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
+
 require __DIR__ . '/../../vendor/autoload.php';
 
-class ForumsController
+class ApiForumsController
 {
     private Twig $twig;
     private Messages $flash;
@@ -29,7 +30,7 @@ class ForumsController
     private string $profile_photo;
 
 
-    public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
+    public function __construct(Twig $twig, ForumsRepository $forumsRepository, UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
         $this->client = new Client();
@@ -43,13 +44,14 @@ class ForumsController
         $this->checkSession();
     }
 
-    private function checkSession() {
+    private function checkSession()
+    {
         if (isset($_SESSION['email'])) {
             $this->user = $this->userRepository->findByEmail($_SESSION['email']);
             $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
             $this->username = $this->user->username();
 
-            if ($this->username == null or $this->username == "")  {
+            if ($this->username == null or $this->username == "") {
                 return -1;
             } else {
                 return 0;
@@ -66,37 +68,62 @@ class ForumsController
         $errors = [];
 
         if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+            $errors['message'] = 'This API can only be used by users with a defined username.';
+
+            $response->getBody()->write(json_encode(['errors' => $errors]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
         }
         if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+            $errors['message'] = 'This API can only be used by authenticated users.';
+
+            $response->getBody()->write(json_encode($errors));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
         }
 
+        //$data = $request->getParsedBody();
         $forums = $this->forumsRepository->fetchAllForums();
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+
+        $forumsData = array_map(function($forum) {
+            return [
+                'id' => $forum->getId(),
+                'title' => $forum->getTitle(),
+                'description' => $forum->getDescription()
+            ];
+        }, $forums);
+
+        $response->getBody()->write(json_encode($forumsData));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
     public function createNewForum(Request $request, Response $response): Response
     {
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $forums = $this->forumsRepository->fetchAllForums();
         $data = $request->getParsedBody();
         $errors = $this->validateNewForum($data);
 
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+        if (count($errors) > 0) {
+            $response->getBody()->write(json_encode(['errors' => $errors]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(412);
+        }
+
+
+        $response->getBody()->write(json_encode(['responseData' => $data]));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
     private function renderPage($response, $routeParser, $errors, $forums)
     {
-        return $this->twig->render($response, 'forums.twig',  [
-            'formAction' => $routeParser->urlFor("forums"),
-            'formMethod' => "POST",
-            'formErrors' => $errors,
-            'forums' => $forums,
-            'session' => $_SESSION['email'] ?? [],
-            'photo' => $this->profile_photo
-        ]);
+        //$data = $request->getParsedBody();
+        //$response->getBody()->write(json_encode(['responseData' => $data]));
+        //return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+
+       return $this->twig->render($response, 'forums.twig', [
+           'formAction' => $routeParser->urlFor("getApiForums"),
+           'formMethod' => "POST",
+           'formErrors' => $errors,
+           'forums' => $forums,
+           'session' => $_SESSION['email'] ?? [],
+           'photo' => $this->profile_photo
+       ]);
     }
 
     private function validateNewForum(array $data)
@@ -129,15 +156,13 @@ class ForumsController
         return $errors;
     }
 
-    function test_input($data) {
+    function test_input($data)
+    {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
-
-
-
 
 
 }

@@ -177,7 +177,7 @@ QUERY;
         return (int)$statement->fetchColumn();
     }
 
-    // Implementación del método averageRating
+
     public function averageRating($bookId): float
     {
         $query = <<<'QUERY'
@@ -195,6 +195,19 @@ QUERY;
     {
         $query = <<<'QUERY'
             SELECT COUNT(*) FROM reviews WHERE book_id = ?
+        QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return (int)$statement->fetchColumn();
+    }
+
+    public function countRatings($bookId): int
+    {
+        $query = <<<'QUERY'
+            SELECT COUNT(*) FROM ratings WHERE book_id = ?
         QUERY;
 
         $statement = $this->database->connection()->prepare($query);

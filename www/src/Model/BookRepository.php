@@ -31,4 +31,6 @@ interface BookRepository
 
     public function deleteReviewById($userId, $bookId);
 
+    public function countRatings($bookId);
+
 }

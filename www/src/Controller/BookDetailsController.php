@@ -81,6 +81,7 @@ class BookDetailsController
 
         $numberOfReviews = $this->bookRepository->countReviews($bookId);
         $averageRating = $this->bookRepository->averageRating($bookId);
+        $numberOfRatings = $this->bookRepository->countRaiting($bookId);
 
         if (str_starts_with($book->getCoverImage(), "file_")) {
             $book->addPathToCoverImage("/uploads/");
@@ -88,8 +89,9 @@ class BookDetailsController
 
         return $this->twig->render($response, 'bookDetails.twig', [
             'book' => $book,
-            'rating' => $numberOfReviews,
-            'reviews' => $averageRating,
+            'rating' => $averageRating,
+            'reviews' => $numberOfReviews,
+            'numRaiting' => $numberOfRatings,
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),

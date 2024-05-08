@@ -113,16 +113,11 @@
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <h4 class="p">Description: </h4>
-                                <p>{{ book.getDescription }}</p>
-                            </li>
-                            <!-- Sección para mostrar la puntuación y las estrellas -->
-                            <li class="list-group-item">
                                 <h4 class="text-gradient text-info mb-0">Reviews and Ratings: </h4>
-                                <p>Number of reviews: {{ numberOfRaitings }}</p>
-                                <p>Number of ratings: {{ numberOfReviews }}</p>
-                                <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ averageRating }} / 5</p>
-                                {% set stars = averageRating %}
+                                <p>Number of reviews: {{ reviews }}</p> <!-- Cambiado de numberOfRaitings a reviews -->
+                                <p>Number of ratings: {{ numRaiting }}</p>
+                                <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ rating }} / 5</p> <!-- Cambiado de averageRating a rating -->
+                                {% set stars = rating %} <!-- Cambiado de averageRating a rating -->
                                 {% for i in 1..5 %}
                                     {% if stars >= 1 %}
                                         <span class="fa fa-star checked"></span>
@@ -133,7 +128,14 @@
                                     {% endif %}
                                     {% set stars = stars - 1 %}
                                 {% endfor %}
+
                             </li>
+                            <style>
+                                .checked {
+                                    color: #fff674; /* Cambia el color de las estrellas a azul */
+                                }
+                            </style>
+
                         </ul>
 
                         <div class="container">

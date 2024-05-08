@@ -34,7 +34,7 @@ $app->get('/profile', UserProfile::class . ':showProfile')->setName('show-profil
 // 7- Cuando me llegue una petición POST a la ruta /profile, se ejecutarán los métodos editProfile de la clase UserProfile
 $app->post('/profile', UserProfile::class . ':editProfile')->setName('edit-profile');
 
-// 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método apply de la clase CatalogueController
+// 8- Cuando me llegue una petición GET a la ruta /catalogue, se ejecutará el método showCatalogue de la clase CatalogueController
 $app->get('/catalogue', CatalogueController::class . ':showCatalogue')->setName('catalogue');
 // 9- Cuando me llegue una petición POST a la ruta /catalogue, se ejecutará el método handleFormSubmission de la clase CatalogueController
 $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->setName('bookCreation');
@@ -45,8 +45,8 @@ $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')-
 $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
-$app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums')->add(SessionCheckerMiddleware::class);
-$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation')->add(SessionCheckerMiddleware::class);
+$app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');
+$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
 
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 

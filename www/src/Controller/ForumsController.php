@@ -55,17 +55,29 @@ class ForumsController
                 return 0;
             }
         }
-
         return -2;
     }
 
     public function showCurrentForums(Request $request, Response $response): Response
     {
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $errors = [];
-        $forums = $this->forumsRepository->fetchAllForums();
+        if (isset($_SESSION['email'])) {
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
 
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+            if ($this->username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            }
+            else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $errors = [];
+                $forums = $this->forumsRepository->fetchAllForums();
+                return $this->renderPage($response, $routeParser, $errors, $forums);
+            }
+        }
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+        }
     }
 
     public function createNewForum(Request $request, Response $response): Response

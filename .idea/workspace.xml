@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +42,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="0.0.0.0" id="f15dcc1b-af00-40b0-801e-c8f0d6835e1a" name="0.0.0.0:5092" port="5092" use_path_mappings="true">
@@ -109,7 +109,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;forumsApi&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -135,20 +135,27 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="SwaggerCodegen">
-      <option name="activeConfigurationType" value="FILE" />
-      <option name="configurationPath" value="" />
-      <option name="customJreEnabled" value="false" />
+    <configuration default="true" type="SwaggerCodegen" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
       <option name="customTemplatesPath" value="" />
-      <option name="enableDebugLogging" value="false" />
+      <option name="envs">
+        <map />
+      </option>
       <option name="generateToPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\gen" />
       <option name="generationParameters">
         <list />
       </option>
-      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="generatorType" value="OPENAPI_GENERATOR_V6" />
       <option name="jdkPath" value="" />
       <option name="language" value="java" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
       <option name="specificationPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources\swagger.json" />
+      <option name="workingDirectory" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources" />
       <method v="2" />
     </configuration>
   </component>
@@ -194,6 +201,10 @@
       <workItem from="1715008815578" duration="108000" />
       <workItem from="1715075977609" duration="5986000" />
       <workItem from="1715085493577" duration="9822000" />
+      <workItem from="1715106656807" duration="957000" />
+      <workItem from="1715107944986" duration="144000" />
+      <workItem from="1715175911681" duration="349000" />
+      <workItem from="1715176273388" duration="541000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />

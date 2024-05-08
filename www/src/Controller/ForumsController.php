@@ -3,91 +3,80 @@
 namespace Project\Bookworm\Controller;
 
 
-use GuzzleHttp\Client;
-use Project\Bookworm\Model\BookRepository;
-
 use Project\Bookworm\Model\ForumsRepository;
-use Project\Bookworm\Model\User;
 use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
-require __DIR__ . '/../../vendor/autoload.php';
+
 
 class ForumsController
 {
     private Twig $twig;
-    private Messages $flash;
     private UserRepository $userRepository;
     private ForumsRepository $forumsRepository;
     private FlashController $flashController;
-    private $client;
-    private User $user;
-    private string $username;
-    private string $profile_photo;
 
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
-        $this->client = new Client();
 
         $this->forumsRepository = $forumsRepository;
         $this->userRepository = $userRepository;
-
         $this->flashController = $flashController;
-        $this->profile_photo = "";
-        $this->username = "unknown";
-        $this->checkSession();
-    }
-
-    private function checkSession() {
-        if (isset($_SESSION['email'])) {
-            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
-            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
-            $this->username = $this->user->username();
-
-            if ($this->username == null or $this->username == "")  {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-
-        return -2;
     }
 
     public function showCurrentForums(Request $request, Response $response): Response
     {
-        $session_result = $this->checkSession();
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $errors = [];
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-        if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            }
+            else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $errors = [];
+                $forums = $this->forumsRepository->fetchAllForums();
+                return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+            }
         }
-        if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
         }
-
-        $forums = $this->forumsRepository->fetchAllForums();
-        return $this->renderPage($response, $routeParser, $errors, $forums);
     }
 
     public function createNewForum(Request $request, Response $response): Response
     {
+        $user = $this->userRepository->findByEmail($_SESSION['email']);
+        $profile_photo = "/uploads/{$user->profile_picture()}";
+        $username = $user->username();
+
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
         $forums = $this->forumsRepository->fetchAllForums();
         $data = $request->getParsedBody();
+
         $errors = $this->validateNewForum($data);
 
-        return $this->renderPage($response, $routeParser, $errors, $forums);
+        if (count($errors) > 0) {
+            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+        }
+        else {
+            $forumCorrect = $this->forumsRepository->createForum($data);
+            if (!$forumCorrect) {
+                $errors['forum'] = "Unexpected error creating new forum";
+            }
+            $forums = $this->forumsRepository->fetchAllForums();
+            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+        }
     }
 
-    private function renderPage($response, $routeParser, $errors, $forums)
+    private function renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username): Response
     {
         return $this->twig->render($response, 'forums.twig',  [
             'formAction' => $routeParser->urlFor("forums"),
@@ -95,37 +84,29 @@ class ForumsController
             'formErrors' => $errors,
             'forums' => $forums,
             'session' => $_SESSION['email'] ?? [],
-            'photo' => $this->profile_photo
+            'photo' => $profile_photo
         ]);
     }
 
-    private function validateNewForum(array $data)
+    private function validateNewForum(array $data): array
     {
         $errors = [];
 
-        $data["title"] = $this->test_input($data['title']);
-        if (empty($data["title"])) {
+        $title = $this->test_input($data['title']);
+        if (empty($title)) {
             $errors['title'] = "The title cannot be empty.";
         } else {
-            $forum = $this->forumsRepository->findForumByTitle($data['title']);
+            $forum = $this->forumsRepository->findForumByTitle($title);
             if ($forum !== null) {
-                return "There's already a forum with this topic!";
+                $errors['title'] = "There's already a forum with this topic!";
+            }
+            else {
+                $description = $this->test_input($data['description']);
+                if (empty($description)) {
+                    $errors['description'] = "The description cannot be empty.";
+                }
             }
         }
-
-        $data["description"] = $this->test_input($data['description']);
-        if (empty($data["description"])) {
-            $errors['description'] = "The description cannot be empty.";
-        }
-
-        if (empty($errors)) {
-            $forum = $this->forumsRepository->generateNewForum($data);
-            $forumCorrect = $this->forumsRepository->createForum($forum);
-            if (!$forumCorrect) {
-                $errors['forum'] = "Unexpected error creating new forum";
-            }
-        }
-
         return $errors;
     }
 
@@ -135,9 +116,4 @@ class ForumsController
         $data = htmlspecialchars($data);
         return $data;
     }
-
-
-
-
-
 }

@@ -18,8 +18,14 @@ class MySQLForumsRepository implements ForumsRepository
         $this->database = $database;
     }
 
-    public function createForum(Forum $forum): bool
+    public function createForum(array $data): bool
     {
+        $forum = new Forum(0,
+            $data['title'],
+            $data['description'],
+            new DateTime(),
+            new DateTime());
+
         $query = <<<'QUERY'
         INSERT INTO forums (title, description, created_at, updated_at) VALUES (?, ?, ?, ?)
 QUERY;
@@ -124,14 +130,4 @@ QUERY;
 
         return $forum;
     }
-
-    public function generateNewForum(array $data): Forum
-    {
-        return new Forum(0,
-            $data['title'],
-            $data['description'],
-            new DateTime(),
-            new DateTime());
-    }
-
 }

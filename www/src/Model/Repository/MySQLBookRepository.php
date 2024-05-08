@@ -117,8 +117,6 @@ QUERY;
         return $books;
     }
 
-
-
     public function generateBook(array $data): Book
     {
         return new Book(0,

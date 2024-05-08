@@ -42,22 +42,6 @@ class ForumsController
         $this->username = "unknown";
     }
 
-    private function checkSession() {
-        if (isset($_SESSION['email'])) {
-            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
-            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
-            $this->username = $this->user->username();
-
-            if ($this->username == null or $this->username == "")  {
-                return -1;
-            } else {
-                $this->books = $this->bookRepository->fetchAllBooks();
-                return 0;
-            }
-        }
-        return -2;
-    }
-
     public function showCurrentForums(Request $request, Response $response): Response
     {
         if (isset($_SESSION['email'])) {
@@ -83,8 +67,10 @@ class ForumsController
     public function createNewForum(Request $request, Response $response): Response
     {
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
         $forums = $this->forumsRepository->fetchAllForums();
         $data = $request->getParsedBody();
+
         $errors = $this->validateNewForum($data);
 
         return $this->renderPage($response, $routeParser, $errors, $forums);
@@ -102,7 +88,7 @@ class ForumsController
         ]);
     }
 
-    private function validateNewForum(array $data)
+    private function validateNewForum(array $data): array
     {
         $errors = [];
 

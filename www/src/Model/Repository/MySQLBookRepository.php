@@ -242,4 +242,53 @@ QUERY;
         $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $statement->execute();
     }
+
+    public function addReview($userId, $bookId, $reviewText): void
+    {
+        $query = <<<'QUERY'
+        INSERT INTO reviews (user_id, book_id, review_text, created_at, updated_at)
+        VALUES (:user_id, :book_id, :review_text, NOW(), NOW())
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+        $statement->bindParam(':review_text', $reviewText, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public function addRatingToBook($bookId, $rating): void
+    {
+        // Primero, verifica si ya existe una entrada de rating para este libro en la base de datos
+        $existingRating = $this->getRatingForBook($bookId);
+
+        if ($existingRating) {
+            // Si ya hay un rating para este libro, actualiza el rating existente
+            $statement = $this->database->connection()->prepare("UPDATE ratings SET rating = :rating WHERE book_id = :bookId");
+            $statement->execute([
+                'rating' => $rating,
+                'bookId' => $bookId
+            ]);
+        } else {
+            // Si no hay un rating para este libro, inserta uno nuevo
+            $statement = $this->database->connection()->prepare("INSERT INTO ratings (book_id, rating) VALUES (:bookId, :rating)");
+            $statement->execute([
+                'bookId' => $bookId,
+                'rating' => $rating
+            ]);
+        }
+    }
+
+
+    private function getRatingForBook($bookId): ?int
+    {
+
+        $statement = $this->database->connection()->prepare("SELECT rating FROM ratings WHERE book_id = :bookId");
+        $statement->execute(['bookId' => $bookId]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result ? (int)$result['rating'] : null;
+    }
+
+
 }

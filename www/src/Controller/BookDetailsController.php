@@ -74,14 +74,13 @@ class BookDetailsController
         $book = $this->bookRepository->findBookById($bookId);
 
         if ($book === null) {
-            // Handle case when book with provided id is not found
-            // For example, return a 404 page
             return $response->withStatus(404);
         }
 
         $numberOfReviews = $this->bookRepository->countReviews($bookId);
         $averageRating = $this->bookRepository->averageRating($bookId);
         $numberOfRatings = $this->bookRepository->countRaiting($bookId);
+        $reviews = $this->bookRepository->getBookReviews($bookId);
 
         if (str_starts_with($book->getCoverImage(), "file_")) {
             $book->addPathToCoverImage("/uploads/");
@@ -92,34 +91,76 @@ class BookDetailsController
             'rating' => $averageRating,
             'reviews' => $numberOfReviews,
             'numRaiting' => $numberOfRatings,
+            'arrayReviews' => $reviews,
             'formErrors' => "",
             'formData' => "",
             'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
+
             'formMethod' => "GET",
             'session' => $_SESSION['email'] ?? [],
             'photo' => $this->profile_photo
         ]);
     }
 
-    public function rateBook(int $rating) {
-        // TODO Marcos, aqui hay que hacer la logica de hacer rating del libro
-    }
 
-    public function showBookReviews(Request $request, Response $response, array $args): Response
+
+    public function deleteReview(Request $request, Response $response, array $args): Response
     {
-        // Obtener el ID del libro de los argumentos de la ruta
         $bookId = $args['id'];
 
-        // Lógica para obtener las revisiones del libro
-        $reviews = $this->bookRepository->getBookReviews(70);
+        $userId = 1;
 
+        $this->bookRepository->deleteReviewById($userId, $bookId);
 
-        // Renderizar el template con las revisiones y otros datos necesarios
-        return $this->twig->render($response, 'book_reviews.twig', [
-            'bookId' => $bookId,
-            'reviews' => $reviews,
+        // Obtener el enrutador de la solicitud para generar la URL de redirección
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+        // Crear una nueva respuesta con la redirección
+        return $this->twig->render($response, 'bookDetails.twig', [
+            'formMethod' => "POST",
+            'formAction' => $routeParser->urlFor("bookDetails",  ['id' => $bookId])
         ]);
     }
+
+
+
+public function addReview(Request $request, Response $response, array $args): Response
+{
+    $bookId = $args['id'];
+    $userId = 1; // Este es un valor de ejemplo, deberías obtener el ID del usuario de la sesión
+
+    // Obtiene los datos del formulario
+    $data = $request->getParsedBody();
+
+    // Validación de los datos del formulario (si es necesario)
+
+    // Inserta la revisión en la base de datos utilizando tu método existente
+    // Suponiendo que el texto de la revisión está en el campo 'review_text' del formulario
+    $reviewText = $data['review_text'];
+    $this->bookRepository->addReview($userId, $bookId, $reviewText);
+
+    // Redirige de vuelta a la página de detalles del libro después de agregar la revisión
+    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+}
+
+
+public function addBookRating(Request $request, Response $response, array $args): Response
+{
+    $bookId = $args['id'];
+    $userId = 1; // Aquí debes obtener el ID del usuario de la sesión
+
+    // Obtenemos el rating enviado en la solicitud
+    $data = $request->getParsedBody();
+    $rating = $data['rating'];
+
+    $this->bookRepository->addRatingToBook($bookId, $rating);
+
+    // Redirigimos de vuelta a la página de detalles del libro después de agregar el rating
+    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+}
+
 
 
 }

@@ -138,52 +138,116 @@
 
                         </ul>
 
-                        <div class="container">
-                            <h1>Esto es la pestaña de reviews</h1>
-
-                            <!-- Lista de revisiones -->
-                            <ul>
-                                {% for review in reviews %}
-                                    <li>
-                                        <strong>Review:</strong> {{ review.review_text }} <br>
-                                        <strong>User:</strong> {{ review.username }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
 
 
                     </div>
                 </div>
             </div>
-
         </div>
-    </section>
-    <section class="py-7">
         <div class="container">
-            <div class="row">
-                <div class="rating-stars">
-                    <input type="radio" name="rating" id="rs0" checked ><label for="rs0"></label>
-                    <input type="radio" name="rating" id="rs1"><label for="rs1"></label>
-                    <input type="radio" name="rating" id="rs2"><label for="rs2"></label>
-                    <input type="radio" name="rating" id="rs3"><label for="rs3"></label>
-                    <input type="radio" name="rating" id="rs4"><label for="rs4"></label>
-                    <input type="radio" name="rating" id="rs5"><label for="rs5"></label>
-                    <span class="rating-counter"></span>
+            <h1 class="text-center mb-4">Reviews of {{ book.title }}</h1>
+            <hr class="horizontal dark mb-4">
+            <ul class="list-unstyled">
+                {% for loopIndex, review in arrayReviews %}
+                    <li class="mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <style>
+                                    .card-title{
+                                        color: #0dcaf0;
+                                    }
+                                </style>
+                                <h5 class="card-title">Review {{ loopIndex + 1 }}</h5>
+                                <p class="card-text">{{ review.review_text }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">User: {{ review.username }}</small>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <form id="add-review-form" action="{{ url_for('addBookReview', {'id': bookId}) }}" method="GET">
+                <div class="form-group">
+                    <label for="review">Agregar revisión:</label>
+                    <textarea class="form-control" id="review" name="review_text" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Revisión</button>
+            </form>
+
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <form id="delete-review-form" action="{{ url_for('bookDetail', {'id': bookId}) }}" method="post" style="display: inline;">
+                        <input type="hidden" name="bookId" value="{{ bookId }}">
+                        <input type="hidden" name="reviewId" value="{{ review.id }}">
+                        <button type="submit" class="btn btn-danger">Delete my Review</button>
+                    </form>
                 </div>
             </div>
+
         </div>
-        <div class="container">
-            {% if reviews is not empty %}
-                <h3>Book reviews</h3>
-            {% endif %}
-            {% for review in reviews %}
-                <p>review</p>
-            {% endfor %}
-        </div>
+
+
+        <form id="add-rating-form" action="{{ url_for('addBookRating', {'id': bookId}) }}" method="POST">
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">5 stars</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">4 stars</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">3 stars</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">2 stars</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">1 star</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Rating</button>
+        </form>
+
     </section>
-    <!-- END Section Content -->
 
 
-    <!-- End Seccion de caracteristicas -->
+{% block scripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.4.0.min.js"
+            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+            crossorigin="anonymous">
+    </script>
+
+<script>
+    $(document).ready(function() {
+        $('#add-review-form').onclick(function(event) { // poner on en vez de onclick
+
+            let reviewText = $('#review').val();
+
+
+            let payload = {
+                review_text: reviewText
+            };
+            let formData;
+            //formData.push({ name: '_method', value: 'PUT' });
+
+
+            $.ajax({
+                type: 'PUT',
+                url: $(this).attr('action'),
+                data: JSON.stringify(payload),
+                dataType: 'json'
+            })
+                .done(function(data) {
+                    console.log(data);
+                    // realizar acciones que necisete
+                })
+                .fail(function(error) {
+                    console.error(error);
+                });
+            event.preventDefault();
+        });
+    });
+
+</script>
+{% endblock %}
+
+
 {% endblock %}

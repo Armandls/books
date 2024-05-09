@@ -11,4 +11,6 @@ interface ForumsRepository
     public function fetchAllForums();
 
     public function findForumByID($forumId);
+
+    public function generateNewForum($data);
 }

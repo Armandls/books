@@ -130,4 +130,14 @@ QUERY;
 
         return $forum;
     }
+
+    public function generateNewForum($data)
+    {
+        return new Forum(0,
+            $data['title'],
+            $data['description'],
+            new DateTime(),
+            new DateTime()
+        );
+    }
 }

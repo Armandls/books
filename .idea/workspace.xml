@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="primera aproximacion de API">
-      <change afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="añado ApiPostsController.php, permite metodo GET">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +44,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="0.0.0.0" id="f15dcc1b-af00-40b0-801e-c8f0d6835e1a" name="0.0.0.0:5092" port="5092" use_path_mappings="true">
@@ -203,7 +204,7 @@
       <workItem from="1715194770120" duration="2851000" />
       <workItem from="1715263414970" duration="120000" />
       <workItem from="1715264452810" duration="213000" />
-      <workItem from="1715271663478" duration="2739000" />
+      <workItem from="1715271663478" duration="5702000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -565,7 +566,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715179195787</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="añado ApiPostsController.php, permite metodo GET">
+      <option name="closed" value="true" />
+      <created>1715274670339</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1715274670340</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,7 +604,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
     <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
@@ -620,6 +628,7 @@
     <MESSAGE value="actualizar todas las nav vars" />
     <MESSAGE value="canvis que gfan oo mateix pero esta mes clar tot" />
     <MESSAGE value="mini cambios hechos" />
-    <option name="LAST_COMMIT_MESSAGE" value="mini cambios hechos" />
+    <MESSAGE value="añado ApiPostsController.php, permite metodo GET" />
+    <option name="LAST_COMMIT_MESSAGE" value="añado ApiPostsController.php, permite metodo GET" />
   </component>
 </project>

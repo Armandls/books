@@ -107,19 +107,6 @@ class ApiForumsController
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    private function renderPage($response, $routeParser, $errors, $forums)
-    {
-
-       return $this->twig->render($response, 'forums.twig', [
-           'formAction' => $routeParser->urlFor("getApiForums"),
-           'formMethod' => "POST",
-           'formErrors' => $errors,
-           'forums' => $forums,
-           'session' => $_SESSION['email'] ?? [],
-           'photo' => $this->profile_photo
-       ]);
-    }
-
     private function validateNewForum(array $data)
     {
         $errors = [];
@@ -178,13 +165,11 @@ class ApiForumsController
 
         $forumID = 1;
         $forums = $this->forumsRepository->findForumByID($forumID);
-        $forumsData = array_map(function($forum) {
-            return [
-                'id' => $forum->getId(),
-                'title' => $forum->getTitle(),
-                'description' => $forum->getDescription()
-            ];
-        }, $forums);
+        $forumsData = [];
+
+        $forumsData['id'] = $forums->getId();
+        $forumsData['title'] = $forums->getTitle();
+        $forumsData['description'] = $forums->getDescription();
 
         $response->getBody()->write(json_encode($forumsData));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);

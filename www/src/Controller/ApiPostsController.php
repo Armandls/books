@@ -102,7 +102,7 @@ class ApiPostsController
     public function validateApiPost(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
-        $errors = $this->validateNewForum($data);
+        $errors = $this->validateNewPost($data);
 
         if (count($errors) > 0) {
             $response->getBody()->write(json_encode(['errors' => $errors]));
@@ -115,7 +115,7 @@ class ApiPostsController
     }
 
 
-    private function validateNewForum(array $data)
+    private function validateNewPost(array $data)
     {
         $errors = [];
 

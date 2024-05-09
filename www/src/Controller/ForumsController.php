@@ -38,7 +38,7 @@ class ForumsController
     public function showCurrentForums(Request $request, Response $response): Response
     {
         $client = new Client();
-        $apiUrl = "http://localhost:5080/api/forums";
+        $apiUrl = "http://nginx/api/forums";
         $headers = [
             //'Authorization' => 'Bearer <token>',
             'Content-Type' => 'application/json'

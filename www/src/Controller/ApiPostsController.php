@@ -84,6 +84,13 @@ class ApiPostsController
         }
 
         $this->forum_id = $args['id'];
+        $forum = $this->forumsRepository->findForumByID($this->forum_id);
+        if ($forum == null) {
+            $errors['message'] = 'Forum with id '. $this->forum_id .' does not exist';
+
+            $response->getBody()->write(json_encode($errors));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+        }
         $posts = $this->postRepository->getForumPosts($this->forum_id);
         $postsData = array_map(function($post) {
             return [

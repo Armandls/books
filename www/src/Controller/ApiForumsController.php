@@ -145,7 +145,7 @@ class ApiForumsController
         return $data;
     }
 
-    public function getForum(Request $request, Response $response): Response
+    public function getForum(Request $request, Response $response, array $args): Response
     {
         $session_result = $this->checkSession();
         $errors = [];
@@ -163,8 +163,15 @@ class ApiForumsController
             return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
         }
 
-        $forumID = 1;
-        $forums = $this->forumsRepository->findForumByID($forumID);
+        $forum_id = $args['id'];
+        $forums = $this->forumsRepository->findForumByID($forum_id);
+        if ($forums == null) {
+            $errors['message'] = 'Forum with id '. $forum_id .' does not exist';
+
+            $response->getBody()->write(json_encode($errors));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+        }
+
         $forumsData = [];
 
         $forumsData['id'] = $forums->getId();

@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="añado ApiPostsController.php, permite metodo GET">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="funciona con guzzle... peor hay que cambiarlo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +203,7 @@
       <workItem from="1715194770120" duration="2851000" />
       <workItem from="1715263414970" duration="120000" />
       <workItem from="1715264452810" duration="213000" />
-      <workItem from="1715271663478" duration="5702000" />
+      <workItem from="1715271663478" duration="7386000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -574,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715274670340</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="funciona con guzzle... peor hay que cambiarlo">
+      <option name="closed" value="true" />
+      <created>1715278448528</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1715278448528</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -604,7 +611,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="error solucionado retornar usrname de user" />
     <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
     <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
@@ -629,6 +635,7 @@
     <MESSAGE value="canvis que gfan oo mateix pero esta mes clar tot" />
     <MESSAGE value="mini cambios hechos" />
     <MESSAGE value="añado ApiPostsController.php, permite metodo GET" />
-    <option name="LAST_COMMIT_MESSAGE" value="añado ApiPostsController.php, permite metodo GET" />
+    <MESSAGE value="funciona con guzzle... peor hay que cambiarlo" />
+    <option name="LAST_COMMIT_MESSAGE" value="funciona con guzzle... peor hay que cambiarlo" />
   </component>
 </project>

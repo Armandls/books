@@ -177,7 +177,14 @@ class CatalogueController
 
         switch ($formType) {
             case 'isbnForm':
-                $book = $this->findBookByISBN($data['isbn']);
+                $isbn = $data['isbn'];
+
+                if (!preg_match('/^\d+$/', $isbn)) {
+                    $errors['isbn'] = 'El código ISBN no es válido.';
+                    break;
+                }
+
+                $book = $this->findBookByISBN($isbn);
                 if ($book == null) {
                     $errors['isbn'] = 'The ISBN code is not valid.';
                     break;

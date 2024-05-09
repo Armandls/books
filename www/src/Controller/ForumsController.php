@@ -37,22 +37,17 @@ class ForumsController
      */
     public function showCurrentForums(Request $request, Response $response): Response
     {
-        $client = new Client();
+        /*$client = new Client();
         $apiUrl = "http://nginx/api/forums";
         $headers = [
-            //'Authorization' => 'Bearer <token>',
+            'Authorization' => 'Bearer ' . $_SESSION['email'],
             'Content-Type' => 'application/json'
         ];
-
         $apiResponse = $client->request('GET', $apiUrl, [
             'headers' => $headers
         ]);
-        //$apiUrl = "http://localhost:5080/api/forums";
-        //$apiResponse = $this->client->request('GET', $apiUrl);
-        //$request = $this->client->request('GET', $apiUrl, $headers);
-
         $dataDecode = json_decode($apiResponse->getBody(), true);
-
+        */
         if (isset($_SESSION['email'])) {
             $user = $this->userRepository->findByEmail($_SESSION['email']);
             $profile_photo = "/uploads/{$user->profile_picture()}";

@@ -3,12 +3,14 @@
 namespace Project\Bookworm\Controller;
 
 
+use GuzzleHttp\Exception\GuzzleException;
 use Project\Bookworm\Model\ForumsRepository;
 use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
+use GuzzleHttp\Client;
 
 
 class ForumsController
@@ -17,19 +19,40 @@ class ForumsController
     private UserRepository $userRepository;
     private ForumsRepository $forumsRepository;
     private FlashController $flashController;
+    private $client;
 
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
     {
         $this->twig = $twig;
-
         $this->forumsRepository = $forumsRepository;
         $this->userRepository = $userRepository;
         $this->flashController = $flashController;
+
+        $this->client = new \GuzzleHttp\Client();
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function showCurrentForums(Request $request, Response $response): Response
     {
+        $client = new Client();
+        $apiUrl = "http://localhost:5080/api/forums";
+        $headers = [
+            //'Authorization' => 'Bearer <token>',
+            'Content-Type' => 'application/json'
+        ];
+
+        $apiResponse = $client->request('GET', $apiUrl, [
+            'headers' => $headers
+        ]);
+        //$apiUrl = "http://localhost:5080/api/forums";
+        //$apiResponse = $this->client->request('GET', $apiUrl);
+        //$request = $this->client->request('GET', $apiUrl, $headers);
+
+        $dataDecode = json_decode($apiResponse->getBody(), true);
+
         if (isset($_SESSION['email'])) {
             $user = $this->userRepository->findByEmail($_SESSION['email']);
             $profile_photo = "/uploads/{$user->profile_picture()}";

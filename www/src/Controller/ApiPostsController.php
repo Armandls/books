@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Project\Bookworm\Model\BookRepository;
 
 use Project\Bookworm\Model\ForumsRepository;
+use Project\Bookworm\Model\PostRepository;
 use Project\Bookworm\Model\User;
 use Project\Bookworm\Model\UserRepository;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -17,26 +18,29 @@ use Slim\Views\Twig;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-class ApiForumsController
+class ApiPostsController
 {
     private Twig $twig;
     private Messages $flash;
     private UserRepository $userRepository;
     private ForumsRepository $forumsRepository;
+    private PostRepository $postRepository;
     private FlashController $flashController;
     private $client;
     private User $user;
     private string $username;
     private string $profile_photo;
+    private int $forum_id;
 
 
-    public function __construct(Twig $twig, ForumsRepository $forumsRepository, UserRepository $userRepository, FlashController $flashController)
+    public function __construct(Twig $twig, ForumsRepository $forumsRepository, UserRepository $userRepository, PostRepository $postRepository, FlashController $flashController)
     {
         $this->twig = $twig;
         $this->client = new Client();
 
         $this->forumsRepository = $forumsRepository;
         $this->userRepository = $userRepository;
+        $this->postRepository = $postRepository;
 
         $this->flashController = $flashController;
         $this->profile_photo = "";
@@ -61,7 +65,7 @@ class ApiForumsController
         return -2;
     }
 
-    public function showCurrentForums(Request $request, Response $response): Response
+    public function getApiPosts(Request $request, Response $response, array $args): Response
     {
         $session_result = $this->checkSession();
         $errors = [];
@@ -79,20 +83,23 @@ class ApiForumsController
             return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
         }
 
-        $forums = $this->forumsRepository->fetchAllForums();
-        $forumsData = array_map(function($forum) {
+        $this->forum_id = $args['id'];
+        $posts = $this->postRepository->getForumPosts($this->forum_id);
+        $postsData = array_map(function($post) {
             return [
-                'id' => $forum->getId(),
-                'title' => $forum->getTitle(),
-                'description' => $forum->getDescription()
+                'id' => $post->getId(),
+                'title' => $post->getTitle(),
+                'contents' => $post->getContents(),
+                'opUsername' => $this->userRepository->findById($post->getUserId())->username(),
+                'opProfilePicture' => $this->userRepository->findById($post->getUserId())->profile_picture(),
             ];
-        }, $forums);
+        }, $posts);
 
-        $response->getBody()->write(json_encode($forumsData));
+        $response->getBody()->write(json_encode($postsData));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    public function createNewForum(Request $request, Response $response): Response
+    public function validateApiPost(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
         $errors = $this->validateNewForum($data);
@@ -107,18 +114,6 @@ class ApiForumsController
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    private function renderPage($response, $routeParser, $errors, $forums)
-    {
-
-       return $this->twig->render($response, 'forums.twig', [
-           'formAction' => $routeParser->urlFor("getApiForums"),
-           'formMethod' => "POST",
-           'formErrors' => $errors,
-           'forums' => $forums,
-           'session' => $_SESSION['email'] ?? [],
-           'photo' => $this->profile_photo
-       ]);
-    }
 
     private function validateNewForum(array $data)
     {

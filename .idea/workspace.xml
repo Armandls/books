@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="mini cambios hechos">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="primera aproximacion de API">
+      <change afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,27 +137,20 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="SwaggerCodegen" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
       <option name="customTemplatesPath" value="" />
-      <option name="envs">
-        <map />
-      </option>
+      <option name="enableDebugLogging" value="false" />
       <option name="generateToPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\gen" />
       <option name="generationParameters">
         <list />
       </option>
-      <option name="generatorType" value="OPENAPI_GENERATOR_V6" />
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
       <option name="jdkPath" value="" />
       <option name="language" value="java" />
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
       <option name="specificationPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources\swagger.json" />
-      <option name="workingDirectory" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources" />
       <method v="2" />
     </configuration>
   </component>
@@ -203,6 +200,10 @@
       <workItem from="1715107944986" duration="144000" />
       <workItem from="1715175911681" duration="349000" />
       <workItem from="1715176273388" duration="3766000" />
+      <workItem from="1715194770120" duration="2851000" />
+      <workItem from="1715263414970" duration="120000" />
+      <workItem from="1715264452810" duration="213000" />
+      <workItem from="1715271663478" duration="2739000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />

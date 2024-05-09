@@ -4,6 +4,7 @@ declare(strict_types=1);
 // Rutas
 
 use Project\Bookworm\Controller\ApiForumsController;
+use Project\Bookworm\Controller\ApiPostsController;
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\ForumsController;
@@ -54,6 +55,9 @@ $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName(
 // API
 $app->get('/api/forums', ApiForumsController::class . ':showCurrentForums')->setName('getApiForums');
 $app->post('/api/forums', ApiForumsController::class . ':createNewForum')->setName('postApiForums');
-$app->get('/api/forums/{id}', ApiForumsController::class . ':showPosts')->setName('getForumsID');
-$app->delete('/api/forums{id}', ApiForumsController::class . ':showPosts')->setName('deleteForumsID');
+$app->get('/api/forums/{id}', ApiForumsController::class . ':getForum')->setName('getForumsID');
+$app->delete('/api/forums{id}', ApiForumsController::class . ':deleteForum')->setName('deleteForumsID');
+
+$app->get('/api/forums/{id}/posts', ApiPostsController::class . ':getApiPosts')->setName('getApiPosts');
+$app->post('/api/forums/{id}/posts', ApiPostsController::class . ':validateApiPost')->setName('validateApiPost');
 

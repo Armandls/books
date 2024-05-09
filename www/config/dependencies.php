@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 use DI\Container;
 use Project\Bookworm\Controller\ApiForumsController;
+use Project\Bookworm\Controller\ApiPostsController;
 use Project\Bookworm\Controller\BookDetailsController;
 use Project\Bookworm\Controller\CatalogueController;
 use Project\Bookworm\Controller\FlashController;
@@ -170,6 +171,15 @@ $container = new Container(); // Instancia de la clase Container
             function (ContainerInterface $c) {
                 // Constructor (Twig)
                 return new ApiForumsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class),  $c->get(FlashController::class));
+            }
+        );
+
+        // 10 - Se añade ApiPostsController al contenedor de Slim
+        $container->set(
+            ApiPostsController::class,  // Nombre de la dependencia -> ApiPostsController
+            function (ContainerInterface $c) {
+                // Constructor (Twig)
+                return new ApiPostsController($c->get("view"), $c->get(ForumsRepository::class), $c->get(UserRepository::class), $c->get(PostRepository::class),  $c->get(FlashController::class));
             }
         );
 

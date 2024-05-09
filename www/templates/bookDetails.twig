@@ -169,7 +169,7 @@
             </ul>
 
 
-            <form id="add-review-form" action="{{ url_for('addBookReview', {'id': bookId}) }}" method="GET">
+            <form id="add-review-form">
                 <div class="form-group">
                     <label for="review">Agregar revisión:</label>
                     <textarea class="form-control" id="review" name="review_text" rows="3" required></textarea>
@@ -209,15 +209,16 @@
 
 
 {% block scripts %}
-    <script
-            src="https://code.jquery.com/jquery-3.4.0.min.js"
-            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-            crossorigin="anonymous">
-    </script>
+<script
+        src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        crossorigin="anonymous">
+</script>
 
 <script>
     $(document).ready(function() {
-        $('#add-review-form').onclick(function(event) { // poner on en vez de onclick
+        $('#add-review-form').submit(function(event) { // poner on en vez de onclick
+            event.preventDefault();
 
             let reviewText = $('#review').val();
 
@@ -231,18 +232,17 @@
 
             $.ajax({
                 type: 'PUT',
-                url: $(this).attr('action'),
+                url: "{{ url_for('addBookReview', {'id': book.id}) }}",
                 data: JSON.stringify(payload),
                 dataType: 'json'
             })
-                .done(function(data) {
-                    console.log(data);
-                    // realizar acciones que necisete
-                })
-                .fail(function(error) {
-                    console.error(error);
-                });
-            event.preventDefault();
+            .done(function(data) {
+                console.log(data);
+                // realizar acciones que necisete
+            })
+            .fail(function(error) {
+                console.error(error);
+            });
         });
     });
 

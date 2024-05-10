@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="funciona con guzzle... peor hay que cambiarlo">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="---">
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/CatalogueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +203,10 @@
       <workItem from="1715194770120" duration="2851000" />
       <workItem from="1715263414970" duration="120000" />
       <workItem from="1715264452810" duration="213000" />
-      <workItem from="1715271663478" duration="7386000" />
+      <workItem from="1715271663478" duration="9420000" />
+      <workItem from="1715328265322" duration="188000" />
+      <workItem from="1715334284300" duration="79000" />
+      <workItem from="1715351932033" duration="4546000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -581,7 +584,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715278448528</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="---">
+      <option name="closed" value="true" />
+      <created>1715282333931</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1715282333931</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -611,7 +622,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
     <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
     <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
@@ -636,6 +646,18 @@
     <MESSAGE value="mini cambios hechos" />
     <MESSAGE value="añado ApiPostsController.php, permite metodo GET" />
     <MESSAGE value="funciona con guzzle... peor hay que cambiarlo" />
-    <option name="LAST_COMMIT_MESSAGE" value="funciona con guzzle... peor hay que cambiarlo" />
+    <MESSAGE value="---" />
+    <option name="LAST_COMMIT_MESSAGE" value="---" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/www/src/Controller/ApiForumsController.php</url>
+          <line>96</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -48,7 +48,7 @@ $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDe
 $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');
-$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
+//$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
 
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 

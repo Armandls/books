@@ -95,6 +95,7 @@ class ApiForumsController
     public function createNewForum(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
+        $aux = json_decode($data);
         $errors = $this->validateNewForum($data);
 
         if (count($errors) > 0) {

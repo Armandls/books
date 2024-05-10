@@ -3,6 +3,8 @@
 {% block title %}Forums{% endblock %}
 
 {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -81,7 +83,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
                     <h3 class="text-center">Create a new discussion</h3>
-                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                    <form role="form" id="create-forum-form" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
                         <input type="hidden" name="formType" value="fullForm">
                         <div class="card-body">
                             <div class="mb-4">
@@ -120,29 +122,13 @@
     <section class="pt-md-4 pb-5 position-relative">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div id="get-forums-ajax" class="col-lg-9">
                     <h4>
                         Discussion forums
                     </h4>
                     <hr class="horizontal dark mb-4">
 
-                    {% for forum in forums %}
-                    <div class="row">
 
-                        <div class="col-sm-10 col-9 my-auto">
-                            <h5>
-                                <a href="forums/{{ forum.getId() }}/posts" class="text-dark font-weight-bold">{{ forum.getTitle() }}</a>
-                            </h5>
-                            <p class="text-sm">{{ forum.getDescription() }}</p>
-                            <div class="buttons justify-content-center">
-                                <a href="forums/{{ forum.getId() }}/posts" class="text-info icon-move-right">Read More
-                                    <i class="fas fa-arrow-right text-sm"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <hr class="horizontal dark my-4">
-                    </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -156,7 +142,80 @@
     <script
             type="application/javascript"
             src="{{ full_url_for('home') }}assets/js/getForums.js"></script>
-    <script
-            type="application/javascript"
-            src="{{ full_url_for('home') }}assets/js/postForums.js"></script>
+    <script>
+        $(document).ready(function() {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:5080/api/forums',
+                    contentType: 'application/json;charset=utf-8',
+                    //data: JSON.stringify(payload), // our data object
+                    dataType: 'json' // what type of data do we expect back from the server
+                })
+                // ealizar la llamada AJAX con Axios
+                axios.get("{{ url_for('getApiForums') }}")
+                    .then(function(response) {
+                        console.log(response.data);
+
+                        var parsedJSON = JSON.stringify(response.data);
+
+                        parsedJSON = JSON.parse(parsedJSON)
+                        parsedJSON.forEach(function(forum) {
+                            // Construir el HTML para cada elemento del foro
+                            var forumHTML = '<div class="row">' +
+                                '<div class="col-sm-10 col-9 my-auto">' +
+                                '<h5><a href="forums/' + forum.id + '/posts" class="text-dark font-weight-bold">' + forum.title + '</a></h5>' +
+                                '<p class="text-sm">' + forum.description + '</p>' +
+                                '<div class="buttons justify-content-center">' +
+                                '<a href="forums/' + forum.id + '/posts" class="text-info icon-move-right">Read More <i class="fas fa-arrow-right text-sm"></i> </a>' +
+                                '</div>' +
+                                '</div>' +
+                                '<hr class="horizontal dark my-4">' +
+                                '</div>';
+                            // Agregar el HTML al elemento con el id "get-forums-ajax"
+                            $("#get-forums-ajax").append(forumHTML);
+                        });
+                    })
+                    .catch(function(error) {
+                        // Manejar errores
+                        console.error(error);
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#create-forum-form').submit(function(event) {
+                let payload = {
+                    title: $('input[name=title]').val(),
+                    description: $('input[name=description]').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:5080/api/forums',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(payload), // our data object
+                    dataType: 'json' // what type of data do we expect back from the server
+                })
+                console.log(payload)
+                // ealizar la llamada AJAX con Axios
+                axios.post("{{ url_for('postApiForums') }}", payload)
+                    .then(function(response) {
+                        // Manejar la respuesta del servidor
+                        console.log(response.data);
+                        // Actualizar la página o realizar otras acciones según sea necesario
+                    })
+                    .catch(function(error) {
+                        // Manejar errores
+                        console.error(error);
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+                event.preventDefault();
+            });
+        });
+    </script>
 {% endblock %}

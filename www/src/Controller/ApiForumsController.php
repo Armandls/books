@@ -95,8 +95,11 @@ class ApiForumsController
     public function createNewForum(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
-        $aux = json_decode($data);
-        $errors = $this->validateNewForum($data);
+        $forum = [];
+        $forum['title'] = $data["title"];
+        $forum['description'] = $data["description"];
+
+        $errors = $this->validateNewForum($forum);
 
         if (count($errors) > 0) {
             $response->getBody()->write(json_encode(['errors' => $errors]));
@@ -128,8 +131,7 @@ class ApiForumsController
         }
 
         if (empty($errors)) {
-            $forum = $this->forumsRepository->generateNewForum($data);
-            $forumCorrect = $this->forumsRepository->createForum($forum);
+            $forumCorrect = $this->forumsRepository->createForum($data);
             if (!$forumCorrect) {
                 $errors['forum'] = "Unexpected error creating new forum";
             }

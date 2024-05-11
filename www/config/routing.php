@@ -48,13 +48,14 @@ $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDe
 $app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');
-//$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
+$app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
 
 $app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
 
 // API
 $app->get('/api/forums', ApiForumsController::class . ':showCurrentForums')->setName('getApiForums');
 $app->post('/api/forums', ApiForumsController::class . ':createNewForum')->setName('postApiForums');
+
 $app->get('/api/forums/{id}', ApiForumsController::class . ':getForum')->setName('getForumsID');
 $app->delete('/api/forums{id}', ApiForumsController::class . ':deleteForum')->setName('deleteForumsID');
 

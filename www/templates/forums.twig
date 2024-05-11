@@ -86,22 +86,18 @@
                     <form role="form" id="create-forum-form" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
                         <input type="hidden" name="formType" value="fullForm">
                         <div class="card-body">
-                            <div class="mb-4">
+                            <div id="title-input" class="mb-4">
                                 <label>Title of the discussion</label>
                                 <div class="input-group mb-4">
                                     <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
                                 </div>
-                                {% if formErrors['title'] %}
-                                    <p style="color: red;">{{ formErrors['title'] }}</p>
-                                {% endif %}
+
                             </div>
 
-                            <div class="form-group mb-4">
+                            <div id="description-input" class="form-group mb-4">
                                 <label>Topic</label>
                                 <textarea id="description" name="description" class="form-control" rows="4" placeholder="Explain your topic here..."></textarea>
-                                {% if formErrors['description'] %}
-                                    <p style="color: red;">{{ formErrors['description'] }}</p>
-                                {% endif %}
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -141,7 +137,9 @@
     {{ parent() }}
     <script
             type="application/javascript"
-            src="{{ full_url_for('home') }}assets/js/getForums.js"></script>
+            src="{{ full_url_for('home') }}assets/js/getForums.js">
+    </script>
+
     <script>
         $(document).ready(function() {
 
@@ -188,34 +186,45 @@
     <script>
         $(document).ready(function() {
             $('#create-forum-form').submit(function(event) {
-                let payload = {
-                    title: $('input[name=title]').val(),
-                    description: $('input[name=description]').val()
+                // Vaciar mensajes de error antiguos
+                $('.error-message').remove();
+
+                var title = $('input[name=title]').val();
+                var description = $('textarea[name=description]').val();
+
+                // Construir el objeto payload con los valores del formulario
+                var payload = {
+                    title: title,
+                    description: description
                 };
 
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:5080/api/forums',
+                    url: '/api/forums',
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(payload), // our data object
                     dataType: 'json' // what type of data do we expect back from the server
                 })
-                console.log(payload)
-                // ealizar la llamada AJAX con Axios
-                axios.post("{{ url_for('postApiForums') }}", payload)
-                    .then(function(response) {
-                        // Manejar la respuesta del servidor
-                        console.log(response.data);
-                        // Actualizar la página o realizar otras acciones según sea necesario
+                    .done(function(data) {
+                        console.log(data);
+                        window.location.reload();
+
                     })
-                    .catch(function(error) {
-                        // Manejar errores
-                        console.error(error);
+                    .fail(function(xhr) {
+                        console.log(xhr);
+                        var errors = xhr.responseJSON.errors;
+                        if (errors.title) {
+                            $("#title-input").after('<p class="error-message" style="color: red;">' + errors.title + '</p>');
+                        }
+                        if (errors.description) {
+                            $("#description-input").after('<p class="error-message" style="color: red;">' + errors.description + '</p>');
+                        }
                     });
 
                 // stop the form from submitting the normal way and refreshing the page
                 event.preventDefault();
             });
         });
+
     </script>
 {% endblock %}

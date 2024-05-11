@@ -3,6 +3,7 @@
 {% block title %}Posts{% endblock %}
 
 {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -81,30 +82,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ms-auto me-auto">
-                    <div>
-                        {% if posts|length > 1 %}
-                            <h4 class="text-center mb-5">{{ posts|length }} Comments</h4>
-                        {% elseif posts|length == 1 %}
-                            <h4 class="text-center mb-5">{{ posts|length }} Comment</h4>
-                        {% else %}
-                            <h4 class="text-center mb-5">No Comments yet...</h4>
-                        {% endif %}
-                        {% for post in posts %}
-                        <div class="d-flex">
-                            <div>
-                                <div class="position-relative">
-                                    <div class="blur-shadow-avatar">
-                                        <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ms-3">
-                                <h6>{{ post.getUserName() }} <span class="text-muted text-xs"> {{ post.getUpdatedAtToString() }}</span></h6>
-                                <h5>{{ post.getTitle() }}</h5>
-                                <p>{{ post.getContents() }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
+                    <div id="forum-posts-div">
+
                     </div>
 
                     <h4 class="text-center mb-4 mt-5">Post your comment</h4>
@@ -156,4 +135,63 @@
         </div>
     </section>
 
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5080/api/forums/{{ forum_id }}/posts',
+                contentType: 'application/json;charset=utf-8',
+                //data: JSON.stringify(payload), // our data object
+                dataType: 'json' // what type of data do we expect back from the server
+            })
+
+                .then(function(response) {
+                    console.log(response);
+
+                    // Renderizar el código HTML para los comentarios/posts
+                    var commentsHTML = '';
+                    response.forEach(function(post) {
+                        commentsHTML += '<div class="d-flex">' +
+                            '<div>' +
+                            '<div class="position-relative">' +
+                            '<div class="blur-shadow-avatar">' +
+                            '<img class="avatar rounded-circle" src="../../uploads/' + post.opProfilePicture + '" alt="...">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="ms-3">' +
+                            '<h6>' + post.opUsername + '</h6>' +
+                            '<h5>' + post.title + '</h5>' +
+                            '<p>' + post.contents + '</p>' +
+                            '</div>' +
+                            '</div>';
+                    });
+
+                    // Mostrar el número de comentarios/posts
+                    var commentsCountHTML = '';
+                    if (response.length > 1) {
+                        commentsCountHTML = '<h4 class="text-center mb-5">' + response.length + ' Comments</h4>';
+                    } else if (response.length === 1) {
+                        commentsCountHTML = '<h4 class="text-center mb-5">1 Comment</h4>';
+                    } else {
+                        commentsCountHTML = '<h4 class="text-center mb-5">No Comments yet...</h4>';
+                    }
+
+                    // Agregar el HTML al elemento con el id "comments-container"
+                    $("#forum-posts-div").html(commentsCountHTML + commentsHTML);
+                })
+
+                    .catch(function(error) {
+                    // Manejar errores
+                    console.error(error);
+                });
+
+            // stop the form from submitting the normal way and refreshing the page
+
+        });
+    </script>
 {% endblock %}

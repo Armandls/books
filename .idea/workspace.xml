@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="get de la API funciona!">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/baseLanding.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/baseLanding.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,15 +206,8 @@
       <workItem from="1715328265322" duration="188000" />
       <workItem from="1715334284300" duration="79000" />
       <workItem from="1715351932033" duration="7847000" />
-      <workItem from="1715448174644" duration="3836000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial commit">
-      <option name="closed" value="true" />
-      <created>1713287382919</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1713287382919</updated>
+      <workItem from="1715448174644" duration="3961000" />
+      <workItem from="1715455372850" duration="2568000" />
     </task>
     <task id="LOCAL-00002" summary="Initial commit">
       <option name="closed" value="true" />
@@ -601,7 +593,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715357521407</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)">
+      <option name="closed" value="true" />
+      <created>1715452160996</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1715452160996</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
     <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
     <MESSAGE value="quitar los dobles setnames en routing de profile" />
     <MESSAGE value="arreglar tema control errores y foto perfil" />
@@ -656,6 +655,7 @@
     <MESSAGE value="funciona con guzzle... peor hay que cambiarlo" />
     <MESSAGE value="---" />
     <MESSAGE value="get de la API funciona!" />
-    <option name="LAST_COMMIT_MESSAGE" value="get de la API funciona!" />
+    <MESSAGE value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
+    <option name="LAST_COMMIT_MESSAGE" value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
   </component>
 </project>

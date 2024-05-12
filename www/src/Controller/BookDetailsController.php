@@ -11,6 +11,7 @@ use Project\Bookworm\Model\BookRepository;
 use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
+use function DI\get;
 
 class BookDetailsController
 {
@@ -110,16 +111,11 @@ class BookDetailsController
 
         $userId = 1;
 
-        $this->bookRepository->deleteReviewById($userId, $bookId);
-
-        // Obtener el enrutador de la solicitud para generar la URL de redirección
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $this->bookRepository->deleteReviewById(1, 70);
 
         // Crear una nueva respuesta con la redirección
-        return $this->twig->render($response, 'bookDetails.twig', [
-            'formMethod' => "POST",
-            'formAction' => $routeParser->urlFor("bookDetails",  ['id' => $bookId])
-        ]);
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
     }
 
 
@@ -136,7 +132,8 @@ public function addReview(Request $request, Response $response, array $args): Re
 
     // Inserta la revisión en la base de datos utilizando tu método existente
     // Suponiendo que el texto de la revisión está en el campo 'review_text' del formulario
-    $reviewText = $data['review_text'];
+    $reviewText = $data["review_text"];
+
     $this->bookRepository->addReview($userId, $bookId, $reviewText);
 
     // Redirige de vuelta a la página de detalles del libro después de agregar la revisión

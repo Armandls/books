@@ -230,8 +230,9 @@ QUERY;
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteReviewById($userId, $bookId)
+    public function deleteReviewById($userId, $bookId): void
     {
+
         $query = <<<'QUERY'
         DELETE FROM reviews
         WHERE book_id = :book_id AND user_id = :user_id

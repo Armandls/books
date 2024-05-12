@@ -43,9 +43,11 @@ $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->
 $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
 
-$app->delete('/catalogue/{id}/reviews', BookDetailsController::class . ':deleteReview')->setName('bookDetails');
-
+$app->delete('/catalogue/{id}/reviews', BookDetailsController::class . ':deleteReview')->setName('deleteBookReviews');
 $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':addReview')->setName('addBookReview');
+
+$app->delete('/catalogue/{id}/ratings', BookDetailsController::class . ':deleteRating')->setName('deleteRating');
+$app->put('/catalogue/{id}/ratings', BookDetailsController::class . ':addBookRating')->setName('addBookRating');
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums')->add(SessionCheckerMiddleware::class);
 $app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation')->add(SessionCheckerMiddleware::class);
@@ -58,4 +60,3 @@ $app->post('/api/forums', PostsController::class . ':showPosts')->setName('forum
 $app->get('/api/forums/{id}', PostsController::class . ':showPosts')->setName('forumPosts');
 $app->delete('/api/forums{id}', PostsController::class . ':showPosts')->setName('forumPosts');
 
-$app->put('/catalogue/{id}/ratings', BookDetailsController::class . ':addRating')->setName('addBookRating');

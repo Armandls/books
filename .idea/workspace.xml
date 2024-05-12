@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="vista agragada">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="ajax apuntes marc">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,10 +41,13 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" root0="SKIP_INSPECTION" root1="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpDebugGeneral" notify_if_session_was_finished_without_being_paused="false" />
   <component name="PhpServers">
     <servers>
       <server host="0.0.0.0" id="f15dcc1b-af00-40b0-801e-c8f0d6835e1a" name="0.0.0.0:5092" port="5092" use_path_mappings="true">
@@ -104,22 +110,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "hotfixReviews&&Ratings",
-    "last_opened_file_path": "C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hotfixReviews&amp;&amp;Ratings&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\templates" />
@@ -201,6 +207,10 @@
       <workItem from="1715008815578" duration="108000" />
       <workItem from="1715075977609" duration="5986000" />
       <workItem from="1715085493577" duration="9822000" />
+      <workItem from="1715364504954" duration="1366000" />
+      <workItem from="1715368862626" duration="3013000" />
+      <workItem from="1715407737902" duration="1763000" />
+      <workItem from="1715496119623" duration="2917000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -546,7 +556,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715267655152</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="ajax apuntes marc">
+      <option name="closed" value="true" />
+      <created>1715278719319</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1715278719319</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="poner la nav bar a sign in y sign up sin las opciones de sign in y sign up" />
     <MESSAGE value="cambios en la nav bar" />
     <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
@@ -601,17 +618,28 @@
     <MESSAGE value="arreglo descripcion de añadir nuevo libro via ISBN" />
     <MESSAGE value="mostrar info en catalogue/id basico" />
     <MESSAGE value="vista agragada" />
-    <option name="LAST_COMMIT_MESSAGE" value="vista agragada" />
+    <MESSAGE value="ajax apuntes marc" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajax apuntes marc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
-          <line>128</line>
-          <option name="timeStamp" value="1" />
+          <line>109</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
+          <line>125</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="134">
+        <watch expression="$data" language="PHP" />
+      </inline-watch>
+    </watches-manager>
   </component>
 </project>

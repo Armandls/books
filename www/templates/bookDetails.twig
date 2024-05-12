@@ -180,9 +180,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <form id="delete-review-form" action="{{ url_for('bookDetail', {'id': bookId}) }}" method="post" style="display: inline;">
-                        <input type="hidden" name="bookId" value="{{ bookId }}">
-                        <input type="hidden" name="reviewId" value="{{ review.id }}">
+                    <form id="delete-review-form"  style="display: inline;">
                         <button type="submit" class="btn btn-danger">Delete my Review</button>
                     </form>
                 </div>
@@ -208,46 +206,57 @@
     </section>
 
 
-{% block scripts %}
-<script
-        src="https://code.jquery.com/jquery-3.4.0.min.js"
-        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-        crossorigin="anonymous">
-</script>
+    {% block scripts %}
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#add-review-form').submit(function(event) { // poner on en vez de onclick
-            event.preventDefault();
+        <script>
+            $(document).ready(function() {
+                $('#delete-review-form').submit(function(event) {
+                    event.preventDefault();
 
-            let reviewText = $('#review').val();
-
-
-            let payload = {
-                review_text: reviewText
-            };
-            let formData;
-            //formData.push({ name: '_method', value: 'PUT' });
-
-
-            $.ajax({
-                type: 'PUT',
-                url: "{{ url_for('addBookReview', {'id': book.id}) }}",
-                data: JSON.stringify(payload),
-                dataType: 'json'
-            })
-            .done(function(data) {
-                console.log(data);
-                // realizar acciones que necisete
-            })
-            .fail(function(error) {
-                console.error(error);
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ url_for('deleteBookReviews', {'id': book.id}) }}",
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+                            // Aquí puedes realizar acciones adicionales si es necesario
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
             });
-        });
-    });
+        </script>
 
-</script>
-{% endblock %}
+        <script>
+            $(document).ready(function() {
+                $('#add-review-form').submit(function(event) {
+                    event.preventDefault();
+
+                    let reviewText = $('#review').val();
+                    let payload = {
+                        review_text: reviewText
+                    };
+                    $.ajax({
+                        type: 'PUT',
+                        url: "{{ url_for('addBookReview', {'id': book.id}) }}",
+                        data: JSON.stringify(payload),
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+                            // Aquí puedes realizar acciones adicionales si es necesario
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+    {% endblock %}
+
 
 
 {% endblock %}

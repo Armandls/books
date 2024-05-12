@@ -1,8 +1,10 @@
-{% extends "baseLanding.twig" %}
+{% extends "baseForums.twig" %}
 
 {% block title %}Forums{% endblock %}
 
 {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -25,6 +27,11 @@
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a href="/catalogue" class="dropdown-item border-radius-md">
                                         <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/forums" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Forums</span>
                                     </a>
                                 </li>
                             </ul>
@@ -76,25 +83,21 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
                     <h3 class="text-center">Create a new discussion</h3>
-                    <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                    <form role="form" id="create-forum-form" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
                         <input type="hidden" name="formType" value="fullForm">
                         <div class="card-body">
-                            <div class="mb-4">
+                            <div id="title-input" class="mb-4">
                                 <label>Title of the discussion</label>
                                 <div class="input-group mb-4">
                                     <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
                                 </div>
-                                {% if formErrors['title'] %}
-                                    <p style="color: red;">{{ formErrors['title'] }}</p>
-                                {% endif %}
+
                             </div>
 
-                            <div class="form-group mb-4">
+                            <div id="description-input" class="form-group mb-4">
                                 <label>Topic</label>
                                 <textarea id="description" name="description" class="form-control" rows="4" placeholder="Explain your topic here..."></textarea>
-                                {% if formErrors['description'] %}
-                                    <p style="color: red;">{{ formErrors['description'] }}</p>
-                                {% endif %}
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -115,29 +118,13 @@
     <section class="pt-md-4 pb-5 position-relative">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div id="get-forums-ajax" class="col-lg-9">
                     <h4>
                         Discussion forums
                     </h4>
                     <hr class="horizontal dark mb-4">
 
-                    {% for forum in forums %}
-                    <div class="row">
 
-                        <div class="col-sm-10 col-9 my-auto">
-                            <h5>
-                                <a href="forums/{{ forum.getId() }}/posts" class="text-dark font-weight-bold">{{ forum.getTitle() }}</a>
-                            </h5>
-                            <p class="text-sm">{{ forum.getDescription() }}</p>
-                            <div class="buttons justify-content-center">
-                                <a href="forums/{{ forum.getId() }}/posts" class="text-info icon-move-right">Read More
-                                    <i class="fas fa-arrow-right text-sm"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <hr class="horizontal dark my-4">
-                    </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -145,4 +132,134 @@
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
 
 
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/getForums.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:5080/api/forums',
+                    contentType: 'application/json;charset=utf-8',
+                    //data: JSON.stringify(payload), // our data object
+                    dataType: 'json' // what type of data do we expect back from the server
+                })
+                // ealizar la llamada AJAX con Axios
+                axios.get("{{ url_for('getApiForums') }}")
+                    .then(function(response) {
+                        console.log(response.data);
+
+                        var parsedJSON = JSON.stringify(response.data);
+
+                        parsedJSON = JSON.parse(parsedJSON)
+                        parsedJSON.forEach(function(forum) {
+                            // Construir el HTML para cada elemento del foro
+                            var forumHTML = '<div class="row">' +
+                                                '<div class="col-sm-8">' +
+                                                    '<h5><a href="forums/' + forum.id + '/posts" class="text-dark font-weight-bold">' + forum.title + '</a></h5>' +
+                                                    '<p class="text-sm">' + forum.description + '</p>' +
+                                                        '<div class="buttons justify-content-center">' +
+                                                            '<a href="forums/' + forum.id + '/posts" class="text-info icon-move-right">Read More <i class="fas fa-arrow-right text-sm"></i> </a>' +
+                                                        '</div>' +
+                                                '</div>' +
+                                                '<div class="col-sm-4">' +
+                                                    '<button id="delete-button"  onclick="deleteForumByID(' + forum.id + ')" " type="button" class="btn bg-gradient-danger w-auto me-2">Delete forum</button>' +
+                                                '</div>' +
+
+
+                                            '<hr class="horizontal dark my-4">' +
+                                            '</div>';
+                            // Agregar el HTML al elemento con el id "get-forums-ajax"
+                            $("#get-forums-ajax").append(forumHTML);
+                        });
+                    })
+                    .catch(function(error) {
+                        // Manejar errores
+                        console.error(error);
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#create-forum-form').submit(function(event) {
+                // Vaciar mensajes de error antiguos
+                $('.error-message').remove();
+
+                var title = $('input[name=title]').val();
+                var description = $('textarea[name=description]').val();
+
+                // Construir el objeto payload con los valores del formulario
+                var payload = {
+                    title: title,
+                    description: description
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/forums',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(payload), // our data object
+                    dataType: 'json' // what type of data do we expect back from the server
+                })
+                    .done(function(data) {
+                        console.log(data);
+                        window.location.reload();
+
+                    })
+                    .fail(function(xhr) {
+                        console.log(xhr);
+                        var errors = xhr.responseJSON.errors;
+                        if (errors.title) {
+                            $("#title-input").after('<p class="error-message" style="color: red;">' + errors.title + '</p>');
+                        }
+                        if (errors.description) {
+                            $("#description-input").after('<p class="error-message" style="color: red;">' + errors.description + '</p>');
+                        }
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+                event.preventDefault();
+            });
+        });
+
+    </script>
+
+    <script>
+        function deleteForumByID(forum_id) {
+
+                // Obtener el ID del foro desde el atributo de datos del botón
+                //var forum_id = $(this).data('forum-id');
+                console.log(forum_id);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/forums/' + forum_id,
+                    contentType: 'application/json;charset=utf-8',
+                    // No necesitas enviar ningún dato para una solicitud DELETE
+                    dataType: 'json'
+                })
+                    .done(function(data) {
+                        console.log(data);
+                        // Recargar la página después de eliminar el foro
+                        window.location.reload();
+
+                    })
+                    .fail(function(xhr) {
+                        console.log(xhr);
+                    });
+
+                // Detener el comportamiento predeterminado del botón
+                event.preventDefault();
+        }
+
+    </script>
 {% endblock %}

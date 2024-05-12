@@ -3,6 +3,7 @@
 {% block title %}Posts{% endblock %}
 
 {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -25,6 +26,11 @@
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a href="/catalogue" class="dropdown-item border-radius-md">
                                         <span class="ps-3">Catalogue</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                    <a href="/forums" class="dropdown-item border-radius-md">
+                                        <span class="ps-3">Forums</span>
                                     </a>
                                 </li>
                             </ul>
@@ -72,34 +78,23 @@
     </header>
     <!-- End Imagen de fondo -->
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
+
     <section class="py-7">
         <div class="container">
+            <div class="col-lg-8 ms-auto me-auto">
+                <hr class="dark horizontal">
+                <div class="d-flex">
+                    <div id="forum-details" class="ms-4 my-auto">
+
+                    </div>
+                </div>
+                <hr class="dark horizontal">
+            </div>
             <div class="row">
+
                 <div class="col-md-8 ms-auto me-auto">
-                    <div>
-                        {% if posts|length > 1 %}
-                            <h4 class="text-center mb-5">{{ posts|length }} Comments</h4>
-                        {% elseif posts|length == 1 %}
-                            <h4 class="text-center mb-5">{{ posts|length }} Comment</h4>
-                        {% else %}
-                            <h4 class="text-center mb-5">No Comments yet...</h4>
-                        {% endif %}
-                        {% for post in posts %}
-                        <div class="d-flex">
-                            <div>
-                                <div class="position-relative">
-                                    <div class="blur-shadow-avatar">
-                                        <img class="avatar rounded-circle" src="../../uploads/{{ post.getUserImage() }}" alt="...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ms-3">
-                                <h6>{{ post.getUserName() }} <span class="text-muted text-xs"> {{ post.getUpdatedAtToString() }}</span></h6>
-                                <h5>{{ post.getTitle() }}</h5>
-                                <p>{{ post.getContents() }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
+                    <div id="forum-posts-div">
+
                     </div>
 
                     <h4 class="text-center mb-4 mt-5">Post your comment</h4>
@@ -114,26 +109,19 @@
                             </a>
                         </div>
                         <div class="ms-3 w-100">
-                            <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
+                            <form role="form" id="create-post-form" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}">
                                 <input type="hidden" name="formType" value="fullForm">
                                 <div class="card-body">
-                                    <div class="mb-4">
+                                    <div id="title-input" class="mb-4">
                                         <label>Title of the discussion</label>
                                         <div class="input-group mb-4">
                                             <input id="title" name="title" class="form-control" placeholder="Title..." type="text" >
                                         </div>
-                                        {% if formErrors['title'] %}
-                                            <p style="color: red;">{{ formErrors['title'] }}</p>
-                                        {% endif %}
                                     </div>
 
-                                    <div class="form-group mb-4">
+                                    <div id="description-input" class="form-group mb-4">
                                         <label>Topic</label>
                                         <textarea id="description" name="description" class="form-control" placeholder="Write a nice reply or go home..." rows="4"></textarea>
-
-                                        {% if formErrors['description'] %}
-                                            <p style="color: red;">{{ formErrors['description'] }}</p>
-                                        {% endif %}
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -151,4 +139,133 @@
         </div>
     </section>
 
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5080/api/forums/{{ forum_id }}',
+                contentType: 'application/json;charset=utf-8',
+                //data: JSON.stringify(payload), // our data object
+                dataType: 'json' // what type of data do we expect back from the server
+            })
+
+                .then(function(response) {
+                    console.log(response);
+                    // Renderizar el código HTML para los comentarios/posts
+                    var details = response;
+                    if (details.title) {
+                        $("#forum-details").append('<h5>' + details.title + '</h5>');
+                    }
+                    if (details.description) {
+                        $("#forum-details").append('<p class="text-sm mb-0">' + details.description + '</p>');
+                    }
+                })
+
+                .catch(function(error) {
+                    // Manejar errores
+                    console.error(error);
+                });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5080/api/forums/{{ forum_id }}/posts',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json' // what type of data do we expect back from the server
+            })
+
+                .then(function(response) {
+                    console.log(response);
+
+                    // Renderizar el código HTML para los comentarios/posts
+                    var commentsHTML = '';
+                    response.forEach(function(post) {
+                        commentsHTML += '<div class="d-flex">' +
+                            '<div>' +
+                            '<div class="position-relative">' +
+                            '<div class="blur-shadow-avatar">' +
+                            '<img class="avatar rounded-circle" src="../../uploads/' + post.opProfilePicture + '" alt="...">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="ms-3">' +
+                            '<h6>' + post.opUsername + '</h6>' +
+                            '<h5>' + post.title + '</h5>' +
+                            '<p>' + post.contents + '</p>' +
+                            '</div>' +
+                            '</div>';
+                    });
+
+                    // Mostrar el número de comentarios/posts
+                    var commentsCountHTML = '';
+                    if (response.length > 1) {
+                        commentsCountHTML = '<h4 class="text-center mb-5">' + response.length + ' Comments</h4>';
+                    } else if (response.length === 1) {
+                        commentsCountHTML = '<h4 class="text-center mb-5">1 Comment</h4>';
+                    } else {
+                        commentsCountHTML = '<h4 class="text-center mb-5">No Comments yet...</h4>';
+                    }
+
+                    // Agregar el HTML al elemento con el id "comments-container"
+                    $("#forum-posts-div").html(commentsCountHTML + commentsHTML);
+                })
+
+                    .catch(function(error) {
+                    // Manejar errores
+                    console.error(error);
+                });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#create-post-form').submit(function(event) {
+                // Vaciar mensajes de error antiguos
+                $('.error-message').remove();
+
+                var title = $('input[name=title]').val();
+                var description = $('textarea[name=description]').val();
+
+                // Construir el objeto payload con los valores del formulario
+                var payload = {
+                    title: title,
+                    description: description
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/forums/{{ forum_id }}/posts',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(payload), // our data object
+                    dataType: 'json' // what type of data do we expect back from the server
+                })
+                    .done(function(data) {
+                        console.log(data);
+                        window.location.reload();
+
+                    })
+                    .fail(function(xhr) {
+                        console.log(xhr);
+                        var errors = xhr.responseJSON.errors;
+                        if (errors.title) {
+                            $("#title-input").after('<p class="error-message" style="color: red;">' + errors.title + '</p>');
+                        }
+                        if (errors.description) {
+                            $("#description-input").after('<p class="error-message" style="color: red;">' + errors.description + '</p>');
+                        }
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+                event.preventDefault();
+            });
+        });
+
+    </script>
 {% endblock %}

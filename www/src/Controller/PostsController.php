@@ -103,6 +103,7 @@ class PostsController
             'formAction' => $routeParser->urlFor("forumPosts", ['id' => $this->forum_id]),
             'formMethod' => "POST",
             'formErrors' => $errors,
+            'forum_id' => $this->forum_id,
             'posts' => $posts,
             'session' => $_SESSION['email'] ?? [],
             'photo' => $this->profile_photo

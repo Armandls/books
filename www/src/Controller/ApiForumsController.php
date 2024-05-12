@@ -117,7 +117,7 @@ class ApiForumsController
 
         $data["title"] = $this->test_input($data['title']);
         if (empty($data["title"])) {
-            $errors['title'] = "The title cannot be empty.";
+            $errors['title'] = "A required input was missing";
         } else {
             $forum = $this->forumsRepository->findForumByTitle($data['title']);
             if ($forum !== null) {
@@ -127,7 +127,7 @@ class ApiForumsController
 
         $data["description"] = $this->test_input($data['description']);
         if (empty($data["description"])) {
-            $errors['description'] = "The description cannot be empty.";
+            $errors['description'] = "A required input was missing";
         }
 
         if (empty($errors)) {
@@ -182,6 +182,39 @@ class ApiForumsController
         $forumsData['description'] = $forums->getDescription();
 
         $response->getBody()->write(json_encode($forumsData));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    }
+
+    public function deleteForum(Request $request, Response $response, array $args): Response
+    {
+        $session_result = $this->checkSession();
+        $errors = [];
+
+        if ($session_result == -1 ){
+            $errors['message'] = 'This API can only be used by users with a defined username.';
+
+            $response->getBody()->write(json_encode(['errors' => $errors]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
+        }
+        if ($session_result == -2) {
+            $errors['message'] = 'This API can only be used by authenticated users.';
+
+            $response->getBody()->write(json_encode($errors));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
+        }
+
+        $forum_id = $args['id'];
+        $forums = $this->forumsRepository->findForumByID($forum_id);
+        if ($forums == null) {
+            $errors['message'] = 'Forum with id '. $forum_id .' does not exist';
+
+            $response->getBody()->write(json_encode($errors));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+        }
+
+        $this->forumsRepository->deleteForum($forum_id);
+
+        $response->getBody();
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 

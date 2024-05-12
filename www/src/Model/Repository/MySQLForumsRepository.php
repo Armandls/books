@@ -18,7 +18,7 @@ class MySQLForumsRepository implements ForumsRepository
         $this->database = $database;
     }
 
-    public function createForum(array $data): bool
+    public function createForum($data): bool
     {
         $forum = new Forum(0,
             $data['title'],
@@ -139,5 +139,19 @@ QUERY;
             new DateTime(),
             new DateTime()
         );
+    }
+
+    public function deleteForum(mixed $forum_id)
+    {
+        $query = <<<'QUERY'
+        DELETE FROM forums WHERE id = ?
+QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $forum_id, PDO::PARAM_STR);
+        $statement->execute();
+
+       // $result = $statement->fetch(PDO::FETCH_ASSOC);
+
     }
 }

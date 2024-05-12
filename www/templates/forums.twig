@@ -161,15 +161,20 @@
                         parsedJSON.forEach(function(forum) {
                             // Construir el HTML para cada elemento del foro
                             var forumHTML = '<div class="row">' +
-                                '<div class="col-sm-10 col-9 my-auto">' +
-                                '<h5><a href="forums/' + forum.id + '/posts" class="text-dark font-weight-bold">' + forum.title + '</a></h5>' +
-                                '<p class="text-sm">' + forum.description + '</p>' +
-                                '<div class="buttons justify-content-center">' +
-                                '<a href="forums/' + forum.id + '/posts" class="text-info icon-move-right">Read More <i class="fas fa-arrow-right text-sm"></i> </a>' +
-                                '</div>' +
-                                '</div>' +
-                                '<hr class="horizontal dark my-4">' +
-                                '</div>';
+                                                '<div class="col-sm-8">' +
+                                                    '<h5><a href="forums/' + forum.id + '/posts" class="text-dark font-weight-bold">' + forum.title + '</a></h5>' +
+                                                    '<p class="text-sm">' + forum.description + '</p>' +
+                                                        '<div class="buttons justify-content-center">' +
+                                                            '<a href="forums/' + forum.id + '/posts" class="text-info icon-move-right">Read More <i class="fas fa-arrow-right text-sm"></i> </a>' +
+                                                        '</div>' +
+                                                '</div>' +
+                                                '<div class="col-sm-4">' +
+                                                    '<button id="delete-button"  onclick="deleteForumByID(' + forum.id + ')" " type="button" class="btn bg-gradient-danger w-auto me-2">Delete forum</button>' +
+                                                '</div>' +
+
+
+                                            '<hr class="horizontal dark my-4">' +
+                                            '</div>';
                             // Agregar el HTML al elemento con el id "get-forums-ajax"
                             $("#get-forums-ajax").append(forumHTML);
                         });
@@ -225,6 +230,35 @@
                 event.preventDefault();
             });
         });
+
+    </script>
+
+    <script>
+        function deleteForumByID(forum_id) {
+
+                // Obtener el ID del foro desde el atributo de datos del botón
+                //var forum_id = $(this).data('forum-id');
+                console.log(forum_id);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/forums/' + forum_id,
+                    contentType: 'application/json;charset=utf-8',
+                    // No necesitas enviar ningún dato para una solicitud DELETE
+                    dataType: 'json'
+                })
+                    .done(function(data) {
+                        console.log(data);
+                        // Recargar la página después de eliminar el foro
+                        window.location.reload();
+                    })
+                    .fail(function(xhr) {
+                        console.log(xhr);
+                    });
+
+                // Detener el comportamiento predeterminado del botón
+                event.preventDefault();
+        }
 
     </script>
 {% endblock %}

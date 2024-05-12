@@ -4,7 +4,7 @@ namespace Project\Bookworm\Model;
 
 interface ForumsRepository
 {
-    public function createForum(array $data): bool;
+    public function createForum($data): bool;
 
     public function findForumByTitle(string $title): ?Forum;
 
@@ -13,4 +13,6 @@ interface ForumsRepository
     public function findForumByID($forumId);
 
     public function generateNewForum($data);
+
+    public function deleteForum(mixed $forum_id);
 }

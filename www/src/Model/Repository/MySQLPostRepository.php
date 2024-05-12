@@ -83,4 +83,16 @@ QUERY;
             return false;
         }
     }
+
+    public function generateNewPost(array $data, int $forum_id, int $user_id)
+    {
+        return new Post(0,
+            $user_id,
+            $forum_id,
+            $data['title'],
+            $data['description'],
+            new DateTime(),
+            new DateTime()
+        );
+    }
 }

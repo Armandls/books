@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/PostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/baseLanding.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/baseLanding.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/PostRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,15 +213,8 @@
       <workItem from="1715334284300" duration="79000" />
       <workItem from="1715351932033" duration="7847000" />
       <workItem from="1715448174644" duration="3961000" />
-      <workItem from="1715455372850" duration="2568000" />
-    </task>
-    <task id="LOCAL-00002" summary="Initial commit">
-      <option name="closed" value="true" />
-      <created>1713467441411</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1713467441411</updated>
+      <workItem from="1715455372850" duration="2676000" />
+      <workItem from="1715495782837" duration="7546000" />
     </task>
     <task id="LOCAL-00003" summary="navigaton bar y foto landing page">
       <option name="closed" value="true" />
@@ -601,7 +600,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715452160996</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien">
+      <option name="closed" value="true" />
+      <created>1715458042498</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1715458042498</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +638,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
     <MESSAGE value="quitar los dobles setnames en routing de profile" />
     <MESSAGE value="arreglar tema control errores y foto perfil" />
     <MESSAGE value="tema control de foto i username hecho" />
@@ -656,6 +662,7 @@
     <MESSAGE value="---" />
     <MESSAGE value="get de la API funciona!" />
     <MESSAGE value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
-    <option name="LAST_COMMIT_MESSAGE" value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
+    <MESSAGE value="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien" />
+    <option name="LAST_COMMIT_MESSAGE" value="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien" />
   </component>
 </project>

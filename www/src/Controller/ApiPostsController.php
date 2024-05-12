@@ -106,9 +106,11 @@ class ApiPostsController
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    public function validateApiPost(Request $request, Response $response): Response
+    public function validateApiPost(Request $request, Response $response, array $args): Response
     {
+
         $data = $request->getParsedBody();
+        $this->forum_id = $args['id'];
         $errors = $this->validateNewPost($data);
 
         if (count($errors) > 0) {
@@ -128,7 +130,7 @@ class ApiPostsController
 
         $data["title"] = $this->test_input($data['title']);
         if (empty($data["title"])) {
-            $errors['title'] = "The title cannot be empty.";
+            $errors['title'] = "A required input was missing";
         } else {
             $forum = $this->forumsRepository->findForumByTitle($data['title']);
             if ($forum !== null) {
@@ -138,13 +140,14 @@ class ApiPostsController
 
         $data["description"] = $this->test_input($data['description']);
         if (empty($data["description"])) {
-            $errors['description'] = "The description cannot be empty.";
+            $errors['description'] = "A required input was missing";
         }
 
         if (empty($errors)) {
-            $forum = $this->forumsRepository->generateNewForum($data);
-            $forumCorrect = $this->forumsRepository->createForum($forum);
-            if (!$forumCorrect) {
+            $forumID = $this->forum_id;
+            $post = $this->postRepository->generateNewPost($data, $forumID, $this->user->id());
+            $created = $this->postRepository->createPost($post);
+            if (!$created) {
                 $errors['forum'] = "Unexpected error creating new forum";
             }
         }

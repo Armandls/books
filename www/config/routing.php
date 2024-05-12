@@ -57,7 +57,7 @@ $app->get('/api/forums', ApiForumsController::class . ':showCurrentForums')->set
 $app->post('/api/forums', ApiForumsController::class . ':createNewForum')->setName('postApiForums');
 
 $app->get('/api/forums/{id}', ApiForumsController::class . ':getForum')->setName('getForumsID');
-$app->delete('/api/forums{id}', ApiForumsController::class . ':deleteForum')->setName('deleteForumsID');
+$app->delete('/api/forums/{id}', ApiForumsController::class . ':deleteForum')->setName('deleteForumsID');
 
 $app->get('/api/forums/{id}/posts', ApiPostsController::class . ':getApiPosts')->setName('getApiPosts');
 $app->post('/api/forums/{id}/posts', ApiPostsController::class . ':validateApiPost')->setName('validateApiPost');

@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiForumsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/ApiPostsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/ForumsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/PostRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLForumsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLPostRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/forums.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/forums.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/posts.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/posts.twig" afterDir="false" />
     </list>
@@ -214,15 +207,7 @@
       <workItem from="1715351932033" duration="7847000" />
       <workItem from="1715448174644" duration="3961000" />
       <workItem from="1715455372850" duration="2676000" />
-      <workItem from="1715495782837" duration="7546000" />
-    </task>
-    <task id="LOCAL-00003" summary="navigaton bar y foto landing page">
-      <option name="closed" value="true" />
-      <created>1713514424121</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1713514424122</updated>
+      <workItem from="1715495782837" duration="8994000" />
     </task>
     <task id="LOCAL-00004" summary="seccio estadistiques">
       <option name="closed" value="true" />
@@ -608,7 +593,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715458042498</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)">
+      <option name="closed" value="true" />
+      <created>1715504777799</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1715504777799</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,7 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="quitar los dobles setnames en routing de profile" />
     <MESSAGE value="arreglar tema control errores y foto perfil" />
     <MESSAGE value="tema control de foto i username hecho" />
     <MESSAGE value="poner username a la navigation bar de user porofile" />
@@ -663,6 +655,7 @@
     <MESSAGE value="get de la API funciona!" />
     <MESSAGE value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
     <MESSAGE value="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien" />
-    <option name="LAST_COMMIT_MESSAGE" value="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien" />
+    <MESSAGE value="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)" />
+    <option name="LAST_COMMIT_MESSAGE" value="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)" />
   </component>
 </project>

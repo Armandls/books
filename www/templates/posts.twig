@@ -78,9 +78,20 @@
     </header>
     <!-- End Imagen de fondo -->
     <!-- -------- END CONTENT 14 w/ image cards and sticky content ------- -->
+
     <section class="py-7">
         <div class="container">
+            <div class="col-lg-8 ms-auto me-auto">
+                <hr class="dark horizontal">
+                <div class="d-flex">
+                    <div id="forum-details" class="ms-4 my-auto">
+
+                    </div>
+                </div>
+                <hr class="dark horizontal">
+            </div>
             <div class="row">
+
                 <div class="col-md-8 ms-auto me-auto">
                     <div id="forum-posts-div">
 
@@ -133,12 +144,41 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5080/api/forums/{{ forum_id }}',
+                contentType: 'application/json;charset=utf-8',
+                //data: JSON.stringify(payload), // our data object
+                dataType: 'json' // what type of data do we expect back from the server
+            })
+
+                .then(function(response) {
+                    console.log(response);
+                    // Renderizar el código HTML para los comentarios/posts
+                    var details = response;
+                    if (details.title) {
+                        $("#forum-details").append('<h5>' + details.title + '</h5>');
+                    }
+                    if (details.description) {
+                        $("#forum-details").append('<p class="text-sm mb-0">' + details.description + '</p>');
+                    }
+                })
+
+                .catch(function(error) {
+                    // Manejar errores
+                    console.error(error);
+                });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
 
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:5080/api/forums/{{ forum_id }}/posts',
                 contentType: 'application/json;charset=utf-8',
-                //data: JSON.stringify(payload), // our data object
                 dataType: 'json' // what type of data do we expect back from the server
             })
 

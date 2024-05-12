@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="ajax apuntes marc">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizacion ajax delete review">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/config/routing.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/Repository/MySQLBookRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
     </list>
@@ -210,7 +209,7 @@
       <workItem from="1715364504954" duration="1366000" />
       <workItem from="1715368862626" duration="3013000" />
       <workItem from="1715407737902" duration="1763000" />
-      <workItem from="1715496119623" duration="2917000" />
+      <workItem from="1715496119623" duration="6666000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -564,7 +563,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715278719319</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="actualizacion ajax delete review">
+      <option name="closed" value="true" />
+      <created>1715499943629</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1715499943629</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,7 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cambios en la nav bar" />
     <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
     <MESSAGE value="errores hechos, falta el testing" />
@@ -619,25 +625,12 @@
     <MESSAGE value="mostrar info en catalogue/id basico" />
     <MESSAGE value="vista agragada" />
     <MESSAGE value="ajax apuntes marc" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajax apuntes marc" />
+    <MESSAGE value="actualizacion ajax delete review" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizacion ajax delete review" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
-          <line>109</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
-          <line>125</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="134">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="147">
         <watch expression="$data" language="PHP" />
       </inline-watch>
     </watches-manager>

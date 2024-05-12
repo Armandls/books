@@ -12,6 +12,7 @@ use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 use function DI\get;
+use function DI\value;
 
 class BookDetailsController
 {
@@ -111,13 +112,25 @@ class BookDetailsController
 
         $userId = 1;
 
-        $this->bookRepository->deleteReviewById(1, 70);
+        $this->bookRepository->deleteReviewById(1, $bookId);
 
         // Crear una nueva respuesta con la redirección
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
     }
 
+    public function deleteRating(Request $request, Response $response, array $args): Response
+    {
+        $bookId = $args['id'];
+
+        $userId = 1;
+
+        $this->bookRepository->deleteRatingById(1, $bookId);
+
+        // Crear una nueva respuesta con la redirección
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+    }
 
 
 public function addReview(Request $request, Response $response, array $args): Response
@@ -133,6 +146,7 @@ public function addReview(Request $request, Response $response, array $args): Re
     // Inserta la revisión en la base de datos utilizando tu método existente
     // Suponiendo que el texto de la revisión está en el campo 'review_text' del formulario
     $reviewText = $data["review_text"];
+
 
     $this->bookRepository->addReview($userId, $bookId, $reviewText);
 

@@ -244,6 +244,20 @@ QUERY;
         $statement->execute();
     }
 
+    public function deleteRatingById($userId, $bookId): void
+    {
+
+        $query = <<<'QUERY'
+        DELETE FROM ratings
+        WHERE book_id = :book_id AND user_id = :user_id
+        QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
     public function addReview($userId, $bookId, $reviewText): void
     {
         $query = <<<'QUERY'

@@ -172,7 +172,7 @@
             <form id="add-review-form">
                 <div class="form-group">
                     <label for="review">Agregar revisión:</label>
-                    <textarea class="form-control" id="review" name="review_text" rows="3" required></textarea>
+                    <textarea class="form-control" id="review" name="review" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar Revisión</button>
             </form>
@@ -203,6 +203,14 @@
             <button type="submit" class="btn btn-primary">Submit Rating</button>
         </form>
 
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <form id="delete-review-rating"  style="display: inline;">
+                    <button type="submit"  class="btn btn-danger">Delete my Raiting</button>
+                </form>
+            </div>
+        </div>
+
     </section>
 
 
@@ -221,7 +229,28 @@
                     })
                         .done(function(data) {
                             console.log(data);
-                            // Aquí puedes realizar acciones adicionales si es necesario
+                            window.location.reload();
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#delete-review-rating').submit(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ url_for('deleteRating', {'id': book.id}) }}",
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+
                         })
                         .fail(function(error) {
                             console.error(error);
@@ -235,19 +264,26 @@
                 $('#add-review-form').submit(function(event) {
                     event.preventDefault();
 
-                    let reviewText = $('#review').val();
-                    let payload = {
-                        review_text: reviewText
+
+
+                    var reviewText = $('textarea[name=review]').val();
+
+
+                    var payload = {
+                        review_text: reviewText // clave -> valor
                     };
+
+                    console.log(payload);
                     $.ajax({
                         type: 'PUT',
                         url: "{{ url_for('addBookReview', {'id': book.id}) }}",
-                        data: JSON.stringify(payload),
+                        data: payload,
                         dataType: 'json'
                     })
                         .done(function(data) {
                             console.log(data);
-                            // Aquí puedes realizar acciones adicionales si es necesario
+                            window.location.reload();
+                            window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);

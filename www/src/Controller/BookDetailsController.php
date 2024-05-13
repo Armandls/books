@@ -195,7 +195,7 @@ public function addBookRating(Request $request, Response $response, array $args)
     }
 
     $bookId = $args['id'];
-    $userId = 1; // Aquí debes obtener el ID del usuario de la sesión
+    $userId = 1;
 
     // Obtenemos el rating enviado en la solicitud
     $data = $request->getParsedBody();

@@ -189,38 +189,37 @@
         </div>
 
 
-        <div class="text-center mt-4">
-            <div id="rating" class="text-center mt-4">
-                <div style="background-color: #f0f0f0; padding: 10px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                    <style>
-                        .rating {
-                            font-size: 24px;
-                            cursor: pointer;
-                        }
+        <div id="rating" class="text-center mt-4">
+            <div style="background-color: #f0f0f0; padding: 10px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                <style>
+                    .rating {
+                        font-size: 24px;
+                        cursor: pointer;
+                    }
 
-                        .star {
-                            color: gray;
-                            transition: color 0.3s ease;
-                        }
+                    .star {
+                        color: gray;
+                        transition: color 0.3s ease;
+                    }
 
-                        .star.active {
-                            color: gold;
-                        }
-                    </style>
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="5">&#9733;</span>
-                </div>
+                    .star.active {
+                        color: gold;
+                    }
+                </style>
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
             </div>
 
-            <div class="mt-2">
+            <div style="margin-top: 10px;">
                 <button id="submit-rating-btn" class="btn btn-primary">Enviar calificación</button>
             </div>
-            <div class="mt-2">
-                <form id="delete-review-rating" style="display: inline;">
-                    <button type="submit" class="btn btn-danger">Delete my Raiting</button>
+
+            <div style="margin-top: 10px;">
+                <form id="delete-review-rating"  style="display: inline;">
+                    <button type="submit"  class="btn btn-danger">Delete my Rating</button>
                 </form>
             </div>
         </div>
@@ -356,7 +355,6 @@
                     });
                 }
             });
-
 
         </script>
 

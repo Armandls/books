@@ -34,7 +34,7 @@ interface BookRepository
 
     public function addReview($userId,$bookId,$reviewText);
 
-    public function addRatingToBook($bookId, $rating);
+    public function addRatingToBook($user_id, $bookId, $rating);
 
 
 

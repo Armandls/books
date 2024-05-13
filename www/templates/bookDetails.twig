@@ -189,27 +189,44 @@
         </div>
 
 
-        <form id="add-rating-form" action="{{ url_for('addBookRating', {'id': bookId}) }}" method="POST">
-            <div class="form-group">
-                <label for="rating">Rating:</label>
-                <div class="rating">
-                    <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">5 stars</label>
-                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">4 stars</label>
-                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">3 stars</label>
-                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">2 stars</label>
-                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">1 star</label>
+        <div class="text-center mt-4">
+            <div id="rating" class="text-center mt-4">
+                <div style="background-color: #f0f0f0; padding: 10px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                    <style>
+                        .rating {
+                            font-size: 24px;
+                            cursor: pointer;
+                        }
+
+                        .star {
+                            color: gray;
+                            transition: color 0.3s ease;
+                        }
+
+                        .star.active {
+                            color: gold;
+                        }
+                    </style>
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Rating</button>
-        </form>
 
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <form id="delete-review-rating"  style="display: inline;">
-                    <button type="submit"  class="btn btn-danger">Delete my Raiting</button>
+            <div class="mt-2">
+                <button id="submit-rating-btn" class="btn btn-primary">Enviar calificación</button>
+            </div>
+            <div class="mt-2">
+                <form id="delete-review-rating" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete my Raiting</button>
                 </form>
             </div>
         </div>
+
+
+
 
     </section>
 
@@ -263,16 +280,10 @@
             $(document).ready(function() {
                 $('#add-review-form').submit(function(event) {
                     event.preventDefault();
-
-
-
                     var reviewText = $('textarea[name=review]').val();
-
-
                     var payload = {
                         review_text: reviewText // clave -> valor
                     };
-
                     console.log(payload);
                     $.ajax({
                         type: 'PUT',
@@ -291,6 +302,64 @@
                 });
             });
         </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const stars = document.querySelectorAll('.star');
+                const submitBtn = document.getElementById('submit-rating-btn');
+
+                let ratingValue = 0; // Variable para almacenar la calificación seleccionada
+
+                stars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const value = parseInt(this.getAttribute('data-value'));
+                        ratingValue = value; // Actualizar el valor de la calificación seleccionada
+
+                        stars.forEach(s => {
+                            if (parseInt(s.getAttribute('data-value')) <= value) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+
+                // Manejar el clic en el botón de "Enviar calificación"
+                submitBtn.addEventListener('click', function() {
+                    // Verificar si se ha seleccionado una calificación
+                    if (ratingValue !== 0) {
+                        sendRating(ratingValue);
+                    } else {
+                        console.log('Por favor, seleccione una calificación antes de enviar.');
+                    }
+                });
+
+                function sendRating(value) {
+                    // Objeto con los datos a enviar al servidor
+                    var payload = {
+                        rating: value
+                    };
+
+                    // Realizar la solicitud AJAX
+                    $.ajax({
+                        type: 'PUT', // O el método HTTP que estés utilizando
+                        url: "{{ url_for('addBookRating', {'id': book.id}) }}", // La URL del endpoint en tu servidor
+                        data: JSON.stringify(payload), // Convertir el objeto a formato JSON
+                        contentType: 'application/json', // Especificar el tipo de contenido
+                        dataType: 'json', // Esperar una respuesta JSON del servidor
+                    }).done(function(data) {
+                        console.log(data);
+                        window.location.reload();
+                    }).fail(function(error) {
+                        console.error(error);
+                    });
+                }
+            });
+
+
+        </script>
+
     {% endblock %}
 
 

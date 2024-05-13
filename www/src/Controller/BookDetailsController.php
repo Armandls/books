@@ -108,6 +108,14 @@ class BookDetailsController
 
     public function deleteReview(Request $request, Response $response, array $args): Response
     {
+        $session_result = $this->checkSession();
+        if ($session_result == -1 ){
+            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+        }
+        if ($session_result == -2) {
+            $message = 'You must be logged in to access the user profile page.';
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        }
         $bookId = $args['id'];
 
         $userId = 1;
@@ -121,6 +129,15 @@ class BookDetailsController
 
     public function deleteRating(Request $request, Response $response, array $args): Response
     {
+
+        $session_result = $this->checkSession();
+        if ($session_result == -1 ){
+            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+        }
+        if ($session_result == -2) {
+            $message = 'You must be logged in to access the user profile page.';
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        }
         $bookId = $args['id'];
 
         $userId = 1;
@@ -135,6 +152,15 @@ class BookDetailsController
 
 public function addReview(Request $request, Response $response, array $args): Response
 {
+
+    $session_result = $this->checkSession();
+    if ($session_result == -1 ){
+        return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+    }
+    if ($session_result == -2) {
+        $message = 'You must be logged in to access the user profile page.';
+        return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+    }
     $bookId = $args['id'];
     $userId = 1; // Este es un valor de ejemplo, deberías obtener el ID del usuario de la sesión
 
@@ -158,6 +184,16 @@ public function addReview(Request $request, Response $response, array $args): Re
 
 public function addBookRating(Request $request, Response $response, array $args): Response
 {
+
+    $session_result = $this->checkSession();
+    if ($session_result == -1 ){
+        return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+    }
+    if ($session_result == -2) {
+        $message = 'You must be logged in to access the user profile page.';
+        return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+    }
+
     $bookId = $args['id'];
     $userId = 1; // Aquí debes obtener el ID del usuario de la sesión
 
@@ -165,7 +201,7 @@ public function addBookRating(Request $request, Response $response, array $args)
     $data = $request->getParsedBody();
     $rating = $data['rating'];
 
-    $this->bookRepository->addRatingToBook($bookId, $rating);
+    $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
 
     // Redirigimos de vuelta a la página de detalles del libro después de agregar el rating
     $routeParser = RouteContext::fromRequest($request)->getRouteParser();

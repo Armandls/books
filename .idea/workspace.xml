@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="actualizacion ajax delete review">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="no se escribir">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/src/Model/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Model/BookRepository.php" afterDir="false" />
@@ -209,7 +209,8 @@
       <workItem from="1715364504954" duration="1366000" />
       <workItem from="1715368862626" duration="3013000" />
       <workItem from="1715407737902" duration="1763000" />
-      <workItem from="1715496119623" duration="6666000" />
+      <workItem from="1715496119623" duration="9222000" />
+      <workItem from="1715613013561" duration="2951000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -571,7 +572,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715499943629</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="no se escribir">
+      <option name="closed" value="true" />
+      <created>1715509603972</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1715509603972</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -601,7 +610,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="todas las comporvacione s hechas falta el tamño del archivo y revisar el mimetype" />
     <MESSAGE value="error solucionado retornar usrname de user" />
     <MESSAGE value="errores hechos, falta el testing" />
     <MESSAGE value="cambio bookDetails" />
@@ -626,11 +634,21 @@
     <MESSAGE value="vista agragada" />
     <MESSAGE value="ajax apuntes marc" />
     <MESSAGE value="actualizacion ajax delete review" />
-    <option name="LAST_COMMIT_MESSAGE" value="actualizacion ajax delete review" />
+    <MESSAGE value="no se escribir" />
+    <option name="LAST_COMMIT_MESSAGE" value="no se escribir" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
+          <line>196</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="147">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="173">
         <watch expression="$data" language="PHP" />
       </inline-watch>
     </watches-manager>

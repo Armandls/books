@@ -272,27 +272,21 @@ QUERY;
         $statement->execute();
     }
 
-    public function addRatingToBook($bookId, $rating): void
+    public function addRatingToBook($user_id, $bookId, $rating): void
     {
-        // Primero, verifica si ya existe una entrada de rating para este libro en la base de datos
-        $existingRating = $this->getRatingForBook($bookId);
 
-        if ($existingRating) {
-            // Si ya hay un rating para este libro, actualiza el rating existente
-            $statement = $this->database->connection()->prepare("UPDATE ratings SET rating = :rating WHERE book_id = :bookId");
-            $statement->execute([
-                'rating' => $rating,
-                'bookId' => $bookId
-            ]);
-        } else {
-            // Si no hay un rating para este libro, inserta uno nuevo
-            $statement = $this->database->connection()->prepare("INSERT INTO ratings (book_id, rating) VALUES (:bookId, :rating)");
-            $statement->execute([
-                'bookId' => $bookId,
-                'rating' => $rating
-            ]);
-        }
+        $existingRating = $this->getRatingForBook($bookId);
+        $bookId = (int)$bookId; // Convertir a entero
+
+        $statement = $this->database->connection()->prepare("INSERT INTO ratings (user_id, book_id, rating) VALUES (:user_id, :book_id, :rating)");
+        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT); // Corregido a $user_id
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT); // Corregido a $bookId
+        $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
+        $statement->execute();
     }
+
+
+
 
 
     private function getRatingForBook($bookId): ?int

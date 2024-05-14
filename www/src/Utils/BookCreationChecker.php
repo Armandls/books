@@ -13,22 +13,24 @@ class BookCreationChecker
         if ($authorError != null) {
             $errors["author"] = $authorError;
         }
-
-        $titleError = self::checkTitle($data['title'], $repository);
-        if ($titleError != null) {
-            $errors["title"] = $titleError;
+        else {
+            $pageNumberError = self::checkPageNumber($data['page_number']);
+            if ($pageNumberError != null) {
+                $errors["page_number"] = $pageNumberError;
+            }
+            else {
+                $titleError = self::checkTitle($data['title'], $repository);
+                if ($titleError != null) {
+                    $errors["title"] = $titleError;
+                }
+                else {
+                    $descriptionError = self::checkDescription($data['description']);
+                    if ($descriptionError != null) {
+                        $errors["description"] = $descriptionError;
+                    }
+                }
+            }
         }
-
-        $descriptionError = self::checkDescription($data['description']);
-        if ($descriptionError != null) {
-            $errors["description"] = $descriptionError;
-        }
-
-        $pageNumberError = self::checkPageNumber($data['page_number']);
-        if ($pageNumberError != null) {
-            $errors["page_number"] = $pageNumberError;
-        }
-
         return $errors;
     }
 

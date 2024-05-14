@@ -103,7 +103,7 @@
                                         </div>
                                 </form>
                                 {% if formErrors['isbn'] %}
-                                    <p>{{ formErrors['isbn'] }}</p>
+                                    <p style="color: red;">{{ formErrors['isbn'] }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                         <input id="author" name="author" type="text" class="form-control" placeholder="" aria-label="Autor..." >
                                     </div>
                                     {% if formErrors['author'] %}
-                                        <p>{{ formErrors['author'] }}</p>
+                                        <span style="color: red;">{{ formErrors['author'] }}</span>
                                     {% endif %}
                                 </div>
                                 <div class="col-md-6 ps-2">
@@ -140,7 +140,7 @@
                                         <input id="page_number" name="page_number" type="number" class="form-control" placeholder="" >
                                     </div>
                                     {% if formErrors['page_number'] %}
-                                        <p>{{ formErrors['page_number'] }}</p>
+                                        <p style="color: red;">{{ formErrors['page_number'] }}</p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                     <input id="title" name="title" class="form-control" placeholder="Titulo..." type="text" >
                                 </div>
                                 {% if formErrors['title'] %}
-                                    <p>{{ formErrors['title'] }}</p>
+                                    <p style="color: red;">{{ formErrors['title'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="mb-4">
@@ -159,14 +159,14 @@
                                     <input id="cover_image" name="cover_image" type="file" class="form-control" placeholder="Selecciona un archivo"  accept="image/png, image/jpeg, image/gif, image/svg+xml" multiple>
                                 </div>
                                 {% if formErrors['file'] %}
-                                    <p>{{ formErrors['file'] }}</p>
+                                    <p style="color: red;">{{ formErrors['file'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="form-group mb-4">
                                 <label>Descripción del libro</label>
                                 <textarea id="description" name="description" class="form-control" rows="4" placeholder="Escribe la descripción del libro..."></textarea>
                                 {% if formErrors['description'] %}
-                                    <p>{{ formErrors['description'] }}</p>
+                                    <p style="color: red;">{{ formErrors['description'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="row">

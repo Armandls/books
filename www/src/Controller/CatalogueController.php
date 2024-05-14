@@ -17,6 +17,7 @@ use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 use Slim\Flash\Messages;
+require __DIR__ . '/../../vendor/autoload.php';
 
 class CatalogueController
 {
@@ -25,6 +26,9 @@ class CatalogueController
     private UserRepository $userRepository;
     private FlashController $flashController;
     private $client;
+    private User $user;
+    private string $username;
+    private string $profile_photo;
     private array $books;
 
     private const UPLOADS_DIR = __DIR__ . '/../../public/uploads';
@@ -42,25 +46,42 @@ class CatalogueController
         $this->client = new Client();
         $this->userRepository = $userRepository;
         $this->flashController = $flashController;
+        $this->profile_photo = "";
+        $this->username = "unknown";
+        $this->checkSession();
+    }
+
+    private function checkSession() {
+        if (isset($_SESSION['email'])) {
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
+
+            if ($this->username == null or $this->username == "")  {
+                return -1;
+            } else {
+                $this->books = $this->bookRepository->fetchAllBooks();
+                return 0;
+            }
+        }
+
+        return -2;
     }
 
     public function showCatalogue(Request $request, Response $response): Response
     {
-        if (isset($_SESSION['email'])) {
-            $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/{$user->profile_picture()}";
-            $username = $user->username();
+        $session_result = $this->checkSession();
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $errors = [];
 
-            if ($username == null) {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the catalogue.')->withStatus(302);
-            } else {
-                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-                $errors = [];
-                return $this->renderPage($response, $routeParser, $errors, $profile_photo, $username);
-            }
-        } else {
-            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+        if ($session_result == -1 ){
+            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
         }
+        if ($session_result == -2) {
+            $message = 'You must be logged in to access the user profile page.';
+            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        }
+        return $this->renderPage($response, $routeParser, $errors);
     }
 
     public function handleFormSubmission(Request $request, Response $response): Response {
@@ -90,7 +111,7 @@ class CatalogueController
 
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        return $this->renderPage($response,$routeParser,$errors,);
+        return $this->renderPage($response,$routeParser,$errors);
 
     }
 
@@ -156,14 +177,7 @@ class CatalogueController
 
         switch ($formType) {
             case 'isbnForm':
-                $isbn = $data['isbn'];
-
-                if (!preg_match('/^\d+$/', $isbn)) {
-                    $errors['isbn'] = 'El código ISBN no es válido.';
-                    break;
-                }
-
-                $book = $this->findBookByISBN($isbn);
+                $book = $this->findBookByISBN($data['isbn']);
                 if ($book == null) {
                     $errors['isbn'] = 'The ISBN code is not valid.';
                     break;
@@ -249,7 +263,7 @@ class CatalogueController
         return in_array($extension, self::ALLOWED_EXTENSIONS, true);
     }
 
-    private function renderPage($response, $routeParser, $errors, $profile_photo, $username)
+    private function renderPage($response, $routeParser, $errors)
     {
         return $this->twig->render($response, 'catalogue.twig',  [
             'formAction' => $routeParser->urlFor("bookCreation"),
@@ -257,7 +271,7 @@ class CatalogueController
             'formErrors' => $errors,
             'books' => $this->books,
             'session' => $_SESSION['email'] ?? [],
-            'photo' => $profile_photo
+            'photo' => $this->profile_photo
         ]);
     }
 }

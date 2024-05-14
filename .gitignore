@@ -150,4 +150,6 @@ $RECYCLE.BIN/
 
 /www/vendor
 /www/composer.lock
+pwii-a15.iml
+workspace.xml
 # End of https://www.toptal.com/developers/gitignore/api/windows,phpstorm,composer

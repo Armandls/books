@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="update estrellas">
+    <list default="true" id="7012afee-229f-45f2-adf7-3c3f89a3fd86" name="Changes" comment="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)">
+      <change beforePath="$PROJECT_DIR$/.idea/pwii-a15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pwii-a15.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/templates/bookDetails.twig" beforeDir="false" afterPath="$PROJECT_DIR$/www/templates/bookDetails.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,13 +38,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" root0="SKIP_INSPECTION" root1="SKIP_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" notify_if_session_was_finished_without_being_paused="false" />
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="0.0.0.0" id="f15dcc1b-af00-40b0-801e-c8f0d6835e1a" name="0.0.0.0:5092" port="5092" use_path_mappings="true">
@@ -106,22 +104,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hotfixReviews&amp;&amp;Ratings&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "hotfixReviews&&Ratings",
+    "last_opened_file_path": "C:/Users/Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/www/templates",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\www\templates" />
@@ -157,14 +155,15 @@
         <list />
       </option>
       <option name="specificationPath" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources\swagger.json" />
-      <option name="workingDirectory" value="C:$PROJECT_DIR$/../../../Marc/Desktop/UNIVERSITAT/TREBALLS I TEMARI CURS 2324/Projectes Web II/P1/pwii-a15/resources/swagger.json" />
+      <option name="workingDirectory" value="C:\Users\Marc\Desktop\UNIVERSITAT\TREBALLS I TEMARI CURS 2324\Projectes Web II\P1\pwii-a15\resources" />
       <method v="2" />
     </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
+        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
       </set>
     </attachedChunks>
   </component>
@@ -203,35 +202,20 @@
       <workItem from="1715008815578" duration="108000" />
       <workItem from="1715075977609" duration="5986000" />
       <workItem from="1715085493577" duration="9822000" />
-      <workItem from="1715364504954" duration="1366000" />
-      <workItem from="1715368862626" duration="3013000" />
-      <workItem from="1715407737902" duration="1763000" />
-      <workItem from="1715496119623" duration="9222000" />
-      <workItem from="1715613013561" duration="3531000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial commit">
-      <option name="closed" value="true" />
-      <created>1713287382919</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1713287382919</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Initial commit">
-      <option name="closed" value="true" />
-      <created>1713467441411</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1713467441411</updated>
-    </task>
-    <task id="LOCAL-00003" summary="navigaton bar y foto landing page">
-      <option name="closed" value="true" />
-      <created>1713514424121</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1713514424122</updated>
+      <workItem from="1715106656807" duration="957000" />
+      <workItem from="1715107944986" duration="144000" />
+      <workItem from="1715175911681" duration="349000" />
+      <workItem from="1715176273388" duration="3766000" />
+      <workItem from="1715194770120" duration="2851000" />
+      <workItem from="1715263414970" duration="120000" />
+      <workItem from="1715264452810" duration="213000" />
+      <workItem from="1715271663478" duration="9420000" />
+      <workItem from="1715328265322" duration="188000" />
+      <workItem from="1715334284300" duration="79000" />
+      <workItem from="1715351932033" duration="7847000" />
+      <workItem from="1715448174644" duration="3961000" />
+      <workItem from="1715455372850" duration="2676000" />
+      <workItem from="1715495782837" duration="8994000" />
     </task>
     <task id="LOCAL-00004" summary="seccio estadistiques">
       <option name="closed" value="true" />
@@ -537,55 +521,95 @@
       <option name="project" value="LOCAL" />
       <updated>1715086713273</updated>
     </task>
-    <task id="LOCAL-00042" summary="mostrar info en catalogue/id basico">
+    <task id="LOCAL-00042" summary="redirection de no username set or not loged hecho en forums">
       <option name="closed" value="true" />
-      <created>1715166112545</created>
+      <created>1715176911113</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1715166112545</updated>
+      <updated>1715176911113</updated>
     </task>
-    <task id="LOCAL-00043" summary="vista agragada">
+    <task id="LOCAL-00043" summary="actualizar todas las nav vars">
       <option name="closed" value="true" />
-      <created>1715267655152</created>
+      <created>1715177763543</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1715267655152</updated>
+      <updated>1715177763543</updated>
     </task>
-    <task id="LOCAL-00044" summary="ajax apuntes marc">
+    <task id="LOCAL-00044" summary="canvis que gfan oo mateix pero esta mes clar tot">
       <option name="closed" value="true" />
-      <created>1715278719319</created>
+      <created>1715178714265</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1715278719319</updated>
+      <updated>1715178714265</updated>
     </task>
-    <task id="LOCAL-00045" summary="actualizacion ajax delete review">
+    <task id="LOCAL-00045" summary="mini cambios hechos">
       <option name="closed" value="true" />
-      <created>1715499943629</created>
+      <created>1715179195787</created>
       <option name="number" value="00045" />
       <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1715499943629</updated>
+      <updated>1715179195787</updated>
     </task>
-    <task id="LOCAL-00046" summary="no se escribir">
+    <task id="LOCAL-00046" summary="añado ApiPostsController.php, permite metodo GET">
       <option name="closed" value="true" />
-      <created>1715509603972</created>
+      <created>1715274670339</created>
       <option name="number" value="00046" />
       <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1715509603972</updated>
+      <updated>1715274670340</updated>
     </task>
-    <task id="LOCAL-00047" summary="update estrellas">
+    <task id="LOCAL-00047" summary="funciona con guzzle... peor hay que cambiarlo">
       <option name="closed" value="true" />
-      <created>1715616309574</created>
+      <created>1715278448528</created>
       <option name="number" value="00047" />
       <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1715616309574</updated>
+      <updated>1715278448528</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="---">
+      <option name="closed" value="true" />
+      <created>1715282333931</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1715282333931</updated>
+    </task>
+    <task id="LOCAL-00049" summary="get de la API funciona!">
+      <option name="closed" value="true" />
+      <created>1715357521407</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1715357521407</updated>
+    </task>
+    <task id="LOCAL-00050" summary="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)">
+      <option name="closed" value="true" />
+      <created>1715452160996</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1715452160996</updated>
+    </task>
+    <task id="LOCAL-00051" summary="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien">
+      <option name="closed" value="true" />
+      <created>1715458042498</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1715458042498</updated>
+    </task>
+    <task id="LOCAL-00052" summary="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)">
+      <option name="closed" value="true" />
+      <created>1715504777799</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1715504777799</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,11 +639,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="errores hechos, falta el testing" />
-    <MESSAGE value="cambio bookDetails" />
-    <MESSAGE value="Actualitzacio navigator bar de tootes les views" />
-    <MESSAGE value="redirecciones de not login or not set up the username from catalogue do it" />
-    <MESSAGE value="quitar los dobles setnames en routing de profile" />
     <MESSAGE value="arreglar tema control errores y foto perfil" />
     <MESSAGE value="tema control de foto i username hecho" />
     <MESSAGE value="poner username a la navigation bar de user porofile" />
@@ -634,28 +653,17 @@
     <MESSAGE value="arreglo bug crear libro por ISBN" />
     <MESSAGE value="arreglo nav bar de catalogue y bookdetails" />
     <MESSAGE value="arreglo descripcion de añadir nuevo libro via ISBN" />
-    <MESSAGE value="mostrar info en catalogue/id basico" />
-    <MESSAGE value="vista agragada" />
-    <MESSAGE value="ajax apuntes marc" />
-    <MESSAGE value="actualizacion ajax delete review" />
-    <MESSAGE value="no se escribir" />
-    <MESSAGE value="update estrellas" />
-    <option name="LAST_COMMIT_MESSAGE" value="update estrellas" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php</url>
-          <line>196</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/www/src/Controller/BookDetailsController.php" line="173">
-        <watch expression="$data" language="PHP" />
-      </inline-watch>
-    </watches-manager>
+    <MESSAGE value="redirection de no username set or not loged hecho en forums" />
+    <MESSAGE value="actualizar todas las nav vars" />
+    <MESSAGE value="canvis que gfan oo mateix pero esta mes clar tot" />
+    <MESSAGE value="mini cambios hechos" />
+    <MESSAGE value="añado ApiPostsController.php, permite metodo GET" />
+    <MESSAGE value="funciona con guzzle... peor hay que cambiarlo" />
+    <MESSAGE value="---" />
+    <MESSAGE value="get de la API funciona!" />
+    <MESSAGE value="post de la api funciona, falta hacer reload correctamente y gestionar error de foro ya creado (si hace falta)" />
+    <MESSAGE value="get de la API posts funciona. Hay que añadir funcionalidades pero funciona bien" />
+    <MESSAGE value="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)" />
+    <option name="LAST_COMMIT_MESSAGE" value="añado delete forums . Falta unicamente getForum/{id}&#10;(hacer en pagina/forums/id/posts . Renderizar de forma asincrona la informacion del foro)" />
   </component>
 </project>

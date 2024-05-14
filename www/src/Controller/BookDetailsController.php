@@ -162,7 +162,7 @@ public function addReview(Request $request, Response $response, array $args): Re
         return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
     }
     $bookId = $args['id'];
-    $userId = 1; // Este es un valor de ejemplo, deberías obtener el ID del usuario de la sesión
+    $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
 
     // Obtiene los datos del formulario
     $data = $request->getParsedBody();

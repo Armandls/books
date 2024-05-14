@@ -175,7 +175,7 @@ QUERY;
         return (int)$statement->fetchColumn();
     }
 
-    // Implementación del método averageRating
+
     public function averageRating($bookId): float
     {
         $query = <<<'QUERY'
@@ -202,6 +202,19 @@ QUERY;
         return (int)$statement->fetchColumn();
     }
 
+    public function countRatings($bookId): int
+    {
+        $query = <<<'QUERY'
+            SELECT COUNT(*) FROM ratings WHERE book_id = ?
+        QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return (int)$statement->fetchColumn();
+    }
+
     public function getBookReviews($bookId): array
     {
         $query = <<<'QUERY'
@@ -215,8 +228,9 @@ QUERY;
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteReviewById($userId, $bookId)
+    public function deleteReviewById($userId, $bookId): void
     {
+
         $query = <<<'QUERY'
         DELETE FROM reviews
         WHERE book_id = :book_id AND user_id = :user_id
@@ -227,4 +241,61 @@ QUERY;
         $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $statement->execute();
     }
+
+    public function deleteRatingById($userId, $bookId): void
+    {
+
+        $query = <<<'QUERY'
+        DELETE FROM ratings
+        WHERE book_id = :book_id AND user_id = :user_id
+        QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public function addReview($userId, $bookId, $reviewText): void
+    {
+        $query = <<<'QUERY'
+        INSERT INTO reviews (user_id, book_id, review_text, created_at, updated_at)
+        VALUES (:user_id, :book_id, :review_text, NOW(), NOW())
+    QUERY;
+
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+        $statement->bindParam(':review_text', $reviewText, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public function addRatingToBook($user_id, $bookId, $rating): void
+    {
+
+        $existingRating = $this->getRatingForBook($bookId);
+        $bookId = (int)$bookId; // Convertir a entero
+
+        $statement = $this->database->connection()->prepare("INSERT INTO ratings (user_id, book_id, rating) VALUES (:user_id, :book_id, :rating)");
+        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT); // Corregido a $user_id
+        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT); // Corregido a $bookId
+        $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+
+
+
+
+    private function getRatingForBook($bookId): ?int
+    {
+
+        $statement = $this->database->connection()->prepare("SELECT rating FROM ratings WHERE book_id = :bookId");
+        $statement->execute(['bookId' => $bookId]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result ? (int)$result['rating'] : null;
+    }
+
+
 }

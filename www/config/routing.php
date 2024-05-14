@@ -44,8 +44,12 @@ $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->
 // 10- Cuando me llegue una petición GET a la ruta /catalogue/{id}, se ejecutará el método showBookDetails de la clase BookDetailsController
 $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
 
-$app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
-$app->put('/catalogue/{id}/rating', BookDetailsController::class . ':showBookDetails')->setName('bookDetail')->add(SessionCheckerMiddleware::class);
+
+$app->delete('/catalogue/{id}/reviews', BookDetailsController::class . ':deleteReview')->setName('deleteBookReviews');
+$app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':addReview')->setName('addBookReview');
+
+$app->delete('/catalogue/{id}/ratings', BookDetailsController::class . ':deleteRating')->setName('deleteRating');
+$app->put('/catalogue/{id}/ratings', BookDetailsController::class . ':addBookRating')->setName('addBookRating');
 
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');
 $app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');

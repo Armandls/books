@@ -118,16 +118,11 @@
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <h4 class="p">Description: </h4>
-                                <p>{{ book.getDescription }}</p>
-                            </li>
-                            <!-- Sección para mostrar la puntuación y las estrellas -->
-                            <li class="list-group-item">
                                 <h4 class="text-gradient text-info mb-0">Reviews and Ratings: </h4>
-                                <p>Number of reviews: {{ numberOfRaitings }}</p>
-                                <p>Number of ratings: {{ numberOfReviews }}</p>
-                                <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ averageRating }} / 5</p>
-                                {% set stars = averageRating %}
+                                <p>Number of reviews: {{ reviews }}</p> <!-- Cambiado de numberOfRaitings a reviews -->
+                                <p>Number of ratings: {{ numRaiting }}</p>
+                                <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ rating }} / 5</p> <!-- Cambiado de averageRating a rating -->
+                                {% set stars = rating %} <!-- Cambiado de averageRating a rating -->
                                 {% for i in 1..5 %}
                                     {% if stars >= 1 %}
                                         <span class="fa fa-star checked"></span>
@@ -138,55 +133,238 @@
                                     {% endif %}
                                     {% set stars = stars - 1 %}
                                 {% endfor %}
+
                             </li>
+                            <style>
+                                .checked {
+                                    color: #fff674; /* Cambia el color de las estrellas a azul */
+                                }
+                            </style>
+
                         </ul>
 
-                        <div class="container">
-                            <h1>Esto es la pestaña de reviews</h1>
-
-                            <!-- Lista de revisiones -->
-                            <ul>
-                                {% for review in reviews %}
-                                    <li>
-                                        <strong>Review:</strong> {{ review.review_text }} <br>
-                                        <strong>User:</strong> {{ review.username }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
 
 
                     </div>
                 </div>
             </div>
-
         </div>
-    </section>
-    <section class="py-7">
         <div class="container">
-            <div class="row">
-                <div class="rating-stars">
-                    <input type="radio" name="rating" id="rs0" checked ><label for="rs0"></label>
-                    <input type="radio" name="rating" id="rs1"><label for="rs1"></label>
-                    <input type="radio" name="rating" id="rs2"><label for="rs2"></label>
-                    <input type="radio" name="rating" id="rs3"><label for="rs3"></label>
-                    <input type="radio" name="rating" id="rs4"><label for="rs4"></label>
-                    <input type="radio" name="rating" id="rs5"><label for="rs5"></label>
-                    <span class="rating-counter"></span>
+            <h1 class="text-center mb-4">Reviews of {{ book.title }}</h1>
+            <hr class="horizontal dark mb-4">
+            <ul class="list-unstyled">
+                {% for loopIndex, review in arrayReviews %}
+                    <li class="mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <style>
+                                    .card-title{
+                                        color: #0dcaf0;
+                                    }
+                                </style>
+                                <h5 class="card-title">Review {{ loopIndex + 1 }}</h5>
+                                <p class="card-text">{{ review.review_text }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">User: {{ review.username }}</small>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <form id="add-review-form">
+                <div class="form-group">
+                    <label for="review">Agregar revisión:</label>
+                    <textarea class="form-control" id="review" name="review" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Revisión</button>
+            </form>
+
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <form id="delete-review-form"  style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Delete my Review</button>
+                    </form>
                 </div>
             </div>
+
         </div>
-        <div class="container">
-            {% if reviews is not empty %}
-                <h3>Book reviews</h3>
-            {% endif %}
-            {% for review in reviews %}
-                <p>review</p>
-            {% endfor %}
+
+
+        <div id="rating" class="text-center mt-4">
+            <div style="background-color: #f0f0f0; padding: 10px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                <style>
+                    .rating {
+                        font-size: 24px;
+                        cursor: pointer;
+                    }
+
+                    .star {
+                        color: gray;
+                        transition: color 0.3s ease;
+                    }
+
+                    .star.active {
+                        color: gold;
+                    }
+                </style>
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <button id="submit-rating-btn" class="btn btn-primary">Enviar calificación</button>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <form id="delete-review-rating"  style="display: inline;">
+                    <button type="submit"  class="btn btn-danger">Delete my Rating</button>
+                </form>
+            </div>
         </div>
+
+
+
+
     </section>
-    <!-- END Section Content -->
 
 
-    <!-- End Seccion de caracteristicas -->
+    {% block scripts %}
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#delete-review-form').submit(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ url_for('deleteBookReviews', {'id': book.id}) }}",
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+                            window.location.reload();
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#delete-review-rating').submit(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ url_for('deleteRating', {'id': book.id}) }}",
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#add-review-form').submit(function(event) {
+                    event.preventDefault();
+                    var reviewText = $('textarea[name=review]').val();
+                    var payload = {
+                        review_text: reviewText // clave -> valor
+                    };
+                    console.log(payload);
+                    $.ajax({
+                        type: 'PUT',
+                        url: "{{ url_for('addBookReview', {'id': book.id}) }}",
+                        data: payload,
+                        dataType: 'json'
+                    })
+                        .done(function(data) {
+                            console.log(data);
+                            window.location.reload();
+                            window.location.reload();
+                        })
+                        .fail(function(error) {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const stars = document.querySelectorAll('.star');
+                const submitBtn = document.getElementById('submit-rating-btn');
+
+                let ratingValue = 0; // Variable para almacenar la calificación seleccionada
+
+                stars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const value = parseInt(this.getAttribute('data-value'));
+                        ratingValue = value; // Actualizar el valor de la calificación seleccionada
+
+                        stars.forEach(s => {
+                            if (parseInt(s.getAttribute('data-value')) <= value) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+
+                // Manejar el clic en el botón de "Enviar calificación"
+                submitBtn.addEventListener('click', function() {
+                    // Verificar si se ha seleccionado una calificación
+                    if (ratingValue !== 0) {
+                        sendRating(ratingValue);
+                    } else {
+                        console.log('Por favor, seleccione una calificación antes de enviar.');
+                    }
+                });
+
+                function sendRating(value) {
+                    // Objeto con los datos a enviar al servidor
+                    var payload = {
+                        rating: value
+                    };
+
+                    // Realizar la solicitud AJAX
+                    $.ajax({
+                        type: 'PUT', // O el método HTTP que estés utilizando
+                        url: "{{ url_for('addBookRating', {'id': book.id}) }}", // La URL del endpoint en tu servidor
+                        data: JSON.stringify(payload), // Convertir el objeto a formato JSON
+                        contentType: 'application/json', // Especificar el tipo de contenido
+                        dataType: 'json', // Esperar una respuesta JSON del servidor
+                    }).done(function(data) {
+                        console.log(data);
+                        window.location.reload();
+                    }).fail(function(error) {
+                        console.error(error);
+                    });
+                }
+            });
+
+        </script>
+
+    {% endblock %}
+
+
+
 {% endblock %}

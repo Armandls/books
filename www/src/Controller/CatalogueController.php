@@ -26,9 +26,6 @@ class CatalogueController
     private UserRepository $userRepository;
     private FlashController $flashController;
     private $client;
-    private User $user;
-    private string $username;
-    private string $profile_photo;
     private array $books;
 
     private const UPLOADS_DIR = __DIR__ . '/../../public/uploads';
@@ -46,82 +43,97 @@ class CatalogueController
         $this->client = new Client();
         $this->userRepository = $userRepository;
         $this->flashController = $flashController;
-        $this->profile_photo = "";
-        $this->username = "unknown";
-        $this->checkSession();
-    }
-
-    private function checkSession() {
-        if (isset($_SESSION['email'])) {
-            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
-            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
-            $this->username = $this->user->username();
-
-            if ($this->username == null or $this->username == "")  {
-                return -1;
-            } else {
-                $this->books = $this->bookRepository->fetchAllBooks();
-                return 0;
-            }
-        }
-
-        return -2;
     }
 
     public function showCatalogue(Request $request, Response $response): Response
     {
-        $session_result = $this->checkSession();
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $errors = [];
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-        if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
-        }
-        if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
-        }
-        return $this->renderPage($response, $routeParser, $errors);
-    }
+            $this->books = $this->bookRepository->fetchAllBooks();
 
-    public function handleFormSubmission(Request $request, Response $response): Response {
-        $data = $request->getParsedBody();
-        $errors = $this->validateForms($data);
-        $this->books = $this->bookRepository->fetchAllBooks();
-
-        // If there are errors, render the form again with the errors
-        if (count($errors) > 0) {
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-            return $this->renderPage($response,$routeParser,$errors);
-        }
-
-        if ($data['formType'] == 'fullForm') {
-            $fileCorrect = $this->checkCorrectFile($response, $request, $errors);
-            if ($fileCorrect) {
-                $data['cover_image'] = $this->customName;
-                $book = $this->bookRepository->generateBook($data);
-                $this->bookRepository->createBook($book);
-
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            }
+            else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-                $redirectUrl = $routeParser->urlFor("bookCreation");
-                return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+                $errors = [];
+                return $this->renderPage($response, $routeParser, $errors, $profile_photo);
             }
         }
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+        }
+    }
 
 
+    public function handleFormSubmission(Request $request, Response $response): Response {
 
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        return $this->renderPage($response,$routeParser,$errors);
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
+            $this->books = $this->bookRepository->fetchAllBooks();
+
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            }
+            else {
+                $data = $request->getParsedBody();
+
+                $errors = $this->validateForms($data);
+
+                $this->books = $this->bookRepository->fetchAllBooks();
+
+                // If there are errors, render the form again with the errors
+                if (count($errors) > 0) {
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    return $this->renderPage($response,$routeParser,$errors, $profile_photo);
+                }
+
+                if ($data['formType'] == 'fullForm') {
+                    $fileCorrect = $this->checkCorrectFile($response, $request, $errors);
+                    if ($fileCorrect) {
+                        $data['cover_image'] = $this->customName;
+                        $book = $this->bookRepository->generateBook($data);
+                        $this->bookRepository->createBook($book);
+
+                        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                        $redirectUrl = $routeParser->urlFor("bookCreation");
+                        return $response->withHeader('Location', $redirectUrl)->withStatus(302);
+                    }
+                }
+
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                return $this->renderPage($response,$routeParser,$errors, $profile_photo);
+            }
+        }
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+        }
     }
 
     private function findBookByISBN($isbn) {
         $apiUrl = "https://openlibrary.org/isbn/$isbn.json";
 
-        $response = $this->client->request('GET', $apiUrl);
-        $dataDecode = json_decode($response->getBody(), true);
-
         try {
+            $response = $this->client->request('GET', $apiUrl);
+
+            // Verifica el código de respuesta HTTP
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Error fetching book data');
+            }
+
+            $dataDecode = json_decode($response->getBody(), true);
+
+            // Verifica si la respuesta contiene los datos esperados
+            if (empty($dataDecode) || !isset($dataDecode["key"])) {
+                throw new \Exception('Invalid book data');
+            }
+
             $title = $dataDecode["title"] ?? "";
             $pageNumber = $dataDecode["number_of_pages"] ?? 0;
             $key = $dataDecode["key"];
@@ -132,24 +144,15 @@ class CatalogueController
 
             $dataDecode = json_decode($response->getBody(), true);
 
-            // Create DateTime objects for created_at and updated_at (current time)
             $createdAt = new DateTime($dataDecode["created"]["value"]);
             $updatedAt = new DateTime($dataDecode["last_modified"]["value"]);
-
-            // Generate cover URL
             $coverId = $dataDecode["covers"][0] ?? 0;
             $coverImageUrl = "https://covers.openlibrary.org/b/id/{$coverId}-L.jpg" ?? "";
 
+            $description = $dataDecode["description"]["value"] ?? $dataDecode["description"] ?? "";
 
-            $description = $dataDecode["description"]["value"] ?? ""; // Si retorna array -> cogemos valor del array
-            if ($description == "") {
-                $description = $dataDecode["description"] ?? ""; // Sino probamos con descripcion a secas
-            }
-
-            // Hardcodeamos eliminar source e informacion que no queremos
             if ($description != ""){
                 $description = explode("([", $description)[0];
-                //$description = explode("[S", $description)[0];
             }
 
             $authorEndpoint = $dataDecode["authors"][0]["author"]["key"] ?? "";
@@ -164,10 +167,10 @@ class CatalogueController
 
             return new Book(0, $title, $author, $description, $pageNumber, $coverImageUrl, $createdAt, $updatedAt);
         } catch (\Exception $exception) {
-
             return null;
         }
     }
+
 
 
     private function validateForms(array $data)
@@ -211,7 +214,6 @@ class CatalogueController
     {
 
         $uploadedFiles = $request->getUploadedFiles();  // Get the uploaded files -> reference to the files that have been uploaded in the server
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         if (!$uploadedFiles['cover_image']->getError() == UPLOAD_ERR_NO_FILE) {   // Error del campo error -> 4 -> No se ha subido ningún archivo
             // Error en el caso que hayn introducido más de un archivo
@@ -243,6 +245,7 @@ class CatalogueController
                 $errors['file'] = "The received file extension " . $name . " is not valid";
                 return false;
             }
+
             if (!in_array($uploadedFile->getClientMediaType(), self::ALLOWED_MIME_TYPES, true)) {
                 $errors['file'] = "The received file MIME type is not valid";
                 return false;
@@ -254,6 +257,7 @@ class CatalogueController
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->customName);
             return true;
         }
+        // Diria que no es obligatori que suban una imagen
         $errors['file'] = 'You must upload a cover image for the book.';
         return false;
     }
@@ -263,7 +267,7 @@ class CatalogueController
         return in_array($extension, self::ALLOWED_EXTENSIONS, true);
     }
 
-    private function renderPage($response, $routeParser, $errors)
+    private function renderPage($response, $routeParser, $errors, $profile_photo)
     {
         return $this->twig->render($response, 'catalogue.twig',  [
             'formAction' => $routeParser->urlFor("bookCreation"),
@@ -271,7 +275,7 @@ class CatalogueController
             'formErrors' => $errors,
             'books' => $this->books,
             'session' => $_SESSION['email'] ?? [],
-            'photo' => $this->profile_photo
+            'photo' => $profile_photo
         ]);
     }
 }

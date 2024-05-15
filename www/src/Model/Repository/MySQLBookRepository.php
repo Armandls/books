@@ -96,10 +96,16 @@ QUERY;
         $books = [];
 
         while ($bookData = $statement->fetch(PDO::FETCH_ASSOC)) {
-            // Acortar la descripción a 100 caracteres
-            $truncatedDescription = substr($bookData['description'], 0, 100);
-            $truncatedDescription = $truncatedDescription . "...";
-            // Crear el objeto Book con la descripción truncada
+            // Condición para verificar si la descripción es mayor a 100 caracteres
+
+            if (strlen($bookData['description']) > 100) {
+                $truncatedDescription = substr($bookData['description'], 0, 100) . "...";
+            } else {
+                // Si la descripción es menor o igual a 100 caracteres, no se trunca
+                $truncatedDescription = $bookData['description'];
+            }
+
+            // Crear el objeto Book con la descripción (truncada o no truncada)
             $book = new Book(
                 $bookData['id'],
                 $bookData['title'],
@@ -116,6 +122,7 @@ QUERY;
 
         return $books;
     }
+
 
     public function generateBook(array $data): Book
     {

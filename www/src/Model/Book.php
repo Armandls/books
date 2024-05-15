@@ -11,7 +11,7 @@ final class Book
    private string $author;
    private string $description;
    private int $page_number;
-   private string $cover_image;
+   private ?string $cover_image;
    private DateTime $created_at;
    private DateTime $updated_at;
 
@@ -102,4 +102,11 @@ final class Book
     public function addPathToCoverImage($path) {
         $this->cover_image = $path . $this->cover_image;
     }
+
+    public function setCoverImage(?string $coverImage): void
+    {
+        $this->cover_image = $coverImage;
+    }
+
+
 }

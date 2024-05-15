@@ -60,6 +60,7 @@ class CatalogueController
             else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
                 $errors = [];
+                $this->addUploadPrefixToCoverImages();
                 return $this->renderPage($response, $routeParser, $errors, $profile_photo);
             }
         }
@@ -91,6 +92,7 @@ class CatalogueController
                 // If there are errors, render the form again with the errors
                 if (count($errors) > 0) {
                     $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    $this->addUploadPrefixToCoverImages();
                     return $this->renderPage($response,$routeParser,$errors, $profile_photo);
                 }
 
@@ -108,6 +110,7 @@ class CatalogueController
                 }
 
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $this->addUploadPrefixToCoverImages();
                 return $this->renderPage($response,$routeParser,$errors, $profile_photo);
             }
         }
@@ -265,6 +268,16 @@ class CatalogueController
     {
         return in_array($extension, self::ALLOWED_EXTENSIONS, true);
     }
+
+    private function addUploadPrefixToCoverImages()
+    {
+        foreach ($this->books as $book) {
+            if (strpos($book->getCoverImage(), 'file_') === 0) {
+                $book->setCoverImage('/uploads/' . $book->getCoverImage());
+            }
+        }
+    }
+
 
     private function renderPage($response, $routeParser, $errors, $profile_photo)
     {

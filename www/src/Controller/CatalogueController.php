@@ -172,7 +172,6 @@ class CatalogueController
     }
 
 
-
     private function validateForms(array $data)
     {
         $errors = [];

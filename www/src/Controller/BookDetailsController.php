@@ -68,12 +68,15 @@ class BookDetailsController
                     $book->addPathToCoverImage("/uploads/");
                 }
 
+                $errors = [];
+
                 return $this->twig->render($response, 'bookDetails.twig', [
                     'book' => $book,
                     'rating' => $averageRating,
                     'reviews' => $numberOfReviews,
                     'numRaiting' => $numberOfRatings,
                     'arrayReviews' => $reviews,
+                    'errors' => $errors,
                     'session' => $_SESSION['email'] ?? [],
                     'photo' => $profile_photo
                 ]);
@@ -101,11 +104,19 @@ class BookDetailsController
 
                 $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
 
-                $this->bookRepository->deleteReviewById($userId, $bookId);
+                $reviewDeleted = $this->bookRepository->deleteReviewById($userId, $bookId);
+                if ($reviewDeleted) {
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+                } else {
+                    $errors = [];
+                    $errors['deleteReview'] = 'Error deleting the review.';
 
-                // Crear una nueva respuesta con la redirección
-                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-                return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
+
+                }
+
             }
         }
         else {
@@ -128,7 +139,7 @@ class BookDetailsController
 
                 $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
 
-                $this->bookRepository->deleteRatingById($userId, $bookId);
+                $ratingDeleted = $this->bookRepository->deleteRatingById($userId, $bookId);
 
                 // Crear una nueva respuesta con la redirección
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -165,7 +176,7 @@ class BookDetailsController
                 $reviewText = $data["review_text"];
 
 
-                $this->bookRepository->addReview($userId, $bookId, $reviewText);
+                $reviewAdded = $this->bookRepository->addReview($userId, $bookId, $reviewText);
 
                 // Redirige de vuelta a la página de detalles del libro después de agregar la revisión
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -195,7 +206,7 @@ class BookDetailsController
                 $data = $request->getParsedBody();
                 $rating = $data['rating'];
 
-                $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
+                $ratingAdded = $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
 
                 // Redirigimos de vuelta a la página de detalles del libro después de agregar el rating
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();

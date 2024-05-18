@@ -3,6 +3,10 @@
 {% block title %}Book details{% endblock %}
 
 {% block content %}
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -225,6 +229,10 @@
                 <form id="delete-review-rating"  style="display: inline;">
                     <button type="submit"  class="btn btn-danger">Delete my Rating</button>
                 </form>
+                {% if errors['deleteReview'] %}
+                    <p style="color: red;">{{ formErrors['deleteReview'] }}</p>
+                {% endif %}
+            </div>
             </div>
         </div>
 
@@ -235,7 +243,6 @@
 
 
     {% block scripts %}
-        <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 
         <script>
             $(document).ready(function() {
@@ -249,10 +256,11 @@
                     })
                         .done(function(data) {
                             console.log(data);
-                            window.location.reload();
+                            //window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
+                            //window.location.reload();
                         });
                 });
             });

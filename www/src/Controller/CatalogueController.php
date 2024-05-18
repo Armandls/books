@@ -34,7 +34,7 @@ class CatalogueController
     private const ALLOWED_EXTENSIONS = ['png', 'jpg', 'gif', 'svg'];
     private const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
     private const MAX_IMAGE_SIZE = 1048576;
-    private string $customName;
+    private string $customName = '';
 
     public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController)
     {
@@ -259,9 +259,7 @@ class CatalogueController
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->customName);
             return true;
         }
-        // Diria que no es obligatori que suban una imagen
-        $errors['file'] = 'You must upload a cover image for the book.';
-        return false;
+        return true;
     }
 
     private function isValidFormat(string $extension): bool

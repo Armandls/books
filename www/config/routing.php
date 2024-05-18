@@ -44,25 +44,34 @@ $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->
 // 10- Cuando me llegue una petición GET a la ruta /catalogue/{id}, se ejecutará el método showBookDetails de la clase BookDetailsController
 $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail');
 
-
+// 11- Cuando me llegue una petición DELETE a la ruta /catalogue/{id}/reviews, se ejecutará el método deleteReview de la clase BookDetailsController
 $app->delete('/catalogue/{id}/reviews', BookDetailsController::class . ':deleteReview')->setName('deleteBookReviews');
+// 12- Cuando me llegue una petición PUT a la ruta /catalogue/{id}/reviews, se ejecutará el método addReview de la clase BookDetailsController
 $app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':addReview')->setName('addBookReview');
-
+// 13- Cuando me llegue una petición DELETE a la ruta /catalogue/{id}/ratings, se ejecutará el método deleteRating de la clase BookDetailsController
 $app->delete('/catalogue/{id}/ratings', BookDetailsController::class . ':deleteRating')->setName('deleteRating');
+// 14- Cuando me llegue una petición PUT a la ruta /catalogue/{id}/ratings, se ejecutará el método addBookRating de la clase BookDetailsController
 $app->put('/catalogue/{id}/ratings', BookDetailsController::class . ':addBookRating')->setName('addBookRating');
 
+// 15- Cuando me llegue una petición GET a la ruta /forums, se ejecutará el método showCurrentForums de la clase ForumsController
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');
+// 16- Cuando me llegue una petición POST a la ruta /forums, se ejecutará el método createNewForum de la clase ForumsController
 $app->post('/forums', ForumsController::class . ':createNewForum')->setName('forumsCreation');
 
-$app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts')->add(SessionCheckerMiddleware::class);
+// 17- Cuando me llegue una petición GET a la ruta /forums/{id}/posts, se ejecutará el método showPosts de la clase PostsController
+$app->get('/forums/{id}/posts', PostsController::class . ':showPosts')->setName('forumPosts');
 
-// API
+// 18- Cuando me llegue una petición POST a la ruta /forums/{id}/posts, se ejecutará el método createNewPost de la clase PostsController
 $app->get('/api/forums', ApiForumsController::class . ':showCurrentForums')->setName('getApiForums');
+// 19- Cuando me llegue una petición POST a la ruta /forums/{id}/posts, se ejecutará el método createNewPost de la clase PostsController
 $app->post('/api/forums', ApiForumsController::class . ':createNewForum')->setName('postApiForums');
-
+// 20- Cuando me llegue una petición GET a la ruta /forums/{id}, se ejecutará el método getForum de la clase ForumsController
 $app->get('/api/forums/{id}', ApiForumsController::class . ':getForum')->setName('getForumsID');
+// 21- Cuando me llegue una petición PUT a la ruta /forums/{id}, se ejecutará el método updateForum de la clase ForumsController
 $app->delete('/api/forums/{id}', ApiForumsController::class . ':deleteForum')->setName('deleteForumsID');
 
+// 22- Cuando me llegue una petición DELETE a la ruta /forums/{id}, se ejecutará el método deleteForum de la clase ForumsController
 $app->get('/api/forums/{id}/posts', ApiPostsController::class . ':getApiPosts')->setName('getApiPosts');
+// 23- Cuando me llegue una petición POST a la ruta /forums/{id}/posts, se ejecutará el método createNewPost de la clase PostsController
 $app->post('/api/forums/{id}/posts', ApiPostsController::class . ':validateApiPost')->setName('validateApiPost');
 

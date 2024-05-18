@@ -59,27 +59,35 @@ class ForumsController
 
     public function createNewForum(Request $request, Response $response): Response
     {
-        $user = $this->userRepository->findByEmail($_SESSION['email']);
-        $profile_photo = "/uploads/{$user->profile_picture()}";
-        $username = $user->username();
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            if ($username == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            } else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        $forums = $this->forumsRepository->fetchAllForums();
-        $data = $request->getParsedBody();
+                $forums = $this->forumsRepository->fetchAllForums();
+                $data = $request->getParsedBody();
 
-        $errors = $this->validateNewForum($data);
+                $errors = $this->validateNewForum($data);
 
-        if (count($errors) > 0) {
-            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                if (count($errors) > 0) {
+                    return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                } else {
+                    $forumCorrect = $this->forumsRepository->createForum($data);
+                    if (!$forumCorrect) {
+                        $errors['forum'] = "Unexpected error creating new forum";
+                    }
+                    $forums = $this->forumsRepository->fetchAllForums();
+                    return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                }
+            }
         }
         else {
-            $forumCorrect = $this->forumsRepository->createForum($data);
-            if (!$forumCorrect) {
-                $errors['forum'] = "Unexpected error creating new forum";
-            }
-            $forums = $this->forumsRepository->fetchAllForums();
-            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
         }
     }
 

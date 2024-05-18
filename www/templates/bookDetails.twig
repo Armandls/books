@@ -287,7 +287,6 @@
                     var payload = {
                         review_text: reviewText // clave -> valor
                     };
-                    console.log(payload);
                     $.ajax({
                         type: 'PUT',
                         url: "{{ url_for('addBookReview', {'id': book.id}) }}",

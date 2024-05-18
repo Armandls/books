@@ -21,6 +21,10 @@ class ForumsController
     private FlashController $flashController;
     private $client;
 
+    private const MEDIUM_TEXT_LENGTH = 16777215;
+
+    private const TEXT_LENGTH = 65535;
+
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
     {
@@ -111,14 +115,24 @@ class ForumsController
         if (empty($title)) {
             $errors['title'] = "The title cannot be empty.";
         } else {
-            $forum = $this->forumsRepository->findForumByTitle($title);
-            if ($forum !== null) {
-                $errors['title'] = "There's already a forum with this topic!";
+            if (strlen($title) > 255) {
+                $errors['title'] = "The title cannot be longer than 255 characters.";
             }
             else {
-                $description = $this->test_input($data['description']);
-                if (empty($description)) {
-                    $errors['description'] = "The description cannot be empty.";
+                $forum = $this->forumsRepository->findForumByTitle($title);
+                if ($forum !== null) {
+                    $errors['title'] = "There's already a forum with this topic!";
+                }
+                else {
+                    $description = $this->test_input($data['description']);
+                    if (empty($description)) {
+                        $errors['description'] = "The description cannot be empty.";
+                    }
+                    else {
+                        if (strlen($description) > self::TEXT_LENGTH) {
+                            $errors['description'] = "The description cannot be longer than 65535 characters.";
+                        }
+                    }
                 }
             }
         }

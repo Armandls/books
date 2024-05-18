@@ -28,9 +28,13 @@ class ApiPostsController
     private FlashController $flashController;
     private $client;
     private User $user;
-    private string $username;
-    private string $profile_photo;
+    private ?string $username;
+    private ?string $profile_photo;
     private int $forum_id;
+
+    private const MEDIUM_TEXT_LENGTH = 16777215;
+
+    private const TEXT_LENGTH = 65535;
 
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository, UserRepository $userRepository, PostRepository $postRepository, FlashController $flashController)
@@ -45,34 +49,16 @@ class ApiPostsController
         $this->flashController = $flashController;
         $this->profile_photo = "";
         $this->username = "unknown";
-        $this->checkSession();
     }
 
-    private function checkSession()
+    public function getApiPosts(Request $request, Response $response, array $args): Response
     {
         if (isset($_SESSION['email'])) {
             $this->user = $this->userRepository->findByEmail($_SESSION['email']);
             $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
             $this->username = $this->user->username();
 
-            if ($this->username == null or $this->username == "") {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-
-        return -2;
-    }
-
-    public function getApiPosts(Request $request, Response $response, array $args): Response
-    {
-        if (isset($_SESSION['email'])) {
-            $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/{$user->profile_picture()}";
-            $username = $user->username();
-
-            if ($username == null) {
+            if ($this->username == null) {
                 $errors['message'] = 'This API can only be used by users with a defined username.';
 
                 $response->getBody()->write(json_encode(['errors' => $errors]));
@@ -113,11 +99,11 @@ class ApiPostsController
     public function validateApiPost(Request $request, Response $response, array $args): Response
     {
         if (isset($_SESSION['email'])) {
-            $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/{$user->profile_picture()}";
-            $username = $user->username();
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
 
-            if ($username == null) {
+            if ( $this->username == null) {
                 $errors['message'] = 'This API can only be used by users with a defined username.';
 
                 $response->getBody()->write(json_encode(['errors' => $errors]));
@@ -154,15 +140,25 @@ class ApiPostsController
         if (empty($data["title"])) {
             $errors['title'] = "A required input was missing";
         } else {
-            $forum = $this->forumsRepository->findForumByTitle($data['title']);
-            if ($forum !== null) {
-                return "There's already a forum with this topic!";
+            if (strlen($data['title']) > 255) {
+                $errors['title'] = "The title should contain less than 255 characters.";
+            }
+            else {
+                $forum = $this->forumsRepository->findForumByTitle($data['title']);
+                if ($forum !== null) {
+                    return "There's already a forum with this topic!";
+                }
             }
         }
 
         $data["description"] = $this->test_input($data['description']);
         if (empty($data["description"])) {
             $errors['description'] = "A required input was missing";
+        }
+        else {
+            if (strlen($data['description']) > self::TEXT_LENGTH) {
+                $errors['description'] = "The description should contain less than 65535 characters.";
+            }
         }
 
         if (empty($errors)) {
@@ -189,11 +185,11 @@ class ApiPostsController
     {
 
         if (isset($_SESSION['email'])) {
-            $user = $this->userRepository->findByEmail($_SESSION['email']);
-            $profile_photo = "/uploads/{$user->profile_picture()}";
-            $username = $user->username();
+            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
+            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
+            $this->username = $this->user->username();
 
-            if ($username == null) {
+            if ($this->username == null) {
                 $errors['message'] = 'This API can only be used by users with a defined username.';
 
                 $response->getBody()->write(json_encode(['errors' => $errors]));

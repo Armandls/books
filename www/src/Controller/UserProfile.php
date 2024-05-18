@@ -298,13 +298,23 @@ class UserProfile
                 if ($username == null) {
                     $errors['username'] = 'The username field is required. Please enter a new username';
                 }
+                else{
+                    if (strlen($username) > 255) {
+                        $errors['username'] = 'The username must be less than 255 characters long.';
+                    }
+                }
             }
             else {
                 if ($data['username'] == $username) {
 
                 } else {
-                    if ($userRepository->findByUsername($data['username']) !== null) {
-                        $errors['username'] = 'This username is already taken. Please choose another one.';
+                    if (strlen($data['username']) > 255) {
+                        $errors['username'] = 'The username must be less than 255 characters long.';
+                    }
+                    else {
+                        if ($userRepository->findByUsername($data['username']) !== null) {
+                            $errors['username'] = 'This username is already taken. Please choose another one.';
+                        }
                     }
                 }
             }

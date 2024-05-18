@@ -55,7 +55,7 @@ class CatalogueController
             $this->books = $this->bookRepository->fetchAllBooks();
 
             if ($username == null)  {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the catalogue.')->withStatus(302);
             }
             else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -65,7 +65,7 @@ class CatalogueController
             }
         }
         else {
-            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the catalogue.')->withStatus(302);
         }
     }
 
@@ -80,7 +80,7 @@ class CatalogueController
             $this->books = $this->bookRepository->fetchAllBooks();
 
             if ($username == null)  {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the catalogue.')->withStatus(302);
             }
             else {
                 $data = $request->getParsedBody();
@@ -115,7 +115,7 @@ class CatalogueController
             }
         }
         else {
-            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the catalogue.')->withStatus(302);
         }
     }
 

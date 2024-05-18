@@ -67,7 +67,7 @@
                                 <form data-cy="profile" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data" accept-charset="utf-8">
                                     <label>Email</label>
                                     <div class="mb-3">
-                                        <input readonly value="{{ email }}" id="email" name="email" type="email" class="form-control" aria-label="Email">
+                                        <input readonly data-cy="profile__email" value="{{ email }}" id="email" name="email" type="email" class="form-control" aria-label="Email">
                                         {% if formErrors.email %}
                                             <span class="error-message" data-cy="sign-in__wrongEmail">{{ formErrors.email }}</span>
                                         {% endif %}

@@ -137,7 +137,6 @@ class BookDetailsController
 
                 $ratingDeleted = $this->bookRepository->deleteRatingById($userId, $bookId);
 
-                // Crear una nueva respuesta con la redirección
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
                 return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
             }
@@ -161,10 +160,8 @@ class BookDetailsController
                 $bookId = $args['id'];
                 $userId = $user->id();
 
-                // Obtiene los datos del formulario
                 $data = $request->getParsedBody();
 
-                // Validación de los datos del formulario (si es necesario)
                 if (empty($data['review_text'])) {
                     $errors = [];
                     $errors['addReview'] = 'Review text cannot be empty.';
@@ -173,7 +170,6 @@ class BookDetailsController
                     return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
                 }
 
-                // Comprueba si el usuario ya ha revisado este libro
                 if ($this->bookRepository->hasUserReviewedBook($userId, $bookId)) {
                     $errors = [];
                     $errors['addReview'] = 'You have already reviewed this book.';
@@ -182,7 +178,6 @@ class BookDetailsController
                     return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
                 }
 
-                // Inserta la revisión en la base de datos utilizando tu método existente
                 $reviewText = $data["review_text"];
                 $reviewAdded = $this->bookRepository->addReview($userId, $bookId, $reviewText);
 
@@ -218,13 +213,11 @@ class BookDetailsController
                 $bookId = $args['id'];
                 $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
 
-                // Obtenemos el rating enviado en la solicitud
                 $data = $request->getParsedBody();
                 $rating = $data['rating'];
 
                 $ratingAdded = $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
 
-                // Redirigimos de vuelta a la página de detalles del libro después de agregar el rating
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
                 return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
             }

@@ -5,8 +5,6 @@
       <sourceFolder url="file://$MODULE_DIR$/www/src" isTestSource="false" packagePrefix="Project\Bookworm\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/www/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/www/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/fig/http-message-util" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/laravel/serializable-closure" />

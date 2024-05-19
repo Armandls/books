@@ -3,6 +3,10 @@
 {% block title %}Book details{% endblock %}
 
 {% block content %}
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -80,75 +84,74 @@
     <!-- START Section Show Book Details-->
     <section class="py-7">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
+                {% if book.getCoverImage is not empty %}
                 <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
                     <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
-                        <img src="{{ book.getCoverImage }}" class="w-100 border-radius-xl mt-6 ms-5 position-absolute"  style="max-width: 500px; max-height: 720px;">
+                        <img src="{{ book.getCoverImage }}" class="w-100 border-radius-xl mt-6 ms-5 position-absolute" style="max-width: 500px; max-height: 720px;">
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 ms-auto order-1 order-md-1 order-lg-1">
-                    <div class="p-3 pt-0">
-                        <h4 class="text-gradient text-info mb-0">Book details</h4>
-
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <h4 class="mb-4">Title: </h4>
-                                <p>{{ book.getTitle }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <h4 class="mb-4">Author: </h4>
-                                <p>{{ book.getAuthor }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <h4 class="text-gradient text-info mb-0">Advanced information: </h4>
-                                <ul class="list-group-flush">
-                                    <li class="list-group-item-white">
-                                        <h6>Number of pages:</h6>
-                                        <p>{{ book.getPageNumber }}</p>
-                                    </li>
-                                    <li class="list-group-item-white">
-                                        <h6>Creation date:</h6>
-                                        <p>{{ book.getCreatedAt|date("Y-m-d H:i:s") }}</p>
-                                    </li>
-                                    <li class="list-group-item-white">
-                                        <h6>Last update:</h6>
-                                        <p>{{ book.getUpdatedAt|date("Y-m-d H:i:s") }}</p>
-                                    </li>
-
-                                </ul>
-                            </li>
-                            <li class="list-group-item">
-                                <h4 class="text-gradient text-info mb-0">Reviews and Ratings: </h4>
-                                <p>Number of reviews: {{ reviews }}</p> <!-- Cambiado de numberOfRaitings a reviews -->
-                                <p>Number of ratings: {{ numRaiting }}</p>
-                                <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ rating }} / 5</p> <!-- Cambiado de averageRating a rating -->
-                                {% set stars = rating %} <!-- Cambiado de averageRating a rating -->
-                                {% for i in 1..5 %}
-                                    {% if stars >= 1 %}
-                                        <span class="fa fa-star checked"></span>
-                                    {% elseif stars > 0 %}
-                                        <span class="fa fa-star-half-o checked"></span>
-                                    {% else %}
-                                        <span class="fa fa-star-o"></span>
-                                    {% endif %}
-                                    {% set stars = stars - 1 %}
-                                {% endfor %}
-
-                            </li>
-                            <style>
-                                .checked {
-                                    color: #fff674; /* Cambia el color de las estrellas a azul */
-                                }
-                            </style>
-
-                        </ul>
-
-
-
+                    {% else %}
+                    <div class="col-lg-12 col-md-12 order-1 order-md-1 order-lg-1 text-center">
+                        {% endif %}
+                        <div class="p-3 pt-0">
+                            <h4 class="text-gradient text-info mb-0">Book details</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h4 class="mb-4">Title: </h4>
+                                    <p>{{ book.getTitle }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h4 class="mb-4">Author: </h4>
+                                    <p>{{ book.getAuthor }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h4 class="text-gradient text-info mb-0">Advanced information: </h4>
+                                    <ul class="list-group-flush">
+                                        <li class="list-group-item-white">
+                                            <h6>Number of pages:</h6>
+                                            <p>{{ book.getPageNumber }}</p>
+                                        </li>
+                                        <li class="list-group-item-white">
+                                            <h6>Creation date:</h6>
+                                            <p>{{ book.getCreatedAt|date("Y-m-d H:i:s") }}</p>
+                                        </li>
+                                        <li class="list-group-item-white">
+                                            <h6>Last update:</h6>
+                                            <p>{{ book.getUpdatedAt|date("Y-m-d H:i:s") }}</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="list-group-item">
+                                    <h4 class="text-gradient text-info mb-0">Reviews and Ratings: </h4>
+                                    <p>Number of reviews: {{ reviews }}</p>
+                                    <p>Number of ratings: {{ numRaiting }}</p>
+                                    <p>Users rated({{ numberOfReviews }}) -> Overall rating: {{ rating }} / 5</p>
+                                    {% set stars = rating %}
+                                    {% for i in 1..5 %}
+                                        {% if stars >= 1 %}
+                                            <span class="fa fa-star checked"></span>
+                                        {% elseif stars > 0 %}
+                                            <span class="fa fa-star-half-o checked"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                        {% set stars = stars - 1 %}
+                                    {% endfor %}
+                                </li>
+                                <style>
+                                    .checked {
+                                        color: #fff674; /* Cambia el color de las estrellas a amarillo */
+                                    }
+                                </style>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <br>
+        <br>
         <div class="container">
             <h1 class="text-center mb-4">Reviews of {{ book.title }}</h1>
             <hr class="horizontal dark mb-4">
@@ -226,17 +229,16 @@
                 <form id="delete-review-rating"  style="display: inline;">
                     <button type="submit"  class="btn btn-danger">Delete my Rating</button>
                 </form>
+                {% if errors['deleteReview'] %}
+                    <p style="color: red;">{{ formErrors['deleteReview'] }}</p>
+                {% endif %}
+            </div>
             </div>
         </div>
-
-
-
-
     </section>
-
+{% endblock %}
 
     {% block scripts %}
-        <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 
         <script>
             $(document).ready(function() {
@@ -254,6 +256,7 @@
                         })
                         .fail(function(error) {
                             console.error(error);
+                            window.location.reload();
                         });
                 });
             });
@@ -271,10 +274,11 @@
                     })
                         .done(function(data) {
                             console.log(data);
-
+                            window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
+                            window.location.reload();
                         });
                 });
             });
@@ -286,22 +290,23 @@
                     event.preventDefault();
                     var reviewText = $('textarea[name=review]').val();
                     var payload = {
-                        review_text: reviewText // clave -> valor
+                        review_text: reviewText
                     };
-                    console.log(payload);
+
                     $.ajax({
                         type: 'PUT',
-                        url: "{{ url_for('addBookReview', {'id': book.id}) }}",
-                        data: payload,
+                        url: "/catalogue/{id}/review".replace('{id}', "{{ book.id }}"),
+                        contentType: 'application/json',
+                        data: JSON.stringify(payload),
                         dataType: 'json'
                     })
                         .done(function(data) {
-                            console.log(data);
-                            window.location.reload();
-                            window.location.reload();
+                        console.log(data);
+                        window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
+                            window.location.reload();
                         });
                 });
             });
@@ -312,12 +317,12 @@
                 const stars = document.querySelectorAll('.star');
                 const submitBtn = document.getElementById('submit-rating-btn');
 
-                let ratingValue = 0; // Variable para almacenar la calificación seleccionada
+                let ratingValue = 0;
 
                 stars.forEach(star => {
                     star.addEventListener('click', function() {
                         const value = parseInt(this.getAttribute('data-value'));
-                        ratingValue = value; // Actualizar el valor de la calificación seleccionada
+                        ratingValue = value;
 
                         stars.forEach(s => {
                             if (parseInt(s.getAttribute('data-value')) <= value) {
@@ -329,9 +334,7 @@
                     });
                 });
 
-                // Manejar el clic en el botón de "Enviar calificación"
                 submitBtn.addEventListener('click', function() {
-                    // Verificar si se ha seleccionado una calificación
                     if (ratingValue !== 0) {
                         sendRating(ratingValue);
                     } else {
@@ -340,23 +343,22 @@
                 });
 
                 function sendRating(value) {
-                    // Objeto con los datos a enviar al servidor
                     var payload = {
                         rating: value
                     };
 
-                    // Realizar la solicitud AJAX
                     $.ajax({
-                        type: 'PUT', // O el método HTTP que estés utilizando
-                        url: "{{ url_for('addBookRating', {'id': book.id}) }}", // La URL del endpoint en tu servidor
-                        data: JSON.stringify(payload), // Convertir el objeto a formato JSON
-                        contentType: 'application/json', // Especificar el tipo de contenido
-                        dataType: 'json', // Esperar una respuesta JSON del servidor
+                        type: 'PUT',
+                        url: "{{ url_for('addBookRating', {'id': book.id}) }}",
+                        data: JSON.stringify(payload),
+                        contentType: 'application/json',
+                        dataType: 'json'
                     }).done(function(data) {
                         console.log(data);
                         window.location.reload();
                     }).fail(function(error) {
                         console.error(error);
+                        window.location.reload();
                     });
                 }
             });
@@ -364,7 +366,3 @@
         </script>
 
     {% endblock %}
-
-
-
-{% endblock %}

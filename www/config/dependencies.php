@@ -129,7 +129,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-            // Se añade BookDetailsController al contenedor de Slim
+        // 6- Se añade BookDetailsController al contenedor de Slim
             $container->set(
                 BookDetailsController::class,
                 function (ContainerInterface $c) {
@@ -138,7 +138,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-        // 6- Se añade UserProfile al contenedor de Slim
+        // 7- Se añade UserProfile al contenedor de Slim
             $container->set(
                 UserProfile::class,  // Nombre de la dependencia -> UserProfile
                 function (ContainerInterface $c) {
@@ -147,7 +147,7 @@ $container = new Container(); // Instancia de la clase Container
                 }
             );
 
-        // 7- Se añade ForumsController al contenedor de Slim
+        // 8- Se añade ForumsController al contenedor de Slim
         $container->set(
             ForumsController::class,  // Nombre de la dependencia -> ForumsController
             function (ContainerInterface $c) {
@@ -156,7 +156,7 @@ $container = new Container(); // Instancia de la clase Container
             }
         );
 
-        // 8- Se añade PostsController al contenedor de Slim
+        // 9- Se añade PostsController al contenedor de Slim
         $container->set(
             PostsController::class,  // Nombre de la dependencia -> PostsController
             function (ContainerInterface $c) {
@@ -165,7 +165,7 @@ $container = new Container(); // Instancia de la clase Container
             }
         );
 
-        // 9- Se añade ApiForumsController al contenedor de Slim
+        // 10- Se añade ApiForumsController al contenedor de Slim
         $container->set(
             ApiForumsController::class,  // Nombre de la dependencia -> ApiForumsController
             function (ContainerInterface $c) {
@@ -174,7 +174,7 @@ $container = new Container(); // Instancia de la clase Container
             }
         );
 
-        // 10 - Se añade ApiPostsController al contenedor de Slim
+        // 11 - Se añade ApiPostsController al contenedor de Slim
         $container->set(
             ApiPostsController::class,  // Nombre de la dependencia -> ApiPostsController
             function (ContainerInterface $c) {

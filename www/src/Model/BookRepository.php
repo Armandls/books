@@ -18,10 +18,10 @@ interface BookRepository
 
     public function findBookById($bookId);
 
-
     public function countRaiting($bookId);
 
     public function averageRating($bookId);
+
     public function countReviews($bookId);
 
     public function getBookReviews($bookId);
@@ -35,6 +35,8 @@ interface BookRepository
     public function addReview($userId,$bookId,$reviewText);
 
     public function addRatingToBook($user_id, $bookId, $rating);
+
+    public function hasUserReviewedBook(int $userId, int $bookId): bool;
 
 
 

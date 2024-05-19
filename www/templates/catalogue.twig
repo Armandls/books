@@ -103,7 +103,7 @@
                                         </div>
                                 </form>
                                 {% if formErrors['isbn'] %}
-                                    <p>{{ formErrors['isbn'] }}</p>
+                                    <p style="color: red;">{{ formErrors['isbn'] }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -120,58 +120,58 @@
         <div class="container py-4">
             <div class="row">
                 <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
-                    <h3 class="text-center">Crea un nuevo libro</h3>
+                    <h3 class="text-center">Create a new book</h3>
                     <form role="form" id="FullFormBookCreation" autocomplete="off" action="{{ formAction }}" method="{{ formMethod }}" enctype="multipart/form-data">
                         <input type="hidden" name="formType" value="fullForm">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Nombre del autor</label>
+                                    <label>Author's name</label>
                                     <div class="input-group">
                                         <input id="author" name="author" type="text" class="form-control" placeholder="" aria-label="Autor..." >
                                     </div>
                                     {% if formErrors['author'] %}
-                                        <p>{{ formErrors['author'] }}</p>
+                                        <span style="color: red;">{{ formErrors['author'] }}</span>
                                     {% endif %}
                                 </div>
                                 <div class="col-md-6 ps-2">
-                                    <label>Numero de paginas del libro</label>
+                                    <label>Number of pages in the book</label>
                                     <div class="input-group">
                                         <input id="page_number" name="page_number" type="number" class="form-control" placeholder="" >
                                     </div>
                                     {% if formErrors['page_number'] %}
-                                        <p>{{ formErrors['page_number'] }}</p>
+                                        <p style="color: red;">{{ formErrors['page_number'] }}</p>
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label>Titulo del libro</label>
+                                <label>Title of the book</label>
                                 <div class="input-group mb-4">
                                     <input id="title" name="title" class="form-control" placeholder="Titulo..." type="text" >
                                 </div>
                                 {% if formErrors['title'] %}
-                                    <p>{{ formErrors['title'] }}</p>
+                                    <p style="color: red;">{{ formErrors['title'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="mb-4">
-                                <label>Portada del libro</label>
+                                <label>Book cover</label>
                                 <div class="input-group">
                                     <input id="cover_image" name="cover_image" type="file" class="form-control" placeholder="Selecciona un archivo"  accept="image/png, image/jpeg, image/gif, image/svg+xml" multiple>
                                 </div>
                                 {% if formErrors['file'] %}
-                                    <p>{{ formErrors['file'] }}</p>
+                                    <p style="color: red;">{{ formErrors['file'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="form-group mb-4">
-                                <label>Descripción del libro</label>
+                                <label>Book Description</label>
                                 <textarea id="description" name="description" class="form-control" rows="4" placeholder="Escribe la descripción del libro..."></textarea>
                                 {% if formErrors['description'] %}
-                                    <p>{{ formErrors['description'] }}</p>
+                                    <p style="color: red;">{{ formErrors['description'] }}</p>
                                 {% endif %}
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn bg-gradient-dark w-100">Crea el libro</button>
+                                    <button type="submit" class="btn bg-gradient-dark w-100">Create the book</button>
                                 </div>
                             </div>
                         </div>
@@ -207,35 +207,6 @@
                         </div>
                     </div>
                 {% endfor %}
-                <div class="col-sm-7 ms-auto text-end">
-                    <ul class="pagination pagination-primary mt-4">
-                        <li class="page-item ms-auto">
-                            <a class="page-link" href="javascript:;" aria-label="Previous">
-                                <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="javascript:;">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;" aria-label="Next">
-                                <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>

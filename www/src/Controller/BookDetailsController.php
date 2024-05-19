@@ -20,11 +20,7 @@ class BookDetailsController
     private BookRepository $bookRepository;
     private Messages $flash;
     private $client;
-    private string $username;
     private UserRepository $userRepository;
-
-    private string $profile_photo;
-    private User $user;
     private FlashController $flashController;
 
     public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController, Messages $flash)
@@ -37,176 +33,199 @@ class BookDetailsController
 
         $this->flash = $flash;
         $this->client = new Client();
-
-        $this->profile_photo = "";
-        $this->username = "unknown";
-        $this->checkSession();
     }
-
-    private function checkSession() {
-        if (isset($_SESSION['email'])) {
-            $this->user = $this->userRepository->findByEmail($_SESSION['email']);
-            $this->profile_photo = "/uploads/{$this->user->profile_picture()}";
-            $this->username = $this->user->username();
-
-            if ($this->username == null or $this->username == "")  {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-
-        return -2;
-    }
-
 
     public function showBookDetails(Request $request, Response $response, array $args): Response
     {
-        $session_result = $this->checkSession();
-        if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
+
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
+            }
+            else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                $bookId = $args['id'];
+                $book = $this->bookRepository->findBookById($bookId);
+
+                if ($book === null) {
+                    return $response->withStatus(404);
+                }
+
+                $numberOfReviews = $this->bookRepository->countReviews($bookId);
+                $averageRating = $this->bookRepository->averageRating($bookId);
+                $numberOfRatings = $this->bookRepository->countRaiting($bookId);
+                $reviews = $this->bookRepository->getBookReviews($bookId);
+
+                if (str_starts_with($book->getCoverImage(), "file_")) {
+                    $book->addPathToCoverImage("/uploads/");
+                }
+
+                $errors = [];
+
+                return $this->twig->render($response, 'bookDetails.twig', [
+                    'book' => $book,
+                    'rating' => $averageRating,
+                    'reviews' => $numberOfReviews,
+                    'numRaiting' => $numberOfRatings,
+                    'arrayReviews' => $reviews,
+                    'errors' => $errors,
+                    'session' => $_SESSION['email'] ?? [],
+                    'photo' => $profile_photo
+                ]);
+            }
         }
-        if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
         }
-
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $bookId = $args['id'];
-        $book = $this->bookRepository->findBookById($bookId);
-
-        if ($book === null) {
-            return $response->withStatus(404);
-        }
-
-        $numberOfReviews = $this->bookRepository->countReviews($bookId);
-        $averageRating = $this->bookRepository->averageRating($bookId);
-        $numberOfRatings = $this->bookRepository->countRaiting($bookId);
-        $reviews = $this->bookRepository->getBookReviews($bookId);
-
-        if (str_starts_with($book->getCoverImage(), "file_")) {
-            $book->addPathToCoverImage("/uploads/");
-        }
-
-        return $this->twig->render($response, 'bookDetails.twig', [
-            'book' => $book,
-            'rating' => $averageRating,
-            'reviews' => $numberOfReviews,
-            'numRaiting' => $numberOfRatings,
-            'arrayReviews' => $reviews,
-            'formErrors' => "",
-            'formData' => "",
-            'formAction' => $routeParser->urlFor("bookDetail",  ['id' => $bookId]),
-
-            'formMethod' => "GET",
-            'session' => $_SESSION['email'] ?? [],
-            'photo' => $this->profile_photo
-        ]);
     }
 
 
 
     public function deleteReview(Request $request, Response $response, array $args): Response
     {
-        $session_result = $this->checkSession();
-        if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
+
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
+            }
+            else {
+                $bookId = $args['id'];
+
+                $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
+
+                $reviewDeleted = $this->bookRepository->deleteReviewById($userId, $bookId);
+                if ($reviewDeleted) {
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+                } else {
+                    $errors = [];
+                    $errors['deleteReview'] = 'Error deleting the review.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
+
+                }
+
+            }
         }
-        if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
         }
-        $bookId = $args['id'];
-
-        $userId = 1;
-
-        $this->bookRepository->deleteReviewById(1, $bookId);
-
-        // Crear una nueva respuesta con la redirección
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
     }
 
     public function deleteRating(Request $request, Response $response, array $args): Response
     {
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-        $session_result = $this->checkSession();
-        if ($session_result == -1 ){
-            return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+            if ($username == null)  {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
+            }
+            else {
+                $bookId = $args['id'];
+
+                $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
+
+                $ratingDeleted = $this->bookRepository->deleteRatingById($userId, $bookId);
+
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+            }
         }
-        if ($session_result == -2) {
-            $message = 'You must be logged in to access the user profile page.';
-            return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
         }
-        $bookId = $args['id'];
-
-        $userId = 1;
-
-        $this->bookRepository->deleteRatingById(1, $bookId);
-
-        // Crear una nueva respuesta con la redirección
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
     }
 
 
-public function addReview(Request $request, Response $response, array $args): Response
-{
+    public function addReview(Request $request, Response $response, array $args): Response
+    {
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-    $session_result = $this->checkSession();
-    if ($session_result == -1 ){
-        return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
+            if ($username == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
+            } else {
+                $bookId = $args['id'];
+                $userId = $user->id();
+
+                $data = $request->getParsedBody();
+
+                if (empty($data['review_text'])) {
+                    $errors = [];
+                    $errors['addReview'] = 'Review text cannot be empty.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+                }
+
+                if ($this->bookRepository->hasUserReviewedBook($userId, $bookId)) {
+                    $errors = [];
+                    $errors['addReview'] = 'You have already reviewed this book.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+                }
+
+                $reviewText = $data["review_text"];
+                $reviewAdded = $this->bookRepository->addReview($userId, $bookId, $reviewText);
+
+                if ($reviewAdded) {
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]))->withStatus(302);
+                } else {
+                    $errors = [];
+                    $errors['addReview'] = 'Error adding the review.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+                }
+            }
+        } else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
+        }
     }
-    if ($session_result == -2) {
-        $message = 'You must be logged in to access the user profile page.';
-        return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
+
+
+
+
+    public function addBookRating(Request $request, Response $response, array $args): Response
+    {
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
+
+            if ($username == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
+            } else {
+                $bookId = $args['id'];
+                $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
+
+                $data = $request->getParsedBody();
+                $rating = $data['rating'];
+
+                $ratingAdded = $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
+
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+            }
+        }
+        else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
+        }
     }
-    $bookId = $args['id'];
-    $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
-
-    // Obtiene los datos del formulario
-    $data = $request->getParsedBody();
-
-    // Validación de los datos del formulario (si es necesario)
-
-    // Inserta la revisión en la base de datos utilizando tu método existente
-    // Suponiendo que el texto de la revisión está en el campo 'review_text' del formulario
-    $reviewText = $data["review_text"];
-
-
-    $this->bookRepository->addReview($userId, $bookId, $reviewText);
-
-    // Redirige de vuelta a la página de detalles del libro después de agregar la revisión
-    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
-}
-
-
-public function addBookRating(Request $request, Response $response, array $args): Response
-{
-
-    $session_result = $this->checkSession();
-    if ($session_result == -1 ){
-        return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the landing page.')->withStatus(302);
-    }
-    if ($session_result == -2) {
-        $message = 'You must be logged in to access the user profile page.';
-        return $this->flashController->redirectToSignIn($request, $response, $message)->withStatus(302);
-    }
-
-    $bookId = $args['id'];
-    $userId = 1;
-
-    // Obtenemos el rating enviado en la solicitud
-    $data = $request->getParsedBody();
-    $rating = $data['rating'];
-
-    $this->bookRepository->addRatingToBook($userId, $bookId, $rating);
-
-    // Redirigimos de vuelta a la página de detalles del libro después de agregar el rating
-    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
-}
 
 
 

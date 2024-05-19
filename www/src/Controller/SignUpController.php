@@ -89,7 +89,7 @@ final class SignUpController
             $errors['email'] = 'The email field is required.';
         }
         else {
-            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || strlen($data['email']) > 255) {
                 $errors['email'] = 'The email address is not valid.';
             }
             else {
@@ -97,7 +97,7 @@ final class SignUpController
                     $errors['email'] = 'The email address is already registered.';
                 }
                 else {
-                    if (strlen($data['password']) < 6 || !preg_match('/[0-9]/', $data['password'])) {
+                    if (strlen($data['password']) < 6 || !preg_match('/[0-9]/', $data['password']) || strlen($data['password']) > 255){
                         $errors['password'] = 'The password must be at least 6 characters long and contain at least one number.';
                     }
                     else {

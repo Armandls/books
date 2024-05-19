@@ -24,7 +24,7 @@ final class MySQLBookRepository implements BookRepository
     public function createBook(Book $book): bool
     {
         $query = <<<'QUERY'
-        INSERT INTO books(title, author, description, page_number, cover_image, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO books (title, author, description, page_number, cover_image, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)
 QUERY;
         try {
             $statement = $this->database->connection()->prepare($query);
@@ -96,10 +96,16 @@ QUERY;
         $books = [];
 
         while ($bookData = $statement->fetch(PDO::FETCH_ASSOC)) {
-            // Acortar la descripción a 100 caracteres
-            $truncatedDescription = substr($bookData['description'], 0, 100);
-            $truncatedDescription = $truncatedDescription . "...";
-            // Crear el objeto Book con la descripción truncada
+            // Condición para verificar si la descripción es mayor a 100 caracteres
+
+            if (strlen($bookData['description']) > 100) {
+                $truncatedDescription = substr($bookData['description'], 0, 100) . "...";
+            } else {
+                // Si la descripción es menor o igual a 100 caracteres, no se trunca
+                $truncatedDescription = $bookData['description'];
+            }
+
+            // Crear el objeto Book con la descripción (truncada o no truncada)
             $book = new Book(
                 $bookData['id'],
                 $bookData['title'],
@@ -116,6 +122,7 @@ QUERY;
 
         return $books;
     }
+
 
     public function generateBook(array $data): Book
     {
@@ -135,7 +142,7 @@ QUERY;
         $query = <<<'QUERY'
         SELECT * FROM books WHERE id = ?
     QUERY;
-
+    try {
         $statement = $this->database->connection()->prepare($query);
         $statement->bindParam(1, $bookId, PDO::PARAM_STR);
         $statement->execute();
@@ -159,6 +166,9 @@ QUERY;
             $created_at,
             $updated_at
         );
+    } catch (PDOException) {
+        return null;
+    }
     }
 
 
@@ -167,12 +177,15 @@ QUERY;
         $query = <<<'QUERY'
             SELECT COUNT(*) FROM ratings WHERE book_id = ?
         QUERY;
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+            $statement->execute();
 
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
-        $statement->execute();
-
-        return (int)$statement->fetchColumn();
+            return (int)$statement->fetchColumn();
+        } catch (PDOException) {
+            return 0;
+        }
     }
 
 
@@ -181,12 +194,15 @@ QUERY;
         $query = <<<'QUERY'
             SELECT AVG(rating) FROM ratings WHERE book_id = ?
         QUERY;
-
+        try {
         $statement = $this->database->connection()->prepare($query);
         $statement->bindParam(1, $bookId, PDO::PARAM_INT);
         $statement->execute();
 
         return (float)$statement->fetchColumn();
+        } catch (PDOException) {
+            return 0;
+        }
     }
 
     public function countReviews($bookId): int
@@ -194,12 +210,15 @@ QUERY;
         $query = <<<'QUERY'
             SELECT COUNT(*) FROM reviews WHERE book_id = ?
         QUERY;
-
+        try {
         $statement = $this->database->connection()->prepare($query);
         $statement->bindParam(1, $bookId, PDO::PARAM_INT);
         $statement->execute();
 
         return (int)$statement->fetchColumn();
+        } catch (PDOException) {
+            return 0;
+        }
     }
 
     public function countRatings($bookId): int
@@ -207,12 +226,15 @@ QUERY;
         $query = <<<'QUERY'
             SELECT COUNT(*) FROM ratings WHERE book_id = ?
         QUERY;
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+            $statement->execute();
 
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
-        $statement->execute();
-
-        return (int)$statement->fetchColumn();
+            return (int)$statement->fetchColumn();
+        } catch (PDOException) {
+            return 0;
+        }
     }
 
     public function getBookReviews($bookId): array
@@ -220,71 +242,84 @@ QUERY;
         $query = <<<'QUERY'
         SELECT reviews.review_text, users.username FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.book_id = ?
     QUERY;
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+            $statement->execute();
 
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(1, $bookId, PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException) {
+            return [];
+        }
     }
 
-    public function deleteReviewById($userId, $bookId): void
+    public function deleteReviewById($userId, $bookId): bool
     {
-
+        //SELECT * FROM books WHERE title = ?
         $query = <<<'QUERY'
         DELETE FROM reviews
-        WHERE book_id = :book_id AND user_id = :user_id
+        WHERE book_id = ? AND user_id = ?
         QUERY;
-
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
-        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $statement->execute();
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+            $statement->bindParam(2, $userId, PDO::PARAM_INT);
+            return $statement->execute();
+        } catch (PDOException) {
+            return false;
+        }
     }
 
-    public function deleteRatingById($userId, $bookId): void
+    public function deleteRatingById($userId, $bookId): bool
     {
 
         $query = <<<'QUERY'
         DELETE FROM ratings
-        WHERE book_id = :book_id AND user_id = :user_id
+        WHERE book_id = ? AND user_id = ?
         QUERY;
-
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
-        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $statement->execute();
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(1, $bookId, PDO::PARAM_INT);
+            $statement->bindParam(2, $userId, PDO::PARAM_INT);
+            return $statement->execute();
+        } catch (PDOException) {
+            return false;
+        }
     }
 
-    public function addReview($userId, $bookId, $reviewText): void
+    public function addReview($userId, $bookId, $reviewText): bool
     {
         $query = <<<'QUERY'
         INSERT INTO reviews (user_id, book_id, review_text, created_at, updated_at)
         VALUES (:user_id, :book_id, :review_text, NOW(), NOW())
     QUERY;
-
-        $statement = $this->database->connection()->prepare($query);
-        $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
-        $statement->bindParam(':review_text', $reviewText, PDO::PARAM_STR);
-        $statement->execute();
+        try {
+            $statement = $this->database->connection()->prepare($query);
+            $statement->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT);
+            $statement->bindParam(':review_text', $reviewText, PDO::PARAM_STR);
+            return $statement->execute();
+        } catch (PDOException) {
+            return false;
+        }
     }
 
-    public function addRatingToBook($user_id, $bookId, $rating): void
+    public function addRatingToBook($user_id, $bookId, $rating): bool
     {
 
         $existingRating = $this->getRatingForBook($bookId);
         $bookId = (int)$bookId; // Convertir a entero
 
-        $statement = $this->database->connection()->prepare("INSERT INTO ratings (user_id, book_id, rating) VALUES (:user_id, :book_id, :rating)");
-        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT); // Corregido a $user_id
-        $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT); // Corregido a $bookId
-        $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
-        $statement->execute();
+        try {
+            $statement = $this->database->connection()->prepare("INSERT INTO ratings (user_id, book_id, rating) VALUES (:user_id, :book_id, :rating)");
+            $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT); // Corregido a $user_id
+            $statement->bindParam(':book_id', $bookId, PDO::PARAM_INT); // Corregido a $bookId
+            $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
+            return $statement->execute();
+        } catch (PDOException) {
+            return false;
+        }
     }
-
-
-
 
 
     private function getRatingForBook($bookId): ?int
@@ -296,6 +331,18 @@ QUERY;
 
         return $result ? (int)$result['rating'] : null;
     }
+
+    public function hasUserReviewedBook(int $userId, int $bookId): bool
+    {
+        $query = "SELECT COUNT(*) FROM reviews WHERE user_id = :userId AND book_id = :bookId";
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $statement->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchColumn() > 0;
+    }
+
 
 
 }

@@ -21,6 +21,10 @@ class ForumsController
     private FlashController $flashController;
     private $client;
 
+    private const MEDIUM_TEXT_LENGTH = 16777215;
+
+    private const TEXT_LENGTH = 65535;
+
 
     public function __construct(Twig $twig, ForumsRepository $forumsRepository ,UserRepository $userRepository, FlashController $flashController)
     {
@@ -59,27 +63,35 @@ class ForumsController
 
     public function createNewForum(Request $request, Response $response): Response
     {
-        $user = $this->userRepository->findByEmail($_SESSION['email']);
-        $profile_photo = "/uploads/{$user->profile_picture()}";
-        $username = $user->username();
+        if (isset($_SESSION['email'])) {
+            $user = $this->userRepository->findByEmail($_SESSION['email']);
+            $profile_photo = "/uploads/{$user->profile_picture()}";
+            $username = $user->username();
 
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            if ($username == null) {
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+            } else {
+                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        $forums = $this->forumsRepository->fetchAllForums();
-        $data = $request->getParsedBody();
+                $forums = $this->forumsRepository->fetchAllForums();
+                $data = $request->getParsedBody();
 
-        $errors = $this->validateNewForum($data);
+                $errors = $this->validateNewForum($data);
 
-        if (count($errors) > 0) {
-            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                if (count($errors) > 0) {
+                    return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                } else {
+                    $forumCorrect = $this->forumsRepository->createForum($data);
+                    if (!$forumCorrect) {
+                        $errors['forum'] = "Unexpected error creating new forum";
+                    }
+                    $forums = $this->forumsRepository->fetchAllForums();
+                    return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+                }
+            }
         }
         else {
-            $forumCorrect = $this->forumsRepository->createForum($data);
-            if (!$forumCorrect) {
-                $errors['forum'] = "Unexpected error creating new forum";
-            }
-            $forums = $this->forumsRepository->fetchAllForums();
-            return $this->renderPage($response, $routeParser, $errors, $forums, $profile_photo, $username);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
         }
     }
 
@@ -103,14 +115,24 @@ class ForumsController
         if (empty($title)) {
             $errors['title'] = "The title cannot be empty.";
         } else {
-            $forum = $this->forumsRepository->findForumByTitle($title);
-            if ($forum !== null) {
-                $errors['title'] = "There's already a forum with this topic!";
+            if (strlen($title) > 255) {
+                $errors['title'] = "The title cannot be longer than 255 characters.";
             }
             else {
-                $description = $this->test_input($data['description']);
-                if (empty($description)) {
-                    $errors['description'] = "The description cannot be empty.";
+                $forum = $this->forumsRepository->findForumByTitle($title);
+                if ($forum !== null) {
+                    $errors['title'] = "There's already a forum with this topic!";
+                }
+                else {
+                    $description = $this->test_input($data['description']);
+                    if (empty($description)) {
+                        $errors['description'] = "The description cannot be empty.";
+                    }
+                    else {
+                        if (strlen($description) > self::TEXT_LENGTH) {
+                            $errors['description'] = "The description cannot be longer than 65535 characters.";
+                        }
+                    }
                 }
             }
         }

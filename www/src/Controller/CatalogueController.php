@@ -34,7 +34,7 @@ class CatalogueController
     private const ALLOWED_EXTENSIONS = ['png', 'jpg', 'gif', 'svg'];
     private const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
     private const MAX_IMAGE_SIZE = 1048576;
-    private string $customName;
+    private string $customName = '';
 
     public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController)
     {
@@ -55,7 +55,7 @@ class CatalogueController
             $this->books = $this->bookRepository->fetchAllBooks();
 
             if ($username == null)  {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the catalogue.')->withStatus(302);
             }
             else {
                 $routeParser = RouteContext::fromRequest($request)->getRouteParser();
@@ -65,7 +65,7 @@ class CatalogueController
             }
         }
         else {
-            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the catalogue.')->withStatus(302);
         }
     }
 
@@ -80,7 +80,7 @@ class CatalogueController
             $this->books = $this->bookRepository->fetchAllBooks();
 
             if ($username == null)  {
-                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the forums.')->withStatus(302);
+                return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the catalogue.')->withStatus(302);
             }
             else {
                 $data = $request->getParsedBody();
@@ -115,7 +115,7 @@ class CatalogueController
             }
         }
         else {
-            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the forums.')->withStatus(302);
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the catalogue.')->withStatus(302);
         }
     }
 
@@ -259,9 +259,7 @@ class CatalogueController
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->customName);
             return true;
         }
-        // Diria que no es obligatori que suban una imagen
-        $errors['file'] = 'You must upload a cover image for the book.';
-        return false;
+        return true;
     }
 
     private function isValidFormat(string $extension): bool

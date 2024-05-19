@@ -6,6 +6,10 @@ use Project\Bookworm\Model\BookRepository;
 
 class BookCreationChecker
 {
+    private const MEDIUM_TEXT_LENGTH = 16777215;
+
+    private const TEXT_LENGTH = 65535;
+
     public static function checkCorrectForm(array $data, BookRepository $repository, $errors): array
     {
 
@@ -45,6 +49,10 @@ class BookCreationChecker
             return "The author's name should contain only letters and spaces.";
         }
 
+        if (strlen($author) > self::MEDIUM_TEXT_LENGTH) {
+            return "The author's name should contain less than 16777215 characters.";
+        }
+
         return null;
     }
 
@@ -59,6 +67,10 @@ class BookCreationChecker
         // Check if the title contains only letters and spaces
         if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
             return "The title should contain only letters and spaces.";
+        }
+
+        if (strlen($title) > self::MEDIUM_TEXT_LENGTH) {
+            return "The title should contain less than 16777215 characters.";
         }
 
         $book = $bookRepository->findBookByTitle($title);
@@ -91,6 +103,10 @@ class BookCreationChecker
         // Check if the description is empty
         if (empty($description)) {
             return "The description cannot be empty.";
+        }
+
+        if (strlen($description) > self::TEXT_LENGTH) {
+            return "The description should contain less than 65535 characters.";
         }
 
         return null;

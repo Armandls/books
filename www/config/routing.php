@@ -45,13 +45,13 @@ $app->post('/catalogue', CatalogueController::class . ':handleFormSubmission')->
 $app->get('/catalogue/{id}', BookDetailsController::class . ':showBookDetails')->setName('bookDetail');
 
 // 11- Cuando me llegue una petición DELETE a la ruta /catalogue/{id}/reviews, se ejecutará el método deleteReview de la clase BookDetailsController
-$app->delete('/catalogue/{id}/reviews', BookDetailsController::class . ':deleteReview')->setName('deleteBookReviews');
+$app->delete('/catalogue/{id}/review', BookDetailsController::class . ':deleteReview')->setName('deleteBookReviews');
 // 12- Cuando me llegue una petición PUT a la ruta /catalogue/{id}/reviews, se ejecutará el método addReview de la clase BookDetailsController
-$app->put('/catalogue/{id}/reviews', BookDetailsController::class . ':addReview')->setName('addBookReview');
+$app->put('/catalogue/{id}/review', BookDetailsController::class . ':addReview')->setName('addBookReview');
 // 13- Cuando me llegue una petición DELETE a la ruta /catalogue/{id}/ratings, se ejecutará el método deleteRating de la clase BookDetailsController
-$app->delete('/catalogue/{id}/ratings', BookDetailsController::class . ':deleteRating')->setName('deleteRating');
+$app->delete('/catalogue/{id}/rate', BookDetailsController::class . ':deleteRating')->setName('deleteRating');
 // 14- Cuando me llegue una petición PUT a la ruta /catalogue/{id}/ratings, se ejecutará el método addBookRating de la clase BookDetailsController
-$app->put('/catalogue/{id}/ratings', BookDetailsController::class . ':addBookRating')->setName('addBookRating');
+$app->put('/catalogue/{id}/rate', BookDetailsController::class . ':addBookRating')->setName('addBookRating');
 
 // 15- Cuando me llegue una petición GET a la ruta /forums, se ejecutará el método showCurrentForums de la clase ForumsController
 $app->get('/forums', ForumsController::class . ':showCurrentForums')->setName('forums');

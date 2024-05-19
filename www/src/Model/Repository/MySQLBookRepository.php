@@ -322,10 +322,6 @@ QUERY;
     }
 
 
-
-
-
-
     private function getRatingForBook($bookId): ?int
     {
 
@@ -335,6 +331,18 @@ QUERY;
 
         return $result ? (int)$result['rating'] : null;
     }
+
+    public function hasUserReviewedBook(int $userId, int $bookId): bool
+    {
+        $query = "SELECT COUNT(*) FROM reviews WHERE user_id = :userId AND book_id = :bookId";
+        $statement = $this->database->connection()->prepare($query);
+        $statement->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $statement->bindParam(':bookId', $bookId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchColumn() > 0;
+    }
+
 
 
 }

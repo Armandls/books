@@ -20,11 +20,7 @@ class BookDetailsController
     private BookRepository $bookRepository;
     private Messages $flash;
     private $client;
-    private ?string $username;
     private UserRepository $userRepository;
-
-    private string $profile_photo;
-    private User $user;
     private FlashController $flashController;
 
     public function __construct(Twig $twig, BookRepository $bookRepository, UserRepository $userRepository, FlashController $flashController, Messages $flash)
@@ -154,7 +150,6 @@ class BookDetailsController
 
     public function addReview(Request $request, Response $response, array $args): Response
     {
-
         if (isset($_SESSION['email'])) {
             $user = $this->userRepository->findByEmail($_SESSION['email']);
             $profile_photo = "/uploads/{$user->profile_picture()}";
@@ -164,29 +159,50 @@ class BookDetailsController
                 return $this->flashController->redirectToUserProfile($request, $response, 'You must complete your profile to access the Book Details.')->withStatus(302);
             } else {
                 $bookId = $args['id'];
-                $userId = $this->userRepository->findByEmail($_SESSION['email'])->id();
+                $userId = $user->id();
 
                 // Obtiene los datos del formulario
                 $data = $request->getParsedBody();
 
                 // Validación de los datos del formulario (si es necesario)
+                if (empty($data['review_text'])) {
+                    $errors = [];
+                    $errors['addReview'] = 'Review text cannot be empty.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+                }
+
+                // Comprueba si el usuario ya ha revisado este libro
+                if ($this->bookRepository->hasUserReviewedBook($userId, $bookId)) {
+                    $errors = [];
+                    $errors['addReview'] = 'You have already reviewed this book.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+                }
 
                 // Inserta la revisión en la base de datos utilizando tu método existente
-                // Suponiendo que el texto de la revisión está en el campo 'review_text' del formulario
                 $reviewText = $data["review_text"];
-
-
                 $reviewAdded = $this->bookRepository->addReview($userId, $bookId, $reviewText);
 
-                // Redirige de vuelta a la página de detalles del libro después de agregar la revisión
-                $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-                return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]));
+                if ($reviewAdded) {
+                    $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+                    return $response->withHeader('Location', $routeParser->urlFor("bookDetail", ['id' => $bookId]))->withStatus(302);
+                } else {
+                    $errors = [];
+                    $errors['addReview'] = 'Error adding the review.';
+
+                    $response->getBody()->write(json_encode($errors));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+                }
             }
-        }
-        else {
-                return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
+        } else {
+            return $this->flashController->redirectToSignIn($request, $response, 'You must be logged in to access the Book Details.')->withStatus(302);
         }
     }
+
+
 
 
     public function addBookRating(Request $request, Response $response, array $args): Response

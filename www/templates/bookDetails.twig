@@ -235,12 +235,8 @@
             </div>
             </div>
         </div>
-
-
-
-
     </section>
-
+{% endblock %}
 
     {% block scripts %}
 
@@ -256,11 +252,11 @@
                     })
                         .done(function(data) {
                             console.log(data);
-                            //window.location.reload();
+                            window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
-                            //window.location.reload();
+                            window.location.reload();
                         });
                 });
             });
@@ -278,10 +274,11 @@
                     })
                         .done(function(data) {
                             console.log(data);
-
+                            window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
+                            window.location.reload();
                         });
                 });
             });
@@ -293,21 +290,23 @@
                     event.preventDefault();
                     var reviewText = $('textarea[name=review]').val();
                     var payload = {
-                        review_text: reviewText // clave -> valor
+                        review_text: reviewText
                     };
+
                     $.ajax({
                         type: 'PUT',
-                        url: "{{ url_for('addBookReview', {'id': book.id}) }}",
-                        data: payload,
+                        url: "/catalogue/{id}/review".replace('{id}', "{{ book.id }}"),
+                        contentType: 'application/json',
+                        data: JSON.stringify(payload),
                         dataType: 'json'
                     })
                         .done(function(data) {
-                            console.log(data);
-                            window.location.reload();
-                            window.location.reload();
+                        console.log(data);
+                        window.location.reload();
                         })
                         .fail(function(error) {
                             console.error(error);
+                            window.location.reload();
                         });
                 });
             });
@@ -318,12 +317,12 @@
                 const stars = document.querySelectorAll('.star');
                 const submitBtn = document.getElementById('submit-rating-btn');
 
-                let ratingValue = 0; // Variable para almacenar la calificación seleccionada
+                let ratingValue = 0;
 
                 stars.forEach(star => {
                     star.addEventListener('click', function() {
                         const value = parseInt(this.getAttribute('data-value'));
-                        ratingValue = value; // Actualizar el valor de la calificación seleccionada
+                        ratingValue = value;
 
                         stars.forEach(s => {
                             if (parseInt(s.getAttribute('data-value')) <= value) {
@@ -335,9 +334,7 @@
                     });
                 });
 
-                // Manejar el clic en el botón de "Enviar calificación"
                 submitBtn.addEventListener('click', function() {
-                    // Verificar si se ha seleccionado una calificación
                     if (ratingValue !== 0) {
                         sendRating(ratingValue);
                     } else {
@@ -346,23 +343,22 @@
                 });
 
                 function sendRating(value) {
-                    // Objeto con los datos a enviar al servidor
                     var payload = {
                         rating: value
                     };
 
-                    // Realizar la solicitud AJAX
                     $.ajax({
-                        type: 'PUT', // O el método HTTP que estés utilizando
-                        url: "{{ url_for('addBookRating', {'id': book.id}) }}", // La URL del endpoint en tu servidor
-                        data: JSON.stringify(payload), // Convertir el objeto a formato JSON
-                        contentType: 'application/json', // Especificar el tipo de contenido
-                        dataType: 'json', // Esperar una respuesta JSON del servidor
+                        type: 'PUT',
+                        url: "{{ url_for('addBookRating', {'id': book.id}) }}",
+                        data: JSON.stringify(payload),
+                        contentType: 'application/json',
+                        dataType: 'json'
                     }).done(function(data) {
                         console.log(data);
                         window.location.reload();
                     }).fail(function(error) {
                         console.error(error);
+                        window.location.reload();
                     });
                 }
             });
@@ -370,7 +366,3 @@
         </script>
 
     {% endblock %}
-
-
-
-{% endblock %}
